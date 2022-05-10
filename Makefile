@@ -6,7 +6,7 @@
 #    By: sehhong <sehhong@student.42seoul.kr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/10 11:02:22 by sehhong           #+#    #+#              #
-#    Updated: 2022/05/10 13:42:34 by sehhong          ###   ########.fr        #
+#    Updated: 2022/05/10 15:24:39 by sehhong          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -53,19 +53,19 @@ $(NAME) : $(OBJS) $(LIBFT) $(LIBMLX)
 	install_name_tool -change libmlx.dylib $(LIBMLX) $(NAME)
 
 $(LIBFT) :
-	make -C $(LIBFTDIR) bonus
+	$(ARCH_VER) make -C $(LIBFTDIR) bonus
 
 $(LIBMLX) :
 	$(ARCH_VER) make -C $(LIBMLXDIR) 
 
 clean:
-	make -C $(LIBFTDIR) clean
-	make -C $(LIBMLXDIR) clean
+	#make -C $(LIBFTDIR) clean
+	#make -C $(LIBMLXDIR) clean
 	$(RM) $(OBJS)
 
 fclean: clean
 	$(RM) $(NAME)
-	make -C $(LIBFTDIR) fclean
+	#make -C $(LIBFTDIR) fclean
 
 re: fclean all
 

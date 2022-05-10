@@ -6,7 +6,7 @@
 /*   By: sehhong <sehhong@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 11:10:00 by sehhong           #+#    #+#             */
-/*   Updated: 2022/05/10 13:48:37 by sehhong          ###   ########.fr       */
+/*   Updated: 2022/05/10 23:57:28 by sehhong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,16 @@
 typedef	struct s_vec3	t_vec;
 typedef struct s_vec3 	t_point;
 typedef struct s_vec3 	t_color;
+
+typedef enum e_type
+{
+	AMBIENT = 0,
+	CAMERA,
+	LIGHT,
+	SPHERE,
+	PLANE,
+	CYLINDER
+}	t_type;
 
 typedef	struct	s_img
 {
@@ -46,29 +56,19 @@ typedef	struct	s_camera
 	double	foc_len;
 }	t_camera;
 
-typedef struct	s_amb
-{
-	double	ratio;
-	t_color	color;
-}	t_amb;
+// typedef struct	s_amb
+// {
+// 	double	b_ratio;
+// 	t_color	color;
+// }	t_amb;
 
 typedef	struct	s_light
 {
-	t_point	loc;
-	double	ratio;
+	t_point	pos;
+	double	b_ratio;
 	t_color	color;
 }	t_light;
 
-typedef	struct	s_box
-{
-	void		*mlx;
-	void		*win;
-	t_camera	camera;
-	t_img		frame;
-	t_point		top_left;
-	t_list		*lights;
-	t_list		*objects;
-}	t_box;
 
 typedef	struct s_sp
 {
@@ -92,5 +92,25 @@ typedef struct s_cy
 	double	height;
 	t_color	color;
 }	t_cy;
+
+typedef struct	s_obj
+{
+	t_type			type;
+	void			*obj;
+	struct s_obj	next;
+}	t_obj;
+
+typedef	struct	s_box
+{
+	void		*mlx;
+	void		*win;
+	t_camera	camera;
+	t_img		frame;
+	t_point		top_left;
+	t_list		*lights;
+	// t_amb		amb_light;
+	t_light		amb_light;
+	t_obj		*objs;
+}	t_box;
 
 #endif

@@ -1,31 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minirt.h                                           :+:      :+:    :+:   */
+/*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sehhong <sehhong@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/10 11:03:31 by sehhong           #+#    #+#             */
-/*   Updated: 2022/05/10 23:36:49 by sehhong          ###   ########.fr       */
+/*   Created: 2022/05/11 00:54:41 by sehhong           #+#    #+#             */
+/*   Updated: 2022/05/11 01:25:09 by sehhong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINIRT_H
-# define MINIRT_H
+#include "minirt.h"
 
-# define SCN_WIDTH	800
-# define SCN_HEIGHT	400
+void	parse_light(t_box *box, t_type type, char *line)
+{
+	static	int	amb_
+	
+	if (type == AMBIENT)
 
-# include <math.h>
-# include <stdlib.h>	//malloc
-# include <stdio.h>		//strerror
-# include <sys/errno.h>	//errno
-# include <fcntl.h>		//open
-# include <unistd.h>	//close
-# include "libft.h"
-# include "mlx.h"
-# include "structure.h"
+}
 
-void	read_file(t_box *box, char *f_name);
+void	parse_camera(t_box *box, char *line)
+{
 
-#endif
+}
+
+void	parse_sphere(t_box *box, char *line)
+{
+
+}
+
+void	parse_plane(t_box *box, char *line)
+{
+
+}
+
+void	parse_cylinder(t_box *box, char *line)
+{
+
+}
