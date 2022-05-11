@@ -1,41 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse.c                                            :+:      :+:    :+:   */
+/*   vector_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sehhong <sehhong@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/11 00:54:41 by sehhong           #+#    #+#             */
-/*   Updated: 2022/05/11 01:25:09 by sehhong          ###   ########.fr       */
+/*   Created: 2022/05/11 17:05:22 by sehhong           #+#    #+#             */
+/*   Updated: 2022/05/11 17:15:18 by sehhong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-void	parse_light(t_box *box, t_type type, char *line)
+double	vec_len(t_vec vec)
 {
-	static	int	amb_
-	
-	if (type == AMBIENT)
+	double	square;
 
+	square = vec.x * vec.x + vec.y * vec.y + vec.z * vec.z;
+	return (sqrt(square));
 }
 
-void	parse_camera(t_box *box, char *line)
+double	vec_dot(t_vec vec1, t_vec vec2)
 {
+	double	dot;
 
-}
-
-void	parse_sphere(t_box *box, char *line)
-{
-
-}
-
-void	parse_plane(t_box *box, char *line)
-{
-
-}
-
-void	parse_cylinder(t_box *box, char *line)
-{
-
+	dot = vec1.x * vec2.x + vec1.y * vec2.y + vec1.z * vec2.z;
+	return (dot);
 }

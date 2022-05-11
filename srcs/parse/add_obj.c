@@ -1,31 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   add_obj.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sehhong <sehhong@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/10 11:00:12 by sehhong           #+#    #+#             */
-/*   Updated: 2022/05/11 22:25:44 by sehhong          ###   ########.fr       */
+/*   Created: 2022/05/11 17:31:06 by sehhong           #+#    #+#             */
+/*   Updated: 2022/05/12 00:20:45 by sehhong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-int	main(int argc, char **argv)
+void	add_obj(t_box *box, t_otype type, void *obj)
 {
-	t_box	box;
+	t_obj	*new_obj;
 
-	if (argc != 2)
-		exit_with_err("Invalid number of argument", NULL);
-	read_file(&box, argv[1]);
-	// transform_coordinate();
-	// box.mlx = mlx_init();
-	// box.win = mlx_new_window(box.mlx, SCN_WIDTH, SCN_HEIGHT, "miniRT");
-	// 모든 픽셀 채운 뒤, mlx_put_image_to_window()
-	// mlx_loop(box.mlx);
-	// 할당한 부분 모두 free해주기
-	while (1)
-		;
-	return (0);
+	new_obj = (t_obj *)ft_calloc(1, sizeof(t_obj));
+	if (!new_obj)
+		exit_with_err("Failed to call malloc()", NULL);
+	new_obj->type = type;
+	new_obj->obj = obj;
+	if (box->objs)
+		new_obj->next = box->objs;
+	box->objs = new_obj;
 }

@@ -6,7 +6,7 @@
 #    By: sehhong <sehhong@student.42seoul.kr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/10 11:02:22 by sehhong           #+#    #+#              #
-#    Updated: 2022/05/10 15:24:39 by sehhong          ###   ########.fr        #
+#    Updated: 2022/05/11 22:15:15 by sehhong          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,11 +14,25 @@
 
 NAME 		= miniRT
 
-SRCS_DIR	= ./srcs/
-SRCS		= $(addprefix $(SRCS_DIR), \
-				main.c \
-				)
-OBJS		= $(SRCS:.c=.o)
+SRCS_DIR		= ./srcs/
+SRCS_PARSE_DIR	= ./srcs/parse/
+
+SRCS_PARSE		= $(addprefix $(SRCS_PARSE_DIR), \
+					add_obj.c \
+					ft_atod.c \
+					parse.c \
+					read_file.c \
+					)
+
+SRCS			= $(addprefix $(SRCS_DIR), \
+					main.c \
+					utils.c \
+					vector_utils.c \
+					)
+
+SRCS			+= $(SRCS_PARSE)
+
+OBJS			= $(SRCS:.c=.o)
 
 ifdef DEBUG
 	CFLAGS = -g3 -fsanitize=address

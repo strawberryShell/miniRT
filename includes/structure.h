@@ -6,7 +6,7 @@
 /*   By: sehhong <sehhong@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 11:10:00 by sehhong           #+#    #+#             */
-/*   Updated: 2022/05/10 23:57:28 by sehhong          ###   ########.fr       */
+/*   Updated: 2022/05/11 22:13:47 by sehhong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,15 +17,13 @@ typedef	struct s_vec3	t_vec;
 typedef struct s_vec3 	t_point;
 typedef struct s_vec3 	t_color;
 
-typedef enum e_type
+typedef enum e_otype
 {
-	AMBIENT = 0,
-	CAMERA,
-	LIGHT,
-	SPHERE,
+	SPHERE = 0,
 	PLANE,
-	CYLINDER
-}	t_type;
+	CYLINDER,
+	ELSE
+}	t_otype;
 
 typedef	struct	s_img
 {
@@ -54,19 +52,15 @@ typedef	struct	s_camera
 	t_point	pos;
 	t_vec	n_vector;
 	double	foc_len;
+	int		is_filled;
 }	t_camera;
-
-// typedef struct	s_amb
-// {
-// 	double	b_ratio;
-// 	t_color	color;
-// }	t_amb;
 
 typedef	struct	s_light
 {
 	t_point	pos;
 	double	b_ratio;
 	t_color	color;
+	int		is_filled;
 }	t_light;
 
 
@@ -95,9 +89,9 @@ typedef struct s_cy
 
 typedef struct	s_obj
 {
-	t_type			type;
+	t_otype			type;
 	void			*obj;
-	struct s_obj	next;
+	struct	s_obj	*next;
 }	t_obj;
 
 typedef	struct	s_box
@@ -107,8 +101,7 @@ typedef	struct	s_box
 	t_camera	camera;
 	t_img		frame;
 	t_point		top_left;
-	t_list		*lights;
-	// t_amb		amb_light;
+	t_light		light;
 	t_light		amb_light;
 	t_obj		*objs;
 }	t_box;
