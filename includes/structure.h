@@ -6,7 +6,7 @@
 /*   By: sehhong <sehhong@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 11:10:00 by sehhong           #+#    #+#             */
-/*   Updated: 2022/05/11 22:13:47 by sehhong          ###   ########.fr       */
+/*   Updated: 2022/05/13 11:50:29 by sehhong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ typedef struct s_cy
 typedef struct	s_obj
 {
 	t_otype			type;
-	void			*obj;
+	void			*data;
 	struct	s_obj	*next;
 }	t_obj;
 

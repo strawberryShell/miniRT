@@ -6,7 +6,7 @@
 #    By: sehhong <sehhong@student.42seoul.kr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/10 11:02:22 by sehhong           #+#    #+#              #
-#    Updated: 2022/05/11 22:15:15 by sehhong          ###   ########.fr        #
+#    Updated: 2022/05/13 12:01:40 by sehhong          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,6 +22,7 @@ SRCS_PARSE		= $(addprefix $(SRCS_PARSE_DIR), \
 					ft_atod.c \
 					parse.c \
 					read_file.c \
+					transform_coord.c \
 					)
 
 SRCS			= $(addprefix $(SRCS_DIR), \
