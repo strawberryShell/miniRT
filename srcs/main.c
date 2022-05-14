@@ -6,7 +6,7 @@
 /*   By: sehhong <sehhong@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 11:00:12 by sehhong           #+#    #+#             */
-/*   Updated: 2022/05/14 11:27:17 by sehhong          ###   ########.fr       */
+/*   Updated: 2022/05/14 11:53:32 by sehhong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,11 @@ int	main(int argc, char **argv)
 	// box.camera.pos.x, box.camera.pos.y, box.camera.pos.z, \
 	// box.camera.n_vector.x, box.camera.n_vector.y, box.camera.n_vector.z);
 	transform_coord(&box);
-	// box.mlx = mlx_init();
-	// box.win = mlx_new_window(box.mlx, SCN_WIDTH, SCN_HEIGHT, "miniRT");
-	// 모든 픽셀 채운 뒤, mlx_put_image_to_window()
-	// mlx_loop(box.mlx);
+	box.mlx = mlx_init();
+	box.win = mlx_new_window(box.mlx, SCN_WIDTH, SCN_HEIGHT, "miniRT");
+	paint_frame(&box);
+	mlx_put_image_to_window(box.mlx, box.win, box.frame.img, 0, 0);
+	mlx_loop(box.mlx);
 	// 할당한 부분 모두 free해주기
 	// printf("camera:\ncentre: %f, %f, %f\nn_vector: %f, %f, %f\n", \
 	// box.camera.pos.x, box.camera.pos.y, box.camera.pos.z, \
