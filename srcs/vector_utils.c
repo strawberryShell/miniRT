@@ -6,7 +6,7 @@
 /*   By: sehhong <sehhong@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 17:05:22 by sehhong           #+#    #+#             */
-/*   Updated: 2022/05/14 11:19:37 by sehhong          ###   ########.fr       */
+/*   Updated: 2022/05/14 22:26:18 by sehhong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,12 @@ double	vec_len(t_vec vec)
 	return (sqrt(square));
 }
 
-double	dot_vec(t_vec vec1, t_vec vec2)
+double	dot_vecs(t_vec vec1, t_vec vec2)
 {
 	return (vec1.x * vec2.x + vec1.y * vec2.y + vec1.z * vec2.z);
 }
 
-t_vec	cross_vec(t_vec vec1, t_vec vec2)
+t_vec	cross_vecs(t_vec vec1, t_vec vec2)
 {
 	t_vec	new_vec;
 
@@ -70,4 +70,14 @@ int	cmp_vec(t_vec vec1, t_vec vec2)
 	if (vec1.x == vec2.x && vec1.y == vec2.y && vec1.z == vec2.z)
 		return (0);
 	return (1);
+}
+
+t_vec	multiply_vecs(t_vec vec1, t_vec vec2)
+{
+	t_vec	new_vec;
+
+	new_vec.x = vec1.x * vec2.x;
+	new_vec.y = vec1.y * vec2.y;
+	new_vec.z = vec1.z * vec2.z;
+	return (new_vec);
 }

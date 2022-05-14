@@ -6,7 +6,7 @@
 /*   By: sehhong <sehhong@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 23:33:38 by sehhong           #+#    #+#             */
-/*   Updated: 2022/05/14 10:51:50 by sehhong          ###   ########.fr       */
+/*   Updated: 2022/05/14 23:40:23 by sehhong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,11 +39,11 @@ static	void	analyze_line(t_box *box, char *line)
 // 파싱결과 validate하기
 static	void	validate_file(t_box *box)
 {
-	if (!box->camera.is_filled)
+	if (!box->camera)
 		exit_with_err("Cannot find camera element in the file", NULL);
-	if (!box->amb_light.is_filled)
+	if (!box->amb_light)
 		exit_with_err("Cannot find ambient lightning element in the file", NULL);
-	if (!box->light.is_filled)
+	if (!box->lights)
 		exit_with_err("Cannot find light element in the file", NULL);
 	if (!box->objs)
 		exit_with_err("Cannot find any object element in the file", NULL);

@@ -6,7 +6,7 @@
 /*   By: sehhong <sehhong@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/14 11:19:30 by sehhong           #+#    #+#             */
-/*   Updated: 2022/05/14 11:19:46 by sehhong          ###   ########.fr       */
+/*   Updated: 2022/05/14 22:30:11 by sehhong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,9 @@ t_vec	transform_vec(double *m, t_vec vec)
 	return (new_vec);
 }
 
-t_point	transform_point(double *m, t_point point)
+t_vec	transform_point(double *m, t_vec point)
 {
-	t_point	new_point;
+	t_vec	new_point;
 
 	new_point.x = m[0] * point.x + m[1] * point.y + m[2] * point.z + m[3];
 	new_point.y = m[4] * point.x + m[5] * point.y + m[6] * point.z + m[7];

@@ -6,7 +6,7 @@
 /*   By: sehhong <sehhong@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/12 13:52:07 by sehhong           #+#    #+#             */
-/*   Updated: 2022/05/14 11:26:54 by sehhong          ###   ########.fr       */
+/*   Updated: 2022/05/14 23:44:58 by sehhong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,15 +40,16 @@ static	void	transform_objs(t_box *box, double *tr_matrix)
 	}
 }
 
-static	int	need_transform(t_camera camera)
+static	int	need_transform(t_camera *camera)
 {
-	return (!(!camera.pos.x && !camera.pos.y && !camera.pos.z && \
-		!camera.n_vector.x && !camera.n_vector.y && camera.n_vector.z == -1));
+	return (!(!camera->pos.x && !camera->pos.y && !camera->pos.z && \
+		!camera->n_vector.x && !camera->n_vector.y && camera->n_vector.z == -1));
 }
 
 void	transform_coord(t_box *box)
 {
 	double	*tr_matrix;
+
 
 	if (!need_transform(box->camera))
 		return ;
@@ -57,8 +58,8 @@ void	transform_coord(t_box *box)
 		exit_with_err("Failed to call malloc()", strerror(errno));
 	fill_tr_matrix(box->camera, tr_matrix);
 	// light -> camera -> objects에 만들어진 변환행렬을 모두 적용
-	box->light.pos = transform_point(tr_matrix, box->light.pos);
-	box->camera.pos = transform_point(tr_matrix, box->camera.pos);
-	box->camera.n_vector = transform_vec(tr_matrix, box->camera.n_vector);
+	box->lights->pos = transform_point(tr_matrix, box->lights->pos);
+	box->camera->pos = transform_point(tr_matrix, box->camera->pos);
+	box->camera->n_vector = transform_vec(tr_matrix, box->camera->n_vector);
 	transform_objs(box, tr_matrix);
 }

@@ -6,7 +6,7 @@
 /*   By: sehhong <sehhong@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/14 11:11:40 by sehhong           #+#    #+#             */
-/*   Updated: 2022/05/14 11:13:47 by sehhong          ###   ########.fr       */
+/*   Updated: 2022/05/14 23:39:56 by sehhong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,4 +80,24 @@ void	validate_arr(char **arr, int info_num, char *ele)
 		i++;
 	if (i != info_num)
 		exit_with_err("Invalid information was given for ", ele);
+}
+
+t_vec	parse_vector(char *str, char *ele, int vec_type)
+{
+	char	**xyz;
+	t_vec	new_vec;
+
+	xyz = ft_split(str, ',');
+	validate_arr(xyz, 3, ele);
+	new_vec.x = ft_atod(xyz[0], ele);
+	if (vec_type == COLOR && !is_between(0, 255, new_vec.x))
+		exit_with_err("Color value is not in range: ", ele);
+	new_vec.y = ft_atod(xyz[1], ele);
+	if (vec_type == COLOR && !is_between(0, 255, new_vec.y))
+		exit_with_err("Color value is not in range: ", ele);
+	new_vec.z = ft_atod(xyz[2], ele);
+	if (vec_type == COLOR && !is_between(0, 255, new_vec.z))
+		exit_with_err("Color value is not in range: ", ele);
+	free_str_arr(&xyz);
+	return (new_vec);
 }

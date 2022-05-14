@@ -6,7 +6,7 @@
 #    By: sehhong <sehhong@student.42seoul.kr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/10 11:02:22 by sehhong           #+#    #+#              #
-#    Updated: 2022/05/14 11:35:15 by sehhong          ###   ########.fr        #
+#    Updated: 2022/05/14 22:29:28 by sehhong          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,6 @@ SRCS_XFORM_DIR	= ./srcs/transform/
 SRCS_PARSE		= $(addprefix $(SRCS_PARSE_DIR), \
 					parse_obj.c \
 					parse_setting.c \
-					parse_vec3.c \
 					read_file.c \
 					utils.c \
 					)
