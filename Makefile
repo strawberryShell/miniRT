@@ -6,7 +6,7 @@
 #    By: sehhong <sehhong@student.42seoul.kr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/10 11:02:22 by sehhong           #+#    #+#              #
-#    Updated: 2022/05/13 12:01:40 by sehhong          ###   ########.fr        #
+#    Updated: 2022/05/14 11:35:15 by sehhong          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,13 +16,20 @@ NAME 		= miniRT
 
 SRCS_DIR		= ./srcs/
 SRCS_PARSE_DIR	= ./srcs/parse/
+SRCS_XFORM_DIR	= ./srcs/transform/
 
 SRCS_PARSE		= $(addprefix $(SRCS_PARSE_DIR), \
-					add_obj.c \
-					ft_atod.c \
-					parse.c \
+					parse_obj.c \
+					parse_setting.c \
+					parse_vec3.c \
 					read_file.c \
+					utils.c \
+					)
+
+SRCS_XFORM		= $(addprefix $(SRCS_XFORM_DIR), \
+					fill_tr_matrix.c \
 					transform_coord.c \
+					transform_utils.c \
 					)
 
 SRCS			= $(addprefix $(SRCS_DIR), \
@@ -31,7 +38,7 @@ SRCS			= $(addprefix $(SRCS_DIR), \
 					vector_utils.c \
 					)
 
-SRCS			+= $(SRCS_PARSE)
+SRCS			+= $(SRCS_PARSE) $(SRCS_XFORM)
 
 OBJS			= $(SRCS:.c=.o)
 

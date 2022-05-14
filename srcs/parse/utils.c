@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atod.c                                          :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sehhong <sehhong@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/11 14:56:53 by sehhong           #+#    #+#             */
-/*   Updated: 2022/05/11 22:19:09 by sehhong          ###   ########.fr       */
+/*   Created: 2022/05/14 11:11:40 by sehhong           #+#    #+#             */
+/*   Updated: 2022/05/14 11:13:47 by sehhong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,4 +55,29 @@ double	ft_atod(char *str, char *ele)
 	while (dec_cnt-- > 0)
 		d *= 0.1;
 	return (sign * d);
+}
+
+void	add_obj(t_box *box, t_otype type, void *obj)
+{
+	t_obj	*new_obj;
+
+	new_obj = (t_obj *)ft_calloc(1, sizeof(t_obj));
+	if (!new_obj)
+		exit_with_err("Failed to call malloc()", NULL);
+	new_obj->type = type;
+	new_obj->data = obj;
+	if (box->objs)
+		new_obj->next = box->objs;
+	box->objs = new_obj;
+}
+
+void	validate_arr(char **arr, int info_num, char *ele)
+{
+	int	i;
+
+	i = 0;
+	while (arr[i])
+		i++;
+	if (i != info_num)
+		exit_with_err("Invalid information was given for ", ele);
 }

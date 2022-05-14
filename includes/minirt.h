@@ -6,7 +6,7 @@
 /*   By: sehhong <sehhong@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 11:03:31 by sehhong           #+#    #+#             */
-/*   Updated: 2022/05/13 16:24:45 by sehhong          ###   ########.fr       */
+/*   Updated: 2022/05/14 11:37:31 by sehhong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@
 # include <sys/errno.h>	//errno
 # include <fcntl.h>		//open
 # include <unistd.h>	//close
-# include <string.h> 	//s
-# include <stdio.h>
+# include <string.h> 	//?
+# include <stdio.h>		//printf
 # include "libft.h"
 # include "mlx.h"
 # include "structure.h"
@@ -42,11 +42,16 @@ void	parse_camera(t_box *box, char **arr);
 void	parse_sphere(t_box *box, char **arr);
 void	parse_plane(t_box *box, char **arr);
 void	parse_cylinder(t_box *box, char **arr);
+
+/* tranasform */
+void	fill_tr_matrix(t_camera camera, double *tr_matrix);
 void	transform_coord(t_box *box);
+t_vec	transform_vec(double *m, t_vec vec);
+t_point	transform_point(double *m, t_point point);
 
 /* utils */
 void	exit_with_err(char *err_str, char *err_str2);
-int	is_between(double min, double max, double x);
+int		is_between(double min, double max, double x);
 void	free_str_arr(char ***arr);
 
 /* vector_utils */
@@ -57,7 +62,5 @@ t_vec	cross_vec(t_vec vec1, t_vec vec2);
 t_vec	scale_vec(t_vec vec, double k);
 t_vec	add_vecs(t_vec vec1, t_vec vec2);
 int		cmp_vec(t_vec vec1, t_vec vec2);
-t_vec	transform_vec(double *m, t_vec vec);
-t_point	transform_point(double *m, t_point point);
 
 #endif

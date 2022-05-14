@@ -6,21 +6,11 @@
 /*   By: sehhong <sehhong@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 23:33:38 by sehhong           #+#    #+#             */
-/*   Updated: 2022/05/12 00:40:00 by sehhong          ###   ########.fr       */
+/*   Updated: 2022/05/14 10:51:50 by sehhong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
-
-// static	int	ft_isspace(int c)
-// {
-// 	int	ret;
-
-// 	ret = 0;
-// 	if ((c >= 9 && c <= 13) || c == 32)
-// 		ret = 1;
-// 	return (ret);
-// }
 
 static	void	analyze_line(t_box *box, char *line)
 {

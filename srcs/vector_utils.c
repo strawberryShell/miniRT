@@ -6,7 +6,7 @@
 /*   By: sehhong <sehhong@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 17:05:22 by sehhong           #+#    #+#             */
-/*   Updated: 2022/05/13 17:44:01 by sehhong          ###   ########.fr       */
+/*   Updated: 2022/05/14 11:19:37 by sehhong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,25 +70,4 @@ int	cmp_vec(t_vec vec1, t_vec vec2)
 	if (vec1.x == vec2.x && vec1.y == vec2.y && vec1.z == vec2.z)
 		return (0);
 	return (1);
-}
-
-t_vec	transform_vec(double *m, t_vec vec)
-{
-	t_vec	new_vec;
-	double	vec_len_rv;
-
-	new_vec.x = m[0] * vec.x + m[1] * vec.y + m[2] * vec.z;
-	new_vec.y = m[4] * vec.x + m[5] * vec.y + m[6] * vec.z;
-	new_vec.z = m[8] * vec.x + m[9] * vec.y + m[10] * vec.z;
-	return (new_vec);
-}
-
-t_point	transform_point(double *m, t_point point)
-{
-	t_point	new_point;
-
-	new_point.x = m[0] * point.x + m[1] * point.y + m[2] * point.z + m[3];
-	new_point.y = m[4] * point.x + m[5] * point.y + m[6] * point.z + m[7];
-	new_point.z = m[8] * point.x + m[9] * point.y + m[10] * point.z + m[11];
-	return (new_point);
 }
