@@ -6,7 +6,7 @@
 /*   By: sehhong <sehhong@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 11:03:31 by sehhong           #+#    #+#             */
-/*   Updated: 2022/05/14 23:42:36 by sehhong          ###   ########.fr       */
+/*   Updated: 2022/05/16 09:15:59 by sehhong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,12 +57,14 @@ void	free_str_arr(char ***arr);
 
 /* vector_utils */
 t_vec	new_vec(double x, double y, double z);
-double	vec_len(t_vec vec);
+double	get_vec_len(t_vec vec);
 double	dot_vecs(t_vec vec1, t_vec vec2);
 t_vec	cross_vecs(t_vec vec1, t_vec vec2);
 t_vec	scale_vec(t_vec vec, double k);
 t_vec	add_vecs(t_vec vec1, t_vec vec2);
+t_vec	subtract_vecs(t_vec vec1, t_vec vec2);
 int		cmp_vec(t_vec vec1, t_vec vec2);
 t_vec	multiply_vecs(t_vec vec1, t_vec vec2);
+t_vec	normalize_vec(t_vec vec);
 
 #endif

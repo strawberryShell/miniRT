@@ -6,7 +6,7 @@
 /*   By: sehhong <sehhong@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 11:10:00 by sehhong           #+#    #+#             */
-/*   Updated: 2022/05/14 23:32:47 by sehhong          ###   ########.fr       */
+/*   Updated: 2022/05/16 08:58:12 by sehhong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,6 @@ typedef	struct	s_light
 	struct s_light	*next;
 }	t_light;
 
-
 typedef	struct s_sp
 {
 	t_vec	centre;
@@ -93,6 +92,14 @@ typedef struct	s_obj
 	void			*data;
 	struct	s_obj	*next;
 }	t_obj;
+
+//poi = point of intersection(교점)
+typedef struct	s_poi
+{
+	double	t;
+	t_vec	poi;
+	t_obj	*obj;
+}	t_poi;
 
 typedef	struct	s_box
 {

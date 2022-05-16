@@ -6,85 +6,135 @@
 /*   By: sehhong <sehhong@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/14 11:49:38 by sehhong           #+#    #+#             */
-/*   Updated: 2022/05/15 00:48:04 by sehhong          ###   ########.fr       */
+/*   Updated: 2022/05/16 11:00:25 by sehhong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-int	if_meet(t_box *box, int x, int y)
+t_vec	get_diff_light(t_box *box, t_poi poi)
 {
-	t_vec	ray;
-	t_vec	oc;
-	double	a;
-	double	b;
-	double	c;
-	double	d;
+	t_light	*light;
+	t_vec	diff_sum;
+	t_vec	light_vec;
+	t_vec	norm_vec;
+	double	light_amount;
+	double	diff_factor;
 
-	oc = new_vec(0, 0, -900);
-	ray = new_vec(box->top_left.x + x, box->top_left.y -y, box->top_left.z);
-	a = dot(ray, ray);
-	b = dot(scale_vec(oc, -2), ray);
-	c = dot(oc, oc) - 90000;
-	d = b*b - 4 * a * c;
-	return (d >= 0); 
+	diff_sum = new_vec(0, 0, 0);
+	light = box->lights;
+	while (light)
+	{
+		if (poi.obj->type == SPHERE)
+		{
+			// 빛위치 ~ 접점까지의 단위벡터
+			light_vec  = normalize_vec(subtract_vecs(light->pos, poi.poi));
+			// 법선벡터 구하기
+			norm_vec = normalize_vec(subtract_vecs(poi.poi, ((t_sp *)(poi.obj->data))->centre));
+			// 둘사이 dot product (음수 제거)
+			diff_factor = fmax(dot_vecs(light_vec, norm_vec), 0);
+			// 보너스에서는 new_vec대신 light->color를 넣으면 될듯
+			add_vecs(diff_sum, scale_vec(new_vec(1, 1, 1), light->b_ratio * diff_factor));
+		}
+		light = light->next;
+	}
+	return (diff_sum);
+};
+
+t_vec	get_spec_light(t_box *box, t_poi poi)
+{
+	t_light	*light;
+	t_vec	spec_sum;
+	t_vec	view_dir;
+	t_vec	reflect_dir;
+
+	spec_sum = new_vec(0, 0, 0);
+	view_dir = subtract_vecs(box->camera->pos, poi.poi);
+	while (light)
+	{
+		reflect_dir =  
+		light = light->next;	
+	}
+	return (spec_sum);	
 }
 
-t_vec	get_diffuse_light()
-{};
-
-t_vec	get_specular_light()
-{
-
-}
-
-t_vec	get_obj_color(t_obj *obj)
+t_vec	get_obj_color(t_poi poi)
 {
 	t_otype	type;
 	t_vec	color;
 
-	type = obj->type;
+	type = poi.obj->type;
 	if (type == SPHERE)
-		color = ((t_sp *)(obj->data))->color;
+		color = ((t_sp *)(poi.obj->data))->color;
 	else if (type == PLANE)
-		color = ((t_pl *)(obj->data))->color;
+		color = ((t_pl *)(poi.obj->data))->color;
 	else if (type == CYLINDER)
-		color = ((t_cy *)(obj->data))->color;
+		color = ((t_cy *)(poi.obj->data))->color;
 	return (color);
 }
 
-t_obj	get_closest_obj(t_box *box, t_vec ray)
+double	get_poi_sphere(t_sp *data, t_vec ray)
+{
+	double	t;
+	t_vec	oc;
+	double	r;
+
+	oc = data->centre;
+	r = data->radius;
+	t = get_root(dot_vecs(ray, ray), -2 * dot_vecs(oc, ray), \
+		dot_vecs(oc, oc) - r * r);
+	return (t);
+}
+
+t_poi	find_closest_poi(t_box *box, t_vec ray)
 {
 	t_obj	*obj;
+	t_poi	poi;
+	double	t;
 
+	poi.t = INFINITY;
+	poi.obj = NULL;
 	obj = box->objs;
 	while (obj)
 	{
-		if ()
+		if (obj->type == SPHERE)
+			t = get_poi_sphere((t_sp *)(obj->data), ray);
+		if (t >= 1 && t < poi.t)
+		{
+			poi.t = t;
+			poi.poi = scale_vec(ray, t);
+			poi.obj = obj;
+		}
 		obj = obj->next;
 	}
-	return (obj);
+	return (poi);
 }
 
-int	calculate_pixel_color(t_box *box, int i, int j)
+void	check_range(t_vec *sum_color)
+{
+	if (sum_color->x > 1)
+		sum_color->x = 1;
+	if (sum_color->y > 1)
+		sum_color->y = 1;
+	if (sum_color->z > 1)
+		sum_color->z = 1;
+}
+
+int	get_pixel_color(t_box *box, int i, int j)
 {
 	t_vec	sum;
-	t_obj	*obj;
+	t_poi	poi;
 	t_vec	obj_color;
 	t_vec	ray;
 
 	ray = new_vec(box->top_left.x + i, box->top_left.y - j, box->top_left.z);
 	sum = new_vec(0, 0, 0);
-	// 어떤 오브젝트가 빛을 받는지 찾기
-	obj = get_closest_obj(box, ray);
-	// diffuse 빛
-	add_vecs(sum, get_diffuse_light());
-	// specular 빛
-	add_vecs(sum, get_specular_light());
-	// ambient 빛
+	poi = find_closest_poi(box, ray);
+	add_vecs(sum, get_diff_light(box, poi));
+	add_vecs(sum, get_spec_light(box, poi));
 	add_vecs(sum, scale_vec(box->amb_light->color, box->amb_light->b_ratio));
-	// 빛 값 범위 확인
-	obj_color = get_obj_color(obj);
+	check_range(&sum);
+	obj_color = get_obj_color(poi);
 	return (multiply_vec(sum, obj_color));
 }
 
@@ -112,7 +162,7 @@ void	paint_frame(t_box *box)
 		j = 0;
 		while (j < SCN_HEIGHT)
 		{
-			paint_pixel(&(box->frame), i, j, calculate_pixel_color());
+			paint_pixel(&(box->frame), i, j, get_pixel_color(box, i, j));
 			j++;
 		}
 		i++;
