@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sehhong <sehhong@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: sehhong <sehhong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 11:03:31 by sehhong           #+#    #+#             */
-/*   Updated: 2022/05/16 09:15:59 by sehhong          ###   ########.fr       */
+/*   Updated: 2022/05/16 17:22:46 by sehhong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,13 @@ void	fill_tr_matrix(t_camera *camera, double *tr_matrix);
 void	transform_coord(t_box *box);
 t_vec	transform_vec(double *m, t_vec vec);
 t_vec	transform_point(double *m, t_vec point);
+
+/* render */
+t_vec	sum_diff_light(t_box *box, t_poi poi);
+t_vec	sum_spec_light(t_box *box, t_poi poi);
+t_poi   find_closest_poi(t_box *box, t_vec ray);
+void	paint_frame(t_box *box);
+double	get_root(double a, double b, double c);
 
 /* utils */
 void	exit_with_err(char *err_str, char *err_str2);

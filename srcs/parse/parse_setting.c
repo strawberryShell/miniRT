@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_setting.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sehhong <sehhong@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: sehhong <sehhong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/14 11:05:41 by sehhong           #+#    #+#             */
-/*   Updated: 2022/05/14 23:39:51 by sehhong          ###   ########.fr       */
+/*   Updated: 2022/05/16 16:15:59 by sehhong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void	parse_camera(t_box *box, char **arr)
 		exit_with_err("Failed to call malloc()", strerror(errno));
 	box->camera->pos = parse_vector(arr[1], ele, POINT);
 	box->camera->n_vector = parse_vector(arr[2], ele, VECTOR);
-	if (vec_len(box->camera->n_vector) != 1)
+	if (get_vec_len(box->camera->n_vector) != 1)
 		exit_with_err("Vector is not normalized: ", ele);
 	fov = ft_atod(arr[3], ele);
 	if (!is_between(0, 180, fov))

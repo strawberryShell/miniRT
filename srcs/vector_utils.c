@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vector_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sehhong <sehhong@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: sehhong <sehhong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 17:05:22 by sehhong           #+#    #+#             */
-/*   Updated: 2022/05/16 09:14:45 by sehhong          ###   ########.fr       */
+/*   Updated: 2022/05/16 17:44:02 by sehhong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ t_vec	normalize_vec(t_vec vec)
 
 	vec_len = get_vec_len(vec);
 	if (!vec_len)
-		exit_with_err("Dividing value by 0 is not allowed", NULL);
+		exit_with_err("Dividing value by 0 is not allowed ", "normalize_vec");
 	new_vec.x = vec.x / vec_len;
 	new_vec.y = vec.y / vec_len;
 	new_vec.z = vec.z / vec_len;

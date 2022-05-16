@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   transform_coord.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sehhong <sehhong@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: sehhong <sehhong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/12 13:52:07 by sehhong           #+#    #+#             */
-/*   Updated: 2022/05/14 23:44:58 by sehhong          ###   ########.fr       */
+/*   Updated: 2022/05/16 18:11:30 by sehhong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,4 +62,8 @@ void	transform_coord(t_box *box)
 	box->camera->pos = transform_point(tr_matrix, box->camera->pos);
 	box->camera->n_vector = transform_vec(tr_matrix, box->camera->n_vector);
 	transform_objs(box, tr_matrix);
+	// box->top_left의 좌표 구하기
+	box->top_left = new_vec(-0.5 * SCN_WIDTH, 0.5 * SCN_HEIGHT, \
+		 -(box->camera->foc_len));
+
 }

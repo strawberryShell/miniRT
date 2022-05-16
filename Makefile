@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: sehhong <sehhong@student.42seoul.kr>       +#+  +:+       +#+         #
+#    By: sehhong <sehhong@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/10 11:02:22 by sehhong           #+#    #+#              #
-#    Updated: 2022/05/14 22:29:28 by sehhong          ###   ########.fr        #
+#    Updated: 2022/05/16 17:37:17 by sehhong          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,6 +17,7 @@ NAME 		= miniRT
 SRCS_DIR		= ./srcs/
 SRCS_PARSE_DIR	= ./srcs/parse/
 SRCS_XFORM_DIR	= ./srcs/transform/
+SRCS_RENDER_DIR	= ./srcs/render/
 
 SRCS_PARSE		= $(addprefix $(SRCS_PARSE_DIR), \
 					parse_obj.c \
@@ -31,13 +32,21 @@ SRCS_XFORM		= $(addprefix $(SRCS_XFORM_DIR), \
 					transform_utils.c \
 					)
 
+SRCS_RENDER		= $(addprefix $(SRCS_RENDER_DIR), \
+					find_closest_poi.c \
+					get_root.c \
+					paint_frame.c \
+					sum_diff_light.c \
+					sum_spec_light.c \
+					)
+
 SRCS			= $(addprefix $(SRCS_DIR), \
 					main.c \
 					utils.c \
 					vector_utils.c \
 					)
 
-SRCS			+= $(SRCS_PARSE) $(SRCS_XFORM)
+SRCS			+= $(SRCS_PARSE) $(SRCS_XFORM) $(SRCS_RENDER)
 
 OBJS			= $(SRCS:.c=.o)
 
@@ -61,7 +70,9 @@ LIBFTINC	= -I$(LIBFTDIR)includes
 
 ARCH := $(shell arch)
 ifeq ($(ARCH), arm64)
-	ARCH_VER = arch -x86_64
+	MAKE_VER = arch -x86_64 make
+else ifeq ($(ARCH), i386)
+	MAKE_VER = make
 endif
 
 all : $(NAME)
@@ -80,13 +91,13 @@ $(LIBMLX) :
 	$(ARCH_VER) make -C $(LIBMLXDIR) 
 
 clean:
-	#make -C $(LIBFTDIR) clean
-	#make -C $(LIBMLXDIR) clean
+	make -C $(LIBFTDIR) clean
+	make -C $(LIBMLXDIR) clean
 	$(RM) $(OBJS)
 
 fclean: clean
 	$(RM) $(NAME)
-	#make -C $(LIBFTDIR) fclean
+	make -C $(LIBFTDIR) fclean
 
 re: fclean all
 
