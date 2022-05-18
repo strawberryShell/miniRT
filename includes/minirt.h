@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sehhong <sehhong@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sehhong <sehhong@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 11:03:31 by sehhong           #+#    #+#             */
-/*   Updated: 2022/05/16 17:22:46 by sehhong          ###   ########.fr       */
+/*   Updated: 2022/05/18 15:57:04 by sehhong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ t_vec	transform_point(double *m, t_vec point);
 /* render */
 t_vec	sum_diff_light(t_box *box, t_poi poi);
 t_vec	sum_spec_light(t_box *box, t_poi poi);
-t_poi   find_closest_poi(t_box *box, t_vec ray);
+t_poi	find_closest_poi(t_box *box, t_vec ray);
 void	paint_frame(t_box *box);
 double	get_root(double a, double b, double c);
 

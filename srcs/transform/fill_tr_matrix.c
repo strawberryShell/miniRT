@@ -6,13 +6,14 @@
 /*   By: sehhong <sehhong@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/14 11:23:40 by sehhong           #+#    #+#             */
-/*   Updated: 2022/05/14 23:42:02 by sehhong          ###   ########.fr       */
+/*   Updated: 2022/05/18 16:48:06 by sehhong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-static	void	fill_rotation(double *tr_matrix, t_vec x_axis, t_vec y_axis, t_vec z_axis)
+static	void	fill_rotation(double *tr_matrix, t_vec x_axis, t_vec y_axis, \
+	t_vec z_axis)
 {
 	tr_matrix[0] = x_axis.x;
 	tr_matrix[1] = y_axis.x;
@@ -26,7 +27,7 @@ static	void	fill_rotation(double *tr_matrix, t_vec x_axis, t_vec y_axis, t_vec z
 	tr_matrix[15] = 1;
 }
 
-static	void	fill_xlation(t_camera *camera, double *tr_matrix)
+static	void	fill_translation(t_camera *camera, double *tr_matrix)
 {
 	tr_matrix[3] = -(tr_matrix[0] * camera->pos.x + tr_matrix[1] * \
 		camera->pos.y + tr_matrix[2] * camera->pos.z);
@@ -50,5 +51,5 @@ void	fill_tr_matrix(t_camera *camera, double *tr_matrix)
 	y_axis = cross_vecs(ran_vec, z_axis);
 	x_axis = cross_vecs(y_axis, z_axis);
 	fill_rotation(tr_matrix, x_axis, y_axis, z_axis);
-	fill_xlation(camera, tr_matrix);
+	fill_translation(camera, tr_matrix);
 }

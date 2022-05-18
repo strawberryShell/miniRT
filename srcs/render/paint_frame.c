@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   paint_frame.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sehhong <sehhong@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sehhong <sehhong@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/14 11:49:38 by sehhong           #+#    #+#             */
-/*   Updated: 2022/05/16 20:03:20 by sehhong          ###   ########.fr       */
+/*   Updated: 2022/05/18 16:59:46 by sehhong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,36 +27,39 @@ static	t_vec	get_obj_color(t_poi poi)
 	return (color);
 }
 
-static	void	check_range(t_vec *sum_color)
-{
-	if (sum_color->x > 1)
-		sum_color->x = 1;
-	if (sum_color->y > 1)
-		sum_color->y = 1;
-	if (sum_color->z > 1)
-		sum_color->z = 1;
-}
+// static	void	check_range(t_vec *color)
+// {
+// 	if (color->x > 255)
+// 		color->x = 255;
+// 	if (color->y > 255)
+// 		color->y = 255;
+// 	if (color->z > 255)
+// 		color->z = 255;
+// }
 
 static	t_vec	get_pixel_color(t_box *box, int i, int j)
 {
 	t_vec	sum;
 	t_poi	poi;
-	t_vec	obj_color;
 	t_vec	ray;
+	t_vec	pixel_color;
 
 	ray = new_vec(box->top_left.x + i, box->top_left.y - j, box->top_left.z);
 	sum = new_vec(0, 0, 0);
 	poi = find_closest_poi(box, ray);
-	// if (!poi.obj)
-	// 	printf("안바뀜!\n");
-	// printf("poi.t = %f\n", poi.t);
-	add_vecs(sum, sum_diff_light(box, poi));
-	add_vecs(sum, sum_spec_light(box, poi));
-	add_vecs(sum, scale_vec(box->amb_light->color, box->amb_light->b_ratio));
-	check_range(&sum);
-	obj_color = get_obj_color(poi);
-	return (multiply_vecs(sum, obj_color));
+	if (poi.t != INFINITY)
+	{
+		sum = add_vecs(sum, scale_vec(box->amb_light->color, \
+			box->amb_light->b_ratio));
+		sum = add_vecs(sum, sum_diff_light(box, poi));
+		sum = add_vecs(sum, sum_spec_light(box, poi));
+		pixel_color = multiply_vecs(sum, get_obj_color(poi));
+		// check_range(&pixel_color); -> 필요한가?
+		return (pixel_color);
+	}
+	return (sum);
 }
+
 // why?
 static	void	paint_pixel(t_img *img, int x, int y, t_vec color)
 {
@@ -65,7 +68,7 @@ static	void	paint_pixel(t_img *img, int x, int y, t_vec color)
 
 	dst = img->addr + (y * img->line_length + x * (img->bits_per_pixel / 8));
 	color_int = ((int)color.x << 16 | (int)color.y << 8 | (int)color.z);
-	*(unsigned int*)dst = color_int;
+	*(unsigned int *)dst = color_int;
 }
 
 void	paint_frame(t_box *box)

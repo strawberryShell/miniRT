@@ -131,7 +131,7 @@ int	mipng_fill_img(void *img, unsigned char *buf, png_info_t *pi)
     {
       if (ipos % iline == 0)
 	{
-	  // printf("ipos %d iline %d pi->width %d bpos %d\n", ipos, iline, pi->width, bpos);
+	  // ("ipos %d iline %d pi->width %d bpos %d\n", ipos, iline, pi->width, bpos);
 	  if ((current_filter = buf[bpos++]) > 4)
 	    {  
 	    return (ERR_DATA_FILTER);

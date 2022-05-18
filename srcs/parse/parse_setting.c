@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_setting.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sehhong <sehhong@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sehhong <sehhong@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/14 11:05:41 by sehhong           #+#    #+#             */
-/*   Updated: 2022/05/16 16:15:59 by sehhong          ###   ########.fr       */
+/*   Updated: 2022/05/18 16:46:00 by sehhong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ void	parse_light(t_box *box, char **arr)
 	if (!is_between(0, 1, light->b_ratio))
 		exit_with_err("Invalid value of ", ele);
 	light->color = parse_vector(arr[3], ele, COLOR);
+	// 보너스부분: add_light() 추가
 	box->lights = light;
 }
 
