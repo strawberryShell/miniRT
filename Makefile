@@ -6,7 +6,7 @@
 #    By: sehhong <sehhong@student.42seoul.kr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/10 11:02:22 by sehhong           #+#    #+#              #
-#    Updated: 2022/05/18 15:44:53 by sehhong          ###   ########.fr        #
+#    Updated: 2022/05/18 17:06:07 by sehhong          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,11 +33,6 @@ SRCS_XFORM		= $(addprefix $(SRCS_XFORM_DIR), \
 					)
 
 SRCS_RENDER		= $(addprefix $(SRCS_RENDER_DIR), \
-					find_closest_poi.c \
-					get_root.c \
-					paint_frame.c \
-					sum_diff_light.c \
-					sum_spec_light.c \
 					)
 
 SRCS			= $(addprefix $(SRCS_DIR), \
