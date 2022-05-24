@@ -6,7 +6,7 @@
 /*   By: jiskim <jiskim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/15 13:13:27 by jiskim            #+#    #+#             */
-/*   Updated: 2022/02/07 01:54:40 by jiskim           ###   ########.fr       */
+/*   Updated: 2022/05/24 17:10:11 by jiskim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,8 +68,6 @@ char	**ft_split(char const *s, char c)
 	if (!s)
 		return (NULL);
 	result = ft_calloc((split_len(s, c) + 1), sizeof(char *));
-	if (!result)
-		exit(1);
 	index = 0;
 	flag = 1;
 	while (*s)

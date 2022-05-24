@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   read_file.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sehhong <sehhong@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: jiskim <jiskim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 23:33:38 by sehhong           #+#    #+#             */
-/*   Updated: 2022/05/18 16:37:27 by sehhong          ###   ########.fr       */
+/*   Updated: 2022/05/24 18:30:36 by jiskim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,15 @@ static	void	analyze_line(t_box *box, char *line)
 {
 	char	**arr;
 
-	// malloc 실패시 처리?
 	arr = ft_split(line, ' ');
+	if (!arr)
+		exit_with_err("Failed to call malloc()", NULL);
 	if (!ft_strncmp(arr[0], "A", 2))
 		parse_ambient(box, arr);
 	else if (!ft_strncmp(arr[0], "L", 2))
 		parse_light(box, arr);
 	else if (!ft_strncmp(arr[0], "C", 2))
-		parse_camera(box, arr);
+		parse_cam(box, arr);
 	else if (!ft_strncmp(arr[0], "sp", 3))
 		parse_sphere(box, arr);
 	else if (!ft_strncmp(arr[0], "pl", 3))
@@ -39,7 +40,7 @@ static	void	analyze_line(t_box *box, char *line)
 // 파싱결과 validate하기
 static	void	validate_file(t_box *box)
 {
-	if (!box->camera)
+	if (!box->cam)
 		exit_with_err("Cannot find camera element in the file", NULL);
 	if (!box->amb_light)
 		exit_with_err("Cannot find ambient lightning element in the file", \
@@ -64,6 +65,7 @@ void	read_file(t_box *box, char *f_name)
 		exit_with_err("Failed to call open(): ", strerror(errno));
 	ft_memset(box, 0, sizeof(t_box));
 	// gnl 사용법..?
+	line = NULL;
 	while (get_next_line(fd, &line) > 0)
 	{
 		if (*line)
@@ -73,7 +75,8 @@ void	read_file(t_box *box, char *f_name)
 	}
 	if (*line)
 		analyze_line(box, line);
-	free(line);
+	if (line)
+		free(line);
 	line = NULL;
 	close(fd);
 	validate_file(box);

@@ -6,7 +6,7 @@
 /*   By: jiskim <jiskim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/11 15:42:02 by jiskim            #+#    #+#             */
-/*   Updated: 2022/02/15 21:17:38 by jiskim           ###   ########.fr       */
+/*   Updated: 2022/05/24 18:30:51 by jiskim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	*ft_calloc(size_t count, size_t size)
 	ptr = malloc(size * count);
 	if (!ptr)
 	{
-		ft_putstr_fd("Error\n", 2);
+		ft_putstr_fd("Failed to call malloc()\n", 2);
 		exit(1);
 	}
 	ft_bzero(ptr, size * count);

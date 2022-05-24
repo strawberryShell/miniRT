@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structure.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sehhong <sehhong@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: jiskim <jiskim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 11:10:00 by sehhong           #+#    #+#             */
-/*   Updated: 2022/05/18 15:59:12 by sehhong          ###   ########.fr       */
+/*   Updated: 2022/05/24 18:30:43 by jiskim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ typedef struct s_img
 	int		endian;
 }	t_img;
 
+
 typedef struct s_vec
 {
 	double	x;
@@ -37,54 +38,57 @@ typedef struct s_vec
 	double	z;
 }	t_vec;
 
+typedef t_vec t_color;
+typedef t_vec t_point;
 typedef struct s_ray
 {
-	t_vec	origin;
+	t_point	origin;
 	t_vec	dir;
 }	t_ray;
 
-typedef struct s_camera
+typedef struct s_cam
 {
-	t_vec	pos;
-	t_vec	n_vector;
 	double	foc_len;
-}	t_camera;
+	t_point	pos;
+	t_vec	n_vector;
+}	t_cam;
 
+/* ambient */
 typedef struct s_amb
 {
 	double	b_ratio;
-	t_vec	color;
+	t_color	color;
 }	t_amb;
 
 typedef struct s_light
 {
-	t_vec			pos;
 	double			b_ratio;
-	t_vec			color;
+	t_point			pos;
+	t_color			color;
 	struct s_light	*next;
 }	t_light;
 
 typedef struct s_sp
 {
-	t_vec	centre;
 	double	radius;
-	t_vec	color;
+	t_point	center;
+	t_color	color;
 }	t_sp;
 
 typedef struct s_pl
 {
-	t_vec	point;
+	t_point	point;
 	t_vec	n_vector;
-	t_vec	color;
+	t_color	color;
 }	t_pl;
 
 typedef struct s_cy
 {
-	t_vec	point;
-	t_vec	n_vector;
 	double	radius;
 	double	height;
-	t_vec	color;
+	t_point	point;
+	t_vec	n_vector;
+	t_color	color;
 }	t_cy;
 
 typedef struct s_obj
@@ -94,24 +98,24 @@ typedef struct s_obj
 	struct s_obj	*next;
 }	t_obj;
 
-//poi = point of intersection(교점)
+/* poi = point of intersection(교점) */
 typedef struct s_poi
 {
 	double	t;
-	t_vec	poi;
+	t_point	poi;
 	t_obj	*obj;
 }	t_poi;
 
 typedef struct s_box
 {
-	void		*mlx;
-	void		*win;
-	t_camera	*camera;
-	t_img		frame;
-	t_vec		top_left;
-	t_light		*lights;
-	t_amb		*amb_light;
-	t_obj		*objs;
+	void	*mlx;
+	void	*win;
+	t_cam	*cam;
+	t_img	frame;
+	t_point	top_left;
+	t_light	*lights;
+	t_amb	*amb_light;
+	t_obj	*objs;
 }	t_box;
 
 #endif

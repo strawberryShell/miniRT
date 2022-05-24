@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sehhong <sehhong@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: jiskim <jiskim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 11:03:31 by sehhong           #+#    #+#             */
-/*   Updated: 2022/05/18 17:04:34 by sehhong          ###   ########.fr       */
+/*   Updated: 2022/05/24 15:53:19 by jiskim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,13 +39,13 @@ void	validate_arr(char **arr, int info_num, char *ele);
 t_vec	parse_vector(char *str, char *ele, int vec_type);
 void	parse_ambient(t_box *box, char **arr);
 void	parse_light(t_box *box, char **arr);
-void	parse_camera(t_box *box, char **arr);
+void	parse_cam(t_box *box, char **arr);
 void	parse_sphere(t_box *box, char **arr);
 void	parse_plane(t_box *box, char **arr);
 void	parse_cylinder(t_box *box, char **arr);
 
 /* transform */
-void	fill_tr_matrix(t_camera *camera, double *tr_matrix);
+void	fill_tr_matrix(t_cam *cam, double *tr_matrix);
 void	transform_coord(t_box *box);
 t_vec	transform_vec(double *m, t_vec vec);
 t_vec	transform_point(double *m, t_vec point);

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: sehhong <sehhong@student.42seoul.kr>       +#+  +:+       +#+         #
+#    By: jiskim <jiskim@student.42seoul.kr>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/10 11:02:22 by sehhong           #+#    #+#              #
-#    Updated: 2022/05/18 17:06:07 by sehhong          ###   ########.fr        #
+#    Updated: 2022/05/24 16:19:01 by jiskim           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,7 @@ SRCS_PARSE		= $(addprefix $(SRCS_PARSE_DIR), \
 					parse_obj.c \
 					parse_setting.c \
 					read_file.c \
-					utils.c \
+					parse_utils.c \
 					)
 
 SRCS_XFORM		= $(addprefix $(SRCS_XFORM_DIR), \
@@ -83,7 +83,7 @@ $(LIBFT) :
 	$(ARCH_VER) make -C $(LIBFTDIR) bonus
 
 $(LIBMLX) :
-	$(ARCH_VER) make -C $(LIBMLXDIR) 
+	$(ARCH_VER) make -C $(LIBMLXDIR)
 
 clean:
 	make -C $(LIBFTDIR) clean
