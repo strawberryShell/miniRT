@@ -6,7 +6,7 @@
 /*   By: jiskim <jiskim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 11:03:31 by sehhong           #+#    #+#             */
-/*   Updated: 2022/05/24 15:53:19 by jiskim           ###   ########.fr       */
+/*   Updated: 2022/05/24 19:59:21 by jiskim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	parse_plane(t_box *box, char **arr);
 void	parse_cylinder(t_box *box, char **arr);
 
 /* transform */
-void	fill_tr_matrix(t_cam *cam, double *tr_matrix);
+void	fill_tr_matrix(t_cam *cam, double *matrix);
 void	transform_coord(t_box *box);
 t_vec	transform_vec(double *m, t_vec vec);
 t_vec	transform_point(double *m, t_vec point);

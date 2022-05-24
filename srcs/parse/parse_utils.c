@@ -6,13 +6,13 @@
 /*   By: jiskim <jiskim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/14 11:11:40 by sehhong           #+#    #+#             */
-/*   Updated: 2022/05/24 17:11:17 by jiskim           ###   ########.fr       */
+/*   Updated: 2022/05/24 20:31:58 by jiskim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-static	void	add_value(char c, int *dec_cnt, double *d)
+static void	add_value(char c, int *dec_cnt, double *d)
 {
 	if (c == '.')
 	{

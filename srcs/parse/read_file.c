@@ -6,7 +6,7 @@
 /*   By: jiskim <jiskim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 23:33:38 by sehhong           #+#    #+#             */
-/*   Updated: 2022/05/24 18:30:36 by jiskim           ###   ########.fr       */
+/*   Updated: 2022/05/24 19:52:11 by jiskim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,6 @@ void	read_file(t_box *box, char *f_name)
 	if (fd == -1)
 		exit_with_err("Failed to call open(): ", strerror(errno));
 	ft_memset(box, 0, sizeof(t_box));
-	// gnl 사용법..?
 	line = NULL;
 	while (get_next_line(fd, &line) > 0)
 	{
@@ -73,11 +72,13 @@ void	read_file(t_box *box, char *f_name)
 		free(line);
 		line = NULL;
 	}
-	if (*line)
-		analyze_line(box, line);
 	if (line)
+	{
+		if (*line)
+			analyze_line(box, line);
 		free(line);
-	line = NULL;
+		line = NULL;
+	}
 	close(fd);
 	validate_file(box);
 }
