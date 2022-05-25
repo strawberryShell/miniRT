@@ -1,5 +1,8 @@
 {
 	"files.associations": {
-		"minirt.h": "c"
+		"minirt.h": "c",
+		"string.h": "c",
+		"stdlib.h": "c",
+		"math.h": "c"
 	}
 }
