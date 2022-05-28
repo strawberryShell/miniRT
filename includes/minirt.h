@@ -6,7 +6,7 @@
 /*   By: jiskim <jiskim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 11:03:31 by sehhong           #+#    #+#             */
-/*   Updated: 2022/05/25 22:11:35 by jiskim           ###   ########.fr       */
+/*   Updated: 2022/05/28 00:20:13 by jiskim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 # define POINT	0
 # define COLOR	1
 # define VECTOR	2
-# define DARKNESS 42
+# define DARKNESS -42
 
 # include <math.h>
 # include <stdlib.h>	//malloc
