@@ -6,7 +6,7 @@
 #    By: jiskim <jiskim@student.42seoul.kr>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/10 11:02:22 by sehhong           #+#    #+#              #
-#    Updated: 2022/05/25 19:56:35 by jiskim           ###   ########.fr        #
+#    Updated: 2022/05/28 20:20:31 by jiskim           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,6 +34,7 @@ SRCS_XFORM		= $(addprefix $(SRCS_XFORM_DIR), \
 					)
 
 SRCS_RENDER		= $(addprefix $(SRCS_RENDER_DIR), \
+					ray_tracing.c \
 					)
 
 SRCS_INIT		= $(addprefix $(SRCS_INIT_DIR), \
@@ -97,6 +98,9 @@ clean:
 
 fclean: clean
 	$(RM) $(NAME)
+
+debug: fclean
+	@make DEBUG=1
 
 re: fclean all
 

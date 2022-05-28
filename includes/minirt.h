@@ -6,7 +6,7 @@
 /*   By: jiskim <jiskim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 11:03:31 by sehhong           #+#    #+#             */
-/*   Updated: 2022/05/28 00:20:13 by jiskim           ###   ########.fr       */
+/*   Updated: 2022/05/28 20:07:15 by jiskim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,9 @@
 
 /* initialize */
 void	init_mlx_attr(t_box *box);
+
+/* render */
+void	ray_tracing(t_box *box);
 
 /* parse */
 void	read_file(t_box *box, char *f_name);

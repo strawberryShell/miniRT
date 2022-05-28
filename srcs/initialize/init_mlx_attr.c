@@ -6,7 +6,7 @@
 /*   By: jiskim <jiskim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 18:15:05 by jiskim            #+#    #+#             */
-/*   Updated: 2022/05/25 19:57:29 by jiskim           ###   ########.fr       */
+/*   Updated: 2022/05/28 20:04:20 by jiskim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	init_frame(t_img *frame, void *mlx)
 	frame->img = mlx_new_image(mlx, SCN_WIDTH, SCN_HEIGHT);
 	if (!frame->img)
 		exit_with_err("Failed to create mlx image", NULL);
-	frame->addr = mlx_get_data_addr(frame->img, &frame->bpp, \
+	frame->addr = (int *)mlx_get_data_addr(frame->img, &frame->bpp, \
 		&frame->line_len, &frame->endian);
 	if (!frame->addr)
 		exit_with_err("Failed to get mlx data address", NULL);

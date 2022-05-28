@@ -6,7 +6,7 @@
 /*   By: jiskim <jiskim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 11:10:00 by sehhong           #+#    #+#             */
-/*   Updated: 2022/05/25 22:12:52 by jiskim           ###   ########.fr       */
+/*   Updated: 2022/05/28 20:04:12 by jiskim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ typedef enum e_otype
 typedef struct s_img
 {
 	void	*img;
-	char	*addr;
+	int		*addr;
 	int		bpp;
 	int		line_len;
 	int		endian;
@@ -52,12 +52,12 @@ typedef struct s_cam
 	t_vec	n_vector;
 }	t_cam;
 
-/* ambient */
-typedef struct s_amb
-{
-	double	b_ratio;
-	t_color	color;
-}	t_amb;
+///* ambient */
+//typedef struct s_amb
+//{
+//	double	b_ratio;
+//	t_color	color;
+//}	t_amb;
 
 typedef struct s_light
 {
@@ -109,12 +109,12 @@ typedef struct s_box
 {
 	void	*mlx;
 	void	*win;
+	t_color	*amb_light; //ratio 계산한 값으로 변경
 	t_cam	*cam;
-	t_img	frame;
-	t_point	top_left;
 	t_light	*lights;
-	t_amb	*amb_light;
 	t_obj	*objs;
+	t_point	top_left;
+	t_img	frame;
 }	t_box;
 
 #endif

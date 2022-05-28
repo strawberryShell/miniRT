@@ -6,7 +6,7 @@
 /*   By: jiskim <jiskim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/14 11:05:41 by sehhong           #+#    #+#             */
-/*   Updated: 2022/05/24 17:11:12 by jiskim           ###   ########.fr       */
+/*   Updated: 2022/05/28 18:29:26 by jiskim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,16 +15,21 @@
 void	parse_ambient(t_box *box, char **arr)
 {
 	char	*ele;
+	double	b_ratio;
+	t_vec	vec;
 
 	ele = "ambient lightning";
 	if (box->amb_light)
 		exit_with_err(ele, " should be given only once");
 	validate_arr(arr, 3, ele);
-	box->amb_light = (t_amb *)ft_calloc(1, sizeof(t_amb));
-	box->amb_light->b_ratio = ft_atod(arr[1], ele);
-	if (!is_between(0, 1, box->amb_light->b_ratio))
+	box->amb_light = (t_color *)ft_calloc(1, sizeof(t_color));
+	b_ratio = ft_atod(arr[1], ele);
+	if (!is_between(0, 1, b_ratio))
 		exit_with_err("Invalid value of ", ele);
-	box->amb_light->color = parse_vector(arr[2], ele, COLOR);
+	vec = parse_vector(arr[2], ele, COLOR);
+	box->amb_light->x = vec.x * b_ratio;
+	box->amb_light->y = vec.y * b_ratio;
+	box->amb_light->z = vec.z * b_ratio;
 }
 
 void	parse_light(t_box *box, char **arr)
