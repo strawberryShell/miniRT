@@ -6,7 +6,7 @@
 #    By: jiskim <jiskim@student.42seoul.kr>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/10 11:02:22 by sehhong           #+#    #+#              #
-#    Updated: 2022/05/28 20:20:31 by jiskim           ###   ########.fr        #
+#    Updated: 2022/05/29 15:43:12 by jiskim           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -82,11 +82,11 @@ all : $(NAME)
 	$(CC) $(CFLAGS) $(INCDIR) $(LIBMLXINC) $(LIBFTINC) -o $@ -c $<
 
 $(NAME) : $(OBJS) $(LIBFT) $(LIBMLX)
-	$(CC) $(CFLAGS) $(LIBFT) $(LIBMLX) -framework OpenGL -framework Appkit -o $@ $^
+	arch -x86_64 $(CC) $(CFLAGS) $(LIBFT) $(LIBMLX) -framework OpenGL -framework Appkit -o $@ $^
 	install_name_tool -change libmlx.dylib $(LIBMLX) $(NAME)
 
 $(LIBFT) :
-	make -C $(LIBFTDIR) bonus
+	$(MAKE_VER) -C $(LIBFTDIR) bonus
 
 $(LIBMLX) :
 	$(MAKE_VER) -C $(LIBMLXDIR)
