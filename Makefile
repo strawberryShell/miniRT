@@ -6,7 +6,7 @@
 #    By: jiskim <jiskim@student.42seoul.kr>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/10 11:02:22 by sehhong           #+#    #+#              #
-#    Updated: 2022/05/29 15:43:12 by jiskim           ###   ########.fr        #
+#    Updated: 2022/05/29 16:36:51 by jiskim           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -69,27 +69,20 @@ LIBFTDIR	= ./lib/libft/
 LIBFT		= $(LIBFTDIR)libft.a
 LIBFTINC	= -I$(LIBFTDIR)includes
 
-ARCH := $(shell arch)
-ifeq ($(ARCH), arm64)
-	MAKE_VER = arch -x86_64 make
-else ifeq ($(ARCH), i386)
-	MAKE_VER = make
-endif
-
 all : $(NAME)
 
 %.o: %.c
 	$(CC) $(CFLAGS) $(INCDIR) $(LIBMLXINC) $(LIBFTINC) -o $@ -c $<
 
 $(NAME) : $(OBJS) $(LIBFT) $(LIBMLX)
-	arch -x86_64 $(CC) $(CFLAGS) $(LIBFT) $(LIBMLX) -framework OpenGL -framework Appkit -o $@ $^
+	$(CC) $(CFLAGS) $(LIBFT) $(LIBMLX) -framework OpenGL -framework Appkit -o $@ $^
 	install_name_tool -change libmlx.dylib $(LIBMLX) $(NAME)
 
 $(LIBFT) :
-	$(MAKE_VER) -C $(LIBFTDIR) bonus
+	make -C $(LIBFTDIR) bonus
 
 $(LIBMLX) :
-	$(MAKE_VER) -C $(LIBMLXDIR)
+	make -C $(LIBMLXDIR)
 
 clean:
 	@make -C $(LIBFTDIR) fclean
