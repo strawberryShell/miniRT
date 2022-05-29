@@ -6,7 +6,7 @@
 #    By: jiskim <jiskim@student.42seoul.kr>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/10 11:02:22 by sehhong           #+#    #+#              #
-#    Updated: 2022/05/24 16:19:01 by jiskim           ###   ########.fr        #
+#    Updated: 2022/05/29 16:36:51 by jiskim           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,6 +18,7 @@ SRCS_DIR		= ./srcs/
 SRCS_PARSE_DIR	= ./srcs/parse/
 SRCS_XFORM_DIR	= ./srcs/transform/
 SRCS_RENDER_DIR	= ./srcs/render/
+SRCS_INIT_DIR	= ./srcs/initialize/
 
 SRCS_PARSE		= $(addprefix $(SRCS_PARSE_DIR), \
 					parse_obj.c \
@@ -33,6 +34,11 @@ SRCS_XFORM		= $(addprefix $(SRCS_XFORM_DIR), \
 					)
 
 SRCS_RENDER		= $(addprefix $(SRCS_RENDER_DIR), \
+					ray_tracing.c \
+					)
+
+SRCS_INIT		= $(addprefix $(SRCS_INIT_DIR), \
+					init_mlx_attr.c \
 					)
 
 SRCS			= $(addprefix $(SRCS_DIR), \
@@ -41,7 +47,7 @@ SRCS			= $(addprefix $(SRCS_DIR), \
 					vector_utils.c \
 					)
 
-SRCS			+= $(SRCS_PARSE) $(SRCS_XFORM) $(SRCS_RENDER)
+SRCS			+= $(SRCS_PARSE) $(SRCS_XFORM) $(SRCS_RENDER) $(SRCS_INIT)
 
 OBJS			= $(SRCS:.c=.o)
 
@@ -63,13 +69,6 @@ LIBFTDIR	= ./lib/libft/
 LIBFT		= $(LIBFTDIR)libft.a
 LIBFTINC	= -I$(LIBFTDIR)includes
 
-ARCH := $(shell arch)
-ifeq ($(ARCH), arm64)
-	MAKE_VER = arch -x86_64 make
-else ifeq ($(ARCH), i386)
-	MAKE_VER = make
-endif
-
 all : $(NAME)
 
 %.o: %.c
@@ -80,19 +79,21 @@ $(NAME) : $(OBJS) $(LIBFT) $(LIBMLX)
 	install_name_tool -change libmlx.dylib $(LIBMLX) $(NAME)
 
 $(LIBFT) :
-	$(ARCH_VER) make -C $(LIBFTDIR) bonus
+	make -C $(LIBFTDIR) bonus
 
 $(LIBMLX) :
-	$(ARCH_VER) make -C $(LIBMLXDIR)
+	make -C $(LIBMLXDIR)
 
 clean:
-	make -C $(LIBFTDIR) clean
-	make -C $(LIBMLXDIR) clean
+	@make -C $(LIBFTDIR) fclean
+	@make -C $(LIBMLXDIR) clean
 	$(RM) $(OBJS)
 
 fclean: clean
 	$(RM) $(NAME)
-	make -C $(LIBFTDIR) fclean
+
+debug: fclean
+	@make DEBUG=1
 
 re: fclean all
 

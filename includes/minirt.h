@@ -6,7 +6,7 @@
 /*   By: jiskim <jiskim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 11:03:31 by sehhong           #+#    #+#             */
-/*   Updated: 2022/05/24 19:59:21 by jiskim           ###   ########.fr       */
+/*   Updated: 2022/05/28 20:07:15 by jiskim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # define POINT	0
 # define COLOR	1
 # define VECTOR	2
+# define DARKNESS -42
 
 # include <math.h>
 # include <stdlib.h>	//malloc
@@ -30,6 +31,12 @@
 # include "libft.h"
 # include "mlx.h"
 # include "structure.h"
+
+/* initialize */
+void	init_mlx_attr(t_box *box);
+
+/* render */
+void	ray_tracing(t_box *box);
 
 /* parse */
 void	read_file(t_box *box, char *f_name);
