@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   vector_utils.c                                     :+:      :+:    :+:   */
+/*   vector_utils_bonus.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jiskim <jiskim@student.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: sehhong <sehhong@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 17:05:22 by sehhong           #+#    #+#             */
-/*   Updated: 2022/05/28 17:15:20 by jiskim           ###   ########.fr       */
+/*   Updated: 2022/05/30 10:42:03 by sehhong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minirt.h"
+#include "minirt_bonus.h"
 
 t_vec	new_vec(double x, double y, double z)
 {
@@ -99,7 +99,7 @@ t_vec	normalize_vec(t_vec vec)
 
 	vec_len = get_vec_len(vec);
 	if (!vec_len)
-		exit_with_err("Dividing value by 0 is not allowed ", NULL);
+		exit_with_err("normalize_vec: ", "length of vector is 0");
 	new_vec.x = vec.x / vec_len;
 	new_vec.y = vec.y / vec_len;
 	new_vec.z = vec.z / vec_len;

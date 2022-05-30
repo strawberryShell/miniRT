@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fill_tr_matrix.c                                   :+:      :+:    :+:   */
+/*   fill_tr_matrix_bonus.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jiskim <jiskim@student.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: sehhong <sehhong@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/14 11:23:40 by sehhong           #+#    #+#             */
-/*   Updated: 2022/05/24 19:59:21 by jiskim           ###   ########.fr       */
+/*   Updated: 2022/05/30 10:46:04 by sehhong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minirt.h"
+#include "minirt_bonus.h"
 
 static void	fill_rotation(double *matrix, t_vec x_axis, t_vec y_axis, \
 	t_vec z_axis)

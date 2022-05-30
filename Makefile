@@ -6,7 +6,7 @@
 #    By: sehhong <sehhong@student.42seoul.kr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/10 11:02:22 by sehhong           #+#    #+#              #
-#    Updated: 2022/05/30 10:26:31 by sehhong          ###   ########.fr        #
+#    Updated: 2022/05/30 10:47:23 by sehhong          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -57,30 +57,30 @@ SRCS_B_RENDER_DIR	= ./srcs/bonus/render/
 SRCS_B_INIT_DIR		= ./srcs/bonus/initialize/
 
 SRCS_B_PARSE		= $(addprefix $(SRCS_B_PARSE_DIR), \
-					parse_obj.c \
-					parse_setting.c \
-					read_file.c \
-					parse_utils.c \
+					parse_obj_bonus.c \
+					parse_setting_bonus.c \
+					read_file_bonus.c \
+					parse_utils_bonus.c \
 					)
 
 SRCS_B_XFORM		= $(addprefix $(SRCS_B_XFORM_DIR), \
-					fill_tr_matrix.c \
-					transform_coord.c \
-					transform_utils.c \
+					fill_tr_matrix_bonus.c \
+					transform_coord_bonus.c \
+					transform_utils_bonus.c \
 					)
 
 SRCS_B_RENDER		= $(addprefix $(SRCS_B_RENDER_DIR), \
-					ray_tracing.c \
+					ray_tracing_bonus.c \
 					)
 
 SRCS_B_INIT			= $(addprefix $(SRCS_B_INIT_DIR), \
-					init_mlx_attr.c \
+					init_mlx_attr_bonus.c \
 					)
 
 SRCS_B				= $(addprefix $(SRCS_B_DIR), \
-					main.c \
-					utils.c \
-					vector_utils.c \
+					main_bonus.c \
+					utils_bonus.c \
+					vector_utils_bonus.c \
 					)
 
 SRCS_B				+= $(SRCS_B_PARSE) $(SRCS_B_XFORM) $(SRCS_B_RENDER) \
@@ -131,7 +131,7 @@ $(LIBMLX) :
 clean:
 	@make -C $(LIBFTDIR) fclean
 	@make -C $(LIBMLXDIR) clean
-	$(RM) $(OBJS)
+	$(RM) $(OBJS_M) $(OBJS_B)
 
 fclean: clean
 	$(RM) $(NAME)

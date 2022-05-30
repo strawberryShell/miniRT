@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_setting.c                                    :+:      :+:    :+:   */
+/*   parse_setting_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jiskim <jiskim@student.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: sehhong <sehhong@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/14 11:05:41 by sehhong           #+#    #+#             */
-/*   Updated: 2022/05/28 18:29:26 by jiskim           ###   ########.fr       */
+/*   Updated: 2022/05/30 11:31:24 by sehhong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minirt.h"
+#include "minirt_bonus.h"
 
 void	parse_ambient(t_box *box, char **arr)
 {
@@ -38,8 +38,6 @@ void	parse_light(t_box *box, char **arr)
 	t_light	*light;
 
 	ele = "light";
-	if (box->lights)
-		exit_with_err(ele, " should be given once");
 	validate_arr(arr, 4, ele);
 	light = (t_light *)ft_calloc(1, sizeof(t_light));
 	light->pos = parse_vector(arr[1], ele, POINT);
@@ -47,7 +45,8 @@ void	parse_light(t_box *box, char **arr)
 	if (!is_between(0, 1, light->b_ratio))
 		exit_with_err("Invalid value of ", ele);
 	light->color = parse_vector(arr[3], ele, COLOR);
-	// 보너스부분: add_light() 추가
+	if (box->lights)
+		light->next = box->lights;
 	box->lights = light;
 }
 
@@ -62,7 +61,8 @@ void	parse_cam(t_box *box, char **arr)
 	validate_arr(arr, 4, ele);
 	box->cam = (t_cam *)ft_calloc(1, sizeof(t_cam));
 	box->cam->pos = parse_vector(arr[1], ele, POINT);
-	box->cam->n_vector = parse_vector(arr[2], ele, VECTOR);
+	box->cam->n_vector = normalize_vec(parse_vector(arr[2], ele, VECTOR));
+	// box->cam->n_vector = parse_vector(arr[2], ele, VECTOR);
 	//if (get_vec_len(box->cam->n_vector) != 1)
 	//	exit_with_err("Vector is not normalized: ", ele);
 	fov = ft_atod(arr[3], ele);

@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   transform_utils.c                                  :+:      :+:    :+:   */
+/*   transform_utils_bonus.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jiskim <jiskim@student.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: sehhong <sehhong@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/14 11:19:30 by sehhong           #+#    #+#             */
-/*   Updated: 2022/05/24 19:59:21 by jiskim           ###   ########.fr       */
+/*   Updated: 2022/05/30 10:46:14 by sehhong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minirt.h"
+#include "minirt_bonus.h"
 
 t_vec	transform_vec(double *matrix, t_vec vec)
 {

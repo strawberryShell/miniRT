@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_mlx_attr.c                                    :+:      :+:    :+:   */
+/*   init_mlx_attr_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jiskim <jiskim@student.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: sehhong <sehhong@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 18:15:05 by jiskim            #+#    #+#             */
-/*   Updated: 2022/05/28 20:04:20 by jiskim           ###   ########.fr       */
+/*   Updated: 2022/05/30 10:42:40 by sehhong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minirt.h"
+#include "minirt_bonus.h"
 
 void	init_frame(t_img *frame, void *mlx)
 {
