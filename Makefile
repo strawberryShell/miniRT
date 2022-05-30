@@ -6,7 +6,7 @@
 #    By: sehhong <sehhong@student.42seoul.kr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/10 11:02:22 by sehhong           #+#    #+#              #
-#    Updated: 2022/05/30 10:47:23 by sehhong          ###   ########.fr        #
+#    Updated: 2022/05/30 15:16:51 by sehhong          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -54,7 +54,7 @@ SRCS_B_DIR			= ./srcs/bonus/
 SRCS_B_PARSE_DIR	= ./srcs/bonus/parse/
 SRCS_B_XFORM_DIR	= ./srcs/bonus/transform/
 SRCS_B_RENDER_DIR	= ./srcs/bonus/render/
-SRCS_B_INIT_DIR		= ./srcs/bonus/initialize/
+SRCS_B_CTLMLX_DIR	= ./srcs/bonus/ctrl_mlx/
 
 SRCS_B_PARSE		= $(addprefix $(SRCS_B_PARSE_DIR), \
 					parse_obj_bonus.c \
@@ -73,7 +73,8 @@ SRCS_B_RENDER		= $(addprefix $(SRCS_B_RENDER_DIR), \
 					ray_tracing_bonus.c \
 					)
 
-SRCS_B_INIT			= $(addprefix $(SRCS_B_INIT_DIR), \
+SRCS_B_CTLMLX			= $(addprefix $(SRCS_B_CTLMLX_DIR), \
+					ctrl_mlx_hook.c \
 					init_mlx_attr_bonus.c \
 					)
 
@@ -84,7 +85,7 @@ SRCS_B				= $(addprefix $(SRCS_B_DIR), \
 					)
 
 SRCS_B				+= $(SRCS_B_PARSE) $(SRCS_B_XFORM) $(SRCS_B_RENDER) \
-					$(SRCS_B_INIT)
+					$(SRCS_B_CTLMLX)
 
 OBJS_B				= $(SRCS_B:.c=.o)
 

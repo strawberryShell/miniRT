@@ -6,7 +6,7 @@
 /*   By: sehhong <sehhong@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 10:30:56 by sehhong           #+#    #+#             */
-/*   Updated: 2022/05/30 11:34:13 by sehhong          ###   ########.fr       */
+/*   Updated: 2022/05/30 15:14:03 by sehhong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,12 @@
 
 # define SCN_WIDTH	800
 # define SCN_HEIGHT	400
-# define POINT	0
-# define COLOR	1
-# define VECTOR	2
-# define DARKNESS -42
+# define POINT		0
+# define COLOR		1
+# define VECTOR		2
+# define DARKNESS 	-42
+# define KEY_ESC	53
+# define CLICK_RED	17
 
 # include <math.h>
 # include <stdlib.h>	//malloc
@@ -32,8 +34,10 @@
 # include "mlx.h"
 # include "structure_bonus.h"
 
-/* initialize */
+/* ctrl_mlx */
 void	init_mlx_attr(t_box *box);
+int		press_esc(int key_num, t_box *box);
+int		click_red(t_box *box);
 
 /* render */
 void	ray_tracing(t_box *box);
