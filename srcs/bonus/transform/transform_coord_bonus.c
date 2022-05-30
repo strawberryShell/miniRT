@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   transform_coord_bonus.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sehhong <sehhong@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: sehhong <sehhong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/12 13:52:07 by sehhong           #+#    #+#             */
-/*   Updated: 2022/05/30 11:47:15 by sehhong          ###   ########.fr       */
+/*   Updated: 2022/05/31 01:09:22 by sehhong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,22 +26,22 @@ static void	transform_objs(t_box *box, double *matrix)
 		{
 			((t_pl *)(cur->data))->point = transform_point(matrix, \
 				((t_pl *)(cur->data))->point);
-			((t_pl *)(cur->data))->n_vector = transform_vec(matrix, \
-				((t_pl *)(cur->data))->n_vector);
+			((t_pl *)(cur->data))->n_vector = normalize_vec(transform_vec(matrix, \
+				((t_pl *)(cur->data))->n_vector));
 		}
 		else if (cur->type == CYLINDER)
 		{
 			((t_cy *)(cur->data))->point = transform_point(matrix, \
 				((t_cy *)(cur->data))->point);
-			((t_cy *)(cur->data))->n_vector = transform_vec(matrix, \
-				((t_cy *)(cur->data))->n_vector);
+			((t_cy *)(cur->data))->n_vector = normalize_vec(transform_vec(matrix, \
+				((t_cy *)(cur->data))->n_vector));
 		}
 		else if (cur->type == CONE)
 		{
 			((t_cn *)(cur->data))->point = transform_point(matrix, \
 				((t_cn *)(cur->data))->point);
-			((t_cn *)(cur->data))->n_vector = transform_vec(matrix, \
-				((t_cn *)(cur->data))->n_vector);
+			((t_cn *)(cur->data))->n_vector = normalize_vec(transform_vec(matrix, \
+				((t_cn *)(cur->data))->n_vector));
 		}
 		cur = cur->next;
 	}
