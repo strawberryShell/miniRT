@@ -6,7 +6,7 @@
 #    By: sehhong <sehhong@student.42seoul.kr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/10 11:02:22 by sehhong           #+#    #+#              #
-#    Updated: 2022/05/30 15:16:51 by sehhong          ###   ########.fr        #
+#    Updated: 2022/05/30 17:01:39 by sehhong          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ SRCS_M_DIR			= ./srcs/mandatory/
 SRCS_M_PARSE_DIR	= ./srcs/mandatory/parse/
 SRCS_M_XFORM_DIR	= ./srcs/mandatory/transform/
 SRCS_M_RENDER_DIR	= ./srcs/mandatory/render/
-SRCS_M_INIT_DIR		= ./srcs/mandatory/initialize/
+SRCS_M_CTLMLX_DIR		= ./srcs/mandatory/ctrl_mlx/
 
 SRCS_M_PARSE		= $(addprefix $(SRCS_M_PARSE_DIR), \
 					parse_obj.c \
@@ -35,7 +35,8 @@ SRCS_M_RENDER		= $(addprefix $(SRCS_M_RENDER_DIR), \
 					ray_tracing.c \
 					)
 
-SRCS_M_INIT			= $(addprefix $(SRCS_M_INIT_DIR), \
+SRCS_M_CTLMLX		= $(addprefix $(SRCS_M_CTLMLX_DIR), \
+					ctrl_mlx_hook.c \
 					init_mlx_attr.c \
 					)
 
@@ -46,7 +47,7 @@ SRCS_M				= $(addprefix $(SRCS_M_DIR), \
 					)
 
 SRCS_M				+= $(SRCS_M_PARSE) $(SRCS_M_XFORM) $(SRCS_M_RENDER) \
-					$(SRCS_M_INIT)
+					$(SRCS_M_CTLMLX)
 
 OBJS_M				= $(SRCS_M:.c=.o)
 

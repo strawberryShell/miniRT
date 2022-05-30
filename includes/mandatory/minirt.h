@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jiskim <jiskim@student.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: sehhong <sehhong@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 11:03:31 by sehhong           #+#    #+#             */
-/*   Updated: 2022/05/28 20:07:15 by jiskim           ###   ########.fr       */
+/*   Updated: 2022/05/30 16:53:43 by sehhong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@
 # define COLOR	1
 # define VECTOR	2
 # define DARKNESS -42
+# define KEY_ESC	53
+# define CLICK_RED	17
 
 # include <math.h>
 # include <stdlib.h>	//malloc
@@ -32,8 +34,10 @@
 # include "mlx.h"
 # include "structure.h"
 
-/* initialize */
+/* ctrl_mlx */
 void	init_mlx_attr(t_box *box);
+int		press_esc(int key_num, t_box *box);
+int		click_red(t_box *box);
 
 /* render */
 void	ray_tracing(t_box *box);
