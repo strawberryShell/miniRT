@@ -6,13 +6,13 @@
 /*   By: jiskim <jiskim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 18:15:05 by jiskim            #+#    #+#             */
-/*   Updated: 2022/05/28 20:04:20 by jiskim           ###   ########.fr       */
+/*   Updated: 2022/05/30 13:06:01 by jiskim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-void	init_frame(t_img *frame, void *mlx)
+static void	init_frame(t_img *frame, void *mlx)
 {
 	frame->img = mlx_new_image(mlx, SCN_WIDTH, SCN_HEIGHT);
 	if (!frame->img)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ray_tracing_bonus.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sehhong <sehhong@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: jiskim <jiskim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 20:20:41 by jiskim            #+#    #+#             */
-/*   Updated: 2022/05/30 10:45:58 by sehhong          ###   ########.fr       */
+/*   Updated: 2022/06/01 21:35:13 by jiskim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ double	shoot_ray_sphere(t_vec *vec, t_sp *sp)
 	return (get_root(&coeffient));
 }
 
-/* RGBA? */
 int		shoot_ray(t_vec *vec, t_box *box)
 {
 	t_obj	*cur;

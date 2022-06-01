@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_setting.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sehhong <sehhong@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jiskim <jiskim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/14 11:05:41 by sehhong           #+#    #+#             */
-/*   Updated: 2022/05/31 01:16:41 by sehhong          ###   ########.fr       */
+/*   Updated: 2022/06/01 14:47:33 by jiskim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	parse_ambient(t_box *box, char **arr)
 {
 	char	*ele;
 	double	b_ratio;
-	t_vec	vec;
+	t_color	light;
 
 	ele = "ambient lightning";
 	if (box->amb_light)
@@ -26,10 +26,10 @@ void	parse_ambient(t_box *box, char **arr)
 	b_ratio = ft_atod(arr[1], ele);
 	if (!is_between(0, 1, b_ratio))
 		exit_with_err("Invalid value of ", ele);
-	vec = parse_vector(arr[2], ele, COLOR);
-	box->amb_light->x = vec.x * b_ratio;
-	box->amb_light->y = vec.y * b_ratio;
-	box->amb_light->z = vec.z * b_ratio;
+	light = parse_vector(arr[2], ele, COLOR);
+	box->amb_light->x = light.x * b_ratio;
+	box->amb_light->y = light.y * b_ratio;
+	box->amb_light->z = light.z * b_ratio;
 }
 
 void	parse_light(t_box *box, char **arr)

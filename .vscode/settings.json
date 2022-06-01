@@ -3,6 +3,11 @@
 		"minirt.h": "c",
 		"string.h": "c",
 		"stdlib.h": "c",
-		"math.h": "c"
+		"math.h": "c",
+		"array": "c",
+		"string": "c",
+		"string_view": "c",
+		"vector": "c",
+		"libft.h": "c"
 	}
 }

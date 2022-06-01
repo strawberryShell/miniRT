@@ -3,23 +3,34 @@
 /*                                                        :::      ::::::::   */
 /*   structure.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sehhong <sehhong@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: jiskim <jiskim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 11:10:00 by sehhong           #+#    #+#             */
-/*   Updated: 2022/05/30 10:44:12 by sehhong          ###   ########.fr       */
+/*   Updated: 2022/06/01 15:16:51 by jiskim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef STRUCTURE_H
 # define STRUCTURE_H
 
-typedef enum e_otype
+typedef enum e_otype //도형 구분
 {
 	SPHERE = 0,
 	PLANE,
 	CYLINDER,
 	ELSE
 }	t_otype;
+
+typedef enum e_ptype
+{
+	SPHERE_GENERAL = 0,
+	PLANE_GENERAL,
+	CYLINDER_TOP,
+	CYLINDER_BOTTOM,
+	CYLINDER_SIDE,
+	CONE_BOTTOM,
+	CONE_SIDE,
+}	t_ptype;
 
 typedef struct s_img
 {
@@ -87,10 +98,19 @@ typedef struct s_obj
 
 typedef struct s_poi
 {
-	double	t;
-	t_point	poi;
-	t_obj	*obj;
+	t_ptype type; // 구, 평면, 원기둥뚜겅, 바닥, 옆면
+	t_point	point;
+	void 	*data;
 }	t_poi;
+
+typedef struct s_phong
+{
+	double	cos_theta;
+	t_vec	light_vec;
+	t_vec	normal_vec;
+	t_vec	cam_vec;
+	t_vec	reflect_vec;
+}	t_phong;
 
 typedef struct s_box
 {
