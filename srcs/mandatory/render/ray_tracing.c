@@ -6,7 +6,7 @@
 /*   By: jiskim <jiskim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 20:20:41 by jiskim            #+#    #+#             */
-/*   Updated: 2022/06/01 17:48:53 by jiskim           ###   ########.fr       */
+/*   Updated: 2022/06/01 21:37:36 by jiskim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,28 +22,28 @@ double	get_root(t_vec *coeffient)
 		t = -1;
 	else
 	{
-		t = (coeffient->y - sqrt(d)) / (2 * coeffient->x);
-		if (t < 0) // behind the camera
+		t = (-coeffient->y - sqrt(d)) / (2 * coeffient->x);
+		if (t < 0)
 		{
-			t = (coeffient->y + sqrt(d)) / (2 * coeffient->x);
-			if (t > 0) // 도형 중간에 카메라가 있으므로 화면 전체가 black
+			t = (-coeffient->y + sqrt(d)) / (2 * coeffient->x);
+			if (t > 0)
 				t = DARKNESS;
-			else // 얘도 보이면 안됨 - 루트 없는 취급
+			else
 				t = -1;
 		}
 	}
 	return (t);
 }
 
-double	shoot_ray_sphere(t_vec *ray, t_sp *sp)
+double	shoot_ray_sphere(t_vec *ray, t_sp *sp, t_point *start)
 {
 	t_vec	coeffient; //a, b, c
+	t_vec	center_start;
 
-	coeffient.x = pow(ray->x, 2) + pow(ray->y, 2) + pow(ray->z, 2);
-	coeffient.y = 2 * (ray->x * sp->center.x + ray->y * sp->center.y + \
-		ray->z * sp->center.z);
-	coeffient.z = pow(sp->center.x, 2) + pow(sp->center.y, 2) + \
-		pow(sp->center.z, 2) - pow(sp->radius, 2);
+	center_start = subtract_vecs(*start, sp->center);
+	coeffient.x = dot_vecs(*ray, *ray);
+	coeffient.y = 2 * dot_vecs(center_start, *ray);
+	coeffient.z = dot_vecs(center_start, center_start) - pow(sp->radius, 2);
 	return (get_root(&coeffient));
 }
 
@@ -52,12 +52,11 @@ double	shoot_ray_plane(t_vec *ray, t_pl *pl)
 	double	scalar;
 
 	scalar = dot_vecs(*ray, pl->n_vector);
-	if (scalar == 0)
+	if (scalar == 0) //명륜진사갈비
 		return (0);
 	return (dot_vecs(pl->point, pl->n_vector) / scalar);
 }
 
-/* RGBA? */
 int		shoot_ray(t_vec *vec, t_box *box)
 {
 	t_obj	*cur;
@@ -72,7 +71,7 @@ int		shoot_ray(t_vec *vec, t_box *box)
 	{
 		if (cur->type == SPHERE)
 		{
-			t = shoot_ray_sphere(vec, (t_sp *)cur->data);
+			t = shoot_ray_sphere(vec, (t_sp *)cur->data, &box->cam->pos);
 			type = SPHERE_GENERAL;
 		}
 		else if (cur->type == PLANE)
@@ -98,7 +97,7 @@ int		shoot_ray(t_vec *vec, t_box *box)
 				poi.point = scale_vec(*vec, t);
 				closest_t = t;
 				poi.data = cur->data;
-				poi.type = type; //판단필요함
+				poi.type = type;
 			}
 		}
 		cur = cur->next;

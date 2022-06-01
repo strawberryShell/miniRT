@@ -6,7 +6,7 @@
 /*   By: jiskim <jiskim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/01 14:56:06 by jiskim            #+#    #+#             */
-/*   Updated: 2022/06/01 18:14:16 by jiskim           ###   ########.fr       */
+/*   Updated: 2022/06/01 21:38:06 by jiskim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,31 @@ t_phong	get_phong_vecs(t_poi *poi, t_box *box)
 	return (phong);
 }
 
+int	is_shadow(t_poi *poi, t_box *box)
+{
+	t_obj	*cur;
+	t_vec	light_vec;
+	double	t;
+
+	cur = box->objs;
+	t = 0;
+	while (cur)
+	{
+		if (poi->data != cur->data)
+		{
+			light_vec = subtract_vecs(box->lights->pos, poi->point);
+			if (cur->type == SPHERE)
+				t = shoot_ray_sphere(&light_vec, (t_sp *)cur->data, &poi->point);
+			else if (cur->type == PLANE)
+				t = shoot_ray_plane(&light_vec, (t_pl *)cur->data);
+			if (t > 0 && t < 1)
+				return (1);
+		}
+		cur = cur->next;
+	}
+	return (0);
+}
+
 int phong_lighting(t_poi *poi, t_box *box)
 {
 	t_phong	phong;
@@ -84,11 +109,13 @@ int phong_lighting(t_poi *poi, t_box *box)
 	t_color color;
 	t_color	light;
 
-	phong = get_phong_vecs(poi, box);
-	//light = add_vecs(scale_vec(*box->amb_light, (double)1 / 255), \
-		//calc_diffuse(&phong, box));
-	light = add_vecs(add_vecs(scale_vec(*box->amb_light, (double)1 / 255), \
-		calc_diffuse(&phong, box)), calc_specular(&phong, box));
+	light = scale_vec(*box->amb_light, (double)1 / 255);
+	if (!is_shadow(poi, box))
+	{
+		phong = get_phong_vecs(poi, box);
+		light = add_vecs(add_vecs(calc_diffuse(&phong, box), \
+			calc_specular(&phong, box)), light);
+	}
 	obj_color = new_vec(0, 0, 0);
 	if (poi->type == SPHERE_GENERAL)
 		obj_color = ((t_sp *)poi->data)->color;
