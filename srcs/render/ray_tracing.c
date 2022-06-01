@@ -6,7 +6,7 @@
 /*   By: jiskim <jiskim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 20:20:41 by jiskim            #+#    #+#             */
-/*   Updated: 2022/06/01 11:12:06 by jiskim           ###   ########.fr       */
+/*   Updated: 2022/06/01 14:43:10 by jiskim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,33 +56,46 @@ int phong_lighting(t_poi *poi, t_box *box)
 {
 	t_vec	light_vec;
 	t_vec	poi_vec;
+	t_vec	cam_vec;
+	t_vec	reflect_vec;
 	double	theta;
+
 	t_color	light;
 	t_color color;
 	t_color	ambient;
 	t_color	diffuse;
+	t_color	specular;
+
+	t_vec	light_reverse;
+	t_vec	projected_vec;
+	double	theta2;
 
 	light_vec = normalize_vec(subtract_vecs(box->lights->pos, poi->point));
-	poi_vec.x = 0;
+	cam_vec = normalize_vec(subtract_vecs(box->cam->pos, poi->point));
+	poi_vec = new_vec(0, 0, 0);
 	//if (poi->type == SPHERE_GENERAL) // 법선벡터 뿐? 딴것도 있음?
 		poi_vec = normalize_vec(subtract_vecs(poi->point, ((t_sp *)(poi->data))->center));
+	light_reverse = scale_vec(light_vec, -1);
+
 	theta = dot_vecs(light_vec, poi_vec);
-	if (theta < 0)
-		theta = 0;
+	projected_vec = scale_vec(poi_vec, 2 * theta);
+	reflect_vec = add_vecs(light_reverse, projected_vec);
+	theta2 = pow(dot_vecs(cam_vec, reflect_vec), 16);
 	ambient = scale_vec(*box->amb_light, (double)1 / 255);
+	if (theta < 0) //diffuse
+		theta = 0;
 	diffuse = scale_vec(box->lights->color, (theta / 255) * box->lights->b_ratio);
-	light = add_vecs(ambient, diffuse);
-	if (light.x > 1)
-		light.x = 1;
-	if (light.y > 1)
-		light.y = 1;
-	if (light.z > 1)
-		light.z = 1;
-	printf("ambient %f %f %f \n", ambient.x , ambient.y, ambient.z);
-	printf("diffuse %f %f %f \n", diffuse.x, diffuse.y, diffuse.z);
-	printf("light %f %f %f \n", light.x, light.y, light.z);
+	specular = scale_vec(box->lights->color, (theta2 / 255) * box->lights->b_ratio * 0.5);
+	light = add_vecs(add_vecs(ambient, diffuse), specular);
+
 	color = multiply_vecs(light, ((t_sp *)(poi->data))->color);
-	printf("color %f %f %f \n", color.x, color.y, color.z);
+	if (color.x > 255)
+		color.x = 255;
+	if (color.y > 255)
+		color.y = 255;
+	if (color.z > 255)
+		color.z = 255;
+
 	return (calc_color(color.x, color.y, color.z));
 	//light vec, normal vec -> 모든것을 구할수잇음
 }
