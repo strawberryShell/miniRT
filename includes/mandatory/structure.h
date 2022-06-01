@@ -6,7 +6,7 @@
 /*   By: jiskim <jiskim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 11:10:00 by sehhong           #+#    #+#             */
-/*   Updated: 2022/06/01 14:47:54 by jiskim           ###   ########.fr       */
+/*   Updated: 2022/06/01 15:16:51 by jiskim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,15 @@ typedef struct s_poi
 	t_point	point;
 	void 	*data;
 }	t_poi;
+
+typedef struct s_phong
+{
+	double	cos_theta;
+	t_vec	light_vec;
+	t_vec	normal_vec;
+	t_vec	cam_vec;
+	t_vec	reflect_vec;
+}	t_phong;
 
 typedef struct s_box
 {

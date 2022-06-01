@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sehhong <sehhong@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: jiskim <jiskim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 11:03:31 by sehhong           #+#    #+#             */
-/*   Updated: 2022/05/30 16:53:43 by sehhong          ###   ########.fr       */
+/*   Updated: 2022/06/01 15:18:53 by jiskim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ int		click_red(t_box *box);
 
 /* render */
 void	ray_tracing(t_box *box);
+int		phong_lighting(t_poi *poi, t_box *box);
 
 /* parse */
 void	read_file(t_box *box, char *f_name);

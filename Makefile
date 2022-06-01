@@ -6,7 +6,7 @@
 #    By: jiskim <jiskim@student.42seoul.kr>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/10 11:02:22 by sehhong           #+#    #+#              #
-#    Updated: 2022/06/01 14:47:01 by jiskim           ###   ########.fr        #
+#    Updated: 2022/06/01 15:19:10 by jiskim           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,6 +33,7 @@ SRCS_M_XFORM		= $(addprefix $(SRCS_M_XFORM_DIR), \
 
 SRCS_M_RENDER		= $(addprefix $(SRCS_M_RENDER_DIR), \
 					ray_tracing.c \
+					phong_lighting.c \
 					)
 
 SRCS_M_CTLMLX		= $(addprefix $(SRCS_M_CTLMLX_DIR), \
