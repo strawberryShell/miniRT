@@ -6,7 +6,7 @@
 /*   By: sehhong <sehhong@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 10:12:47 by sehhong           #+#    #+#             */
-/*   Updated: 2022/05/18 16:35:59 by sehhong          ###   ########.fr       */
+/*   Updated: 2022/05/30 11:53:51 by sehhong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 void	exit_with_err(char *err_str, char *err_str2)
 {
+	ft_putstr_fd("Error\n", STDERR_FILENO);
 	ft_putstr_fd(err_str, STDERR_FILENO);
 	if (err_str2)
 		ft_putstr_fd(err_str2, STDERR_FILENO);
