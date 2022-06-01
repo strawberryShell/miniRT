@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fill_tr_matrix.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jiskim <jiskim@student.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: sehhong <sehhong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/14 11:23:40 by sehhong           #+#    #+#             */
-/*   Updated: 2022/05/24 19:59:21 by jiskim           ###   ########.fr       */
+/*   Updated: 2022/05/31 01:05:12 by sehhong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,13 @@ static void	fill_rotation(double *matrix, t_vec x_axis, t_vec y_axis, \
 	t_vec z_axis)
 {
 	matrix[0] = x_axis.x;
-	matrix[1] = y_axis.x;
-	matrix[2] = z_axis.x;
-	matrix[4] = x_axis.y;
+	matrix[1] = x_axis.y;
+	matrix[2] = x_axis.z;
+	matrix[4] = y_axis.x;
 	matrix[5] = y_axis.y;
-	matrix[6] = z_axis.y;
-	matrix[8] = x_axis.z;
-	matrix[9] = y_axis.z;
+	matrix[6] = y_axis.z;
+	matrix[8] = z_axis.x;
+	matrix[9] = z_axis.y;
 	matrix[10] = z_axis.z;
 	matrix[15] = 1;
 }
@@ -48,8 +48,8 @@ void	fill_tr_matrix(t_cam *cam, double *matrix)
 	ran_vec = new_vec(0, 1, 0);
 	if (!cmp_vec(z_axis, ran_vec) || !cmp_vec(cam->n_vector, ran_vec))
 		ran_vec = new_vec(0, 0, 1);
-	y_axis = cross_vecs(ran_vec, z_axis);
-	x_axis = cross_vecs(y_axis, z_axis);
+	y_axis = normalize_vec(cross_vecs(ran_vec, z_axis));
+	x_axis = normalize_vec(cross_vecs(y_axis, z_axis));
 	fill_rotation(matrix, x_axis, y_axis, z_axis);
 	fill_translation(cam, matrix);
 }

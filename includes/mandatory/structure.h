@@ -6,7 +6,7 @@
 /*   By: jiskim <jiskim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 11:10:00 by sehhong           #+#    #+#             */
-/*   Updated: 2022/05/31 22:05:47 by jiskim           ###   ########.fr       */
+/*   Updated: 2022/06/01 14:47:54 by jiskim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,11 +50,6 @@ typedef struct s_vec
 
 typedef t_vec t_color;
 typedef t_vec t_point;
-typedef struct s_ray
-{
-	t_point	origin;
-	t_vec	dir;
-}	t_ray;
 
 typedef struct s_cam
 {
@@ -62,13 +57,6 @@ typedef struct s_cam
 	t_point	pos;
 	t_vec	n_vector;
 }	t_cam;
-
-///* ambient */
-//typedef struct s_amb
-//{
-//	double	b_ratio;
-//	t_color	color;
-//}	t_amb;
 
 typedef struct s_light
 {
@@ -108,7 +96,6 @@ typedef struct s_obj
 	struct s_obj	*next;
 }	t_obj;
 
-/* poi = point of intersection(교점) */
 typedef struct s_poi
 {
 	t_ptype type; // 구, 평면, 원기둥뚜겅, 바닥, 옆면
@@ -120,7 +107,7 @@ typedef struct s_box
 {
 	void	*mlx;
 	void	*win;
-	t_color	*amb_light; //ratio 계산한 값으로 변경
+	t_color	*amb_light;
 	t_cam	*cam;
 	t_light	*lights;
 	t_obj	*objs;
