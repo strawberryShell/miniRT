@@ -6,20 +6,31 @@
 /*   By: jiskim <jiskim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 11:10:00 by sehhong           #+#    #+#             */
-/*   Updated: 2022/05/28 20:04:12 by jiskim           ###   ########.fr       */
+/*   Updated: 2022/05/31 22:05:47 by jiskim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef STRUCTURE_H
 # define STRUCTURE_H
 
-typedef enum e_otype
+typedef enum e_otype //도형 구분
 {
 	SPHERE = 0,
 	PLANE,
 	CYLINDER,
 	ELSE
 }	t_otype;
+
+typedef enum e_ptype
+{
+	SPHERE_GENERAL = 0,
+	PLANE_GENERAL,
+	CYLINDER_TOP,
+	CYLINDER_BOTTOM,
+	CYLINDER_SIDE,
+	CONE_BOTTOM,
+	CONE_SIDE,
+}	t_ptype;
 
 typedef struct s_img
 {
@@ -100,9 +111,9 @@ typedef struct s_obj
 /* poi = point of intersection(교점) */
 typedef struct s_poi
 {
-	double	t;
-	t_point	poi;
-	t_obj	*obj;
+	t_ptype type; // 구, 평면, 원기둥뚜겅, 바닥, 옆면
+	t_point	point;
+	void 	*data;
 }	t_poi;
 
 typedef struct s_box

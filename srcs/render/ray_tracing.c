@@ -6,7 +6,7 @@
 /*   By: jiskim <jiskim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 20:20:41 by jiskim            #+#    #+#             */
-/*   Updated: 2022/05/29 16:33:53 by jiskim           ###   ########.fr       */
+/*   Updated: 2022/06/01 11:12:06 by jiskim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,11 +52,46 @@ double	shoot_ray_sphere(t_vec *vec, t_sp *sp)
 	return (get_root(&coeffient));
 }
 
+int phong_lighting(t_poi *poi, t_box *box)
+{
+	t_vec	light_vec;
+	t_vec	poi_vec;
+	double	theta;
+	t_color	light;
+	t_color color;
+	t_color	ambient;
+	t_color	diffuse;
+
+	light_vec = normalize_vec(subtract_vecs(box->lights->pos, poi->point));
+	poi_vec.x = 0;
+	//if (poi->type == SPHERE_GENERAL) // 법선벡터 뿐? 딴것도 있음?
+		poi_vec = normalize_vec(subtract_vecs(poi->point, ((t_sp *)(poi->data))->center));
+	theta = dot_vecs(light_vec, poi_vec);
+	if (theta < 0)
+		theta = 0;
+	ambient = scale_vec(*box->amb_light, (double)1 / 255);
+	diffuse = scale_vec(box->lights->color, (theta / 255) * box->lights->b_ratio);
+	light = add_vecs(ambient, diffuse);
+	if (light.x > 1)
+		light.x = 1;
+	if (light.y > 1)
+		light.y = 1;
+	if (light.z > 1)
+		light.z = 1;
+	printf("ambient %f %f %f \n", ambient.x , ambient.y, ambient.z);
+	printf("diffuse %f %f %f \n", diffuse.x, diffuse.y, diffuse.z);
+	printf("light %f %f %f \n", light.x, light.y, light.z);
+	color = multiply_vecs(light, ((t_sp *)(poi->data))->color);
+	printf("color %f %f %f \n", color.x, color.y, color.z);
+	return (calc_color(color.x, color.y, color.z));
+	//light vec, normal vec -> 모든것을 구할수잇음
+}
+
 /* RGBA? */
 int		shoot_ray(t_vec *vec, t_box *box)
 {
 	t_obj	*cur;
-	t_vec	poi;
+	t_poi	poi;
 	double	closest_t;
 	double	t;
 
@@ -79,17 +114,19 @@ int		shoot_ray(t_vec *vec, t_box *box)
 			return (DARKNESS);
 		if (t >= 0)
 		{
-			if (t < closest_t) // ㅇㅓ차피 z는 같고 x작으면 y도 작음
+			if (t < closest_t)
 			{
-				poi = scale_vec(*vec, t);
+				poi.point = scale_vec(*vec, t);
 				closest_t = t;
+				poi.data = cur->data;
+				poi.type = SPHERE_GENERAL; //판단필요함
 			}
 		}
 		cur = cur->next;
 	}
 	if (closest_t == INFINITY)
 		return (0); //black
-	return (calc_color(box->amb_light->x, box->amb_light->y, box->amb_light->z));
+	return (phong_lighting(&poi, box));
 	// closest로 검사
 	//phong
 

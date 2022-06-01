@@ -6,7 +6,7 @@
 #    By: jiskim <jiskim@student.42seoul.kr>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/10 11:02:22 by sehhong           #+#    #+#              #
-#    Updated: 2022/05/29 16:36:51 by jiskim           ###   ########.fr        #
+#    Updated: 2022/05/30 13:15:07 by jiskim           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -79,10 +79,10 @@ $(NAME) : $(OBJS) $(LIBFT) $(LIBMLX)
 	install_name_tool -change libmlx.dylib $(LIBMLX) $(NAME)
 
 $(LIBFT) :
-	make -C $(LIBFTDIR) bonus
+	@make -C $(LIBFTDIR) bonus
 
 $(LIBMLX) :
-	make -C $(LIBMLXDIR)
+	@make -C $(LIBMLXDIR)
 
 clean:
 	@make -C $(LIBFTDIR) fclean
