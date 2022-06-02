@@ -6,7 +6,7 @@
 /*   By: sehhong <sehhong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 20:20:41 by jiskim            #+#    #+#             */
-/*   Updated: 2022/06/02 16:44:18 by sehhong          ###   ########.fr       */
+/*   Updated: 2022/06/02 18:10:20 by sehhong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,24 @@ double	shoot_ray_plane(t_vec *ray, t_pl *pl)
 	return (dot_vecs(pl->point, pl->n_vector) / scalar);
 }
 
-int		shoot_ray(t_vec *vec, t_box *box)
+double	shoot_ray_cylinder(t_vec *ray, t_cy *cy, t_poi *poi)
+{
+	if (cy->side == TOP || cy->side == TOP_SIDE)
+	{
+		
+	}
+	if (cy->side == BOTTOM || cy->side == BOTTOM_SIDE)
+	{
+
+	}
+	if (cy->side == SIDE || cy->side == TOP_SIDE || cy->side == BOTTOM_SIDE)
+	{
+
+	}
+}
+
+
+int		shoot_ray(t_vec *ray, t_box *box)
 {
 	t_obj	*cur;
 	t_poi	poi;
@@ -74,17 +91,17 @@ int		shoot_ray(t_vec *vec, t_box *box)
 	{
 		if (cur->type == SPHERE)
 		{
-			t = shoot_ray_sphere(vec, (t_sp *)cur->data, &box->cam->pos);
+			t = shoot_ray_sphere(ray, (t_sp *)cur->data, &box->cam->pos);
 			type = SPHERE_GENERAL;
 		}
 		else if (cur->type == PLANE)
 		{
-			t = shoot_ray_plane(vec, (t_pl *)cur->data);
+			t = shoot_ray_plane(ray, (t_pl *)cur->data);
 			type = PLANE_GENERAL;
 		}
 		else if (cur->type == CYLINDER)
 		{
-			t = shoot_ray_cylinder(vec, (t_cy *)cur->data, &poi);
+			t = shoot_ray_cylinder(ray, (t_cy *)cur->data, &poi);
 			//cylinder_top
 			//bottom
 			//side 
@@ -104,7 +121,7 @@ int		shoot_ray(t_vec *vec, t_box *box)
 				return (0);
 			if (t < closest_t)
 			{
-				poi.point = scale_vec(*vec, t);
+				poi.point = scale_vec(*ray, t);
 				closest_t = t;
 				poi.data = cur->data;
 				poi.type = type;
