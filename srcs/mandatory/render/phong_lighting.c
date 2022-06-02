@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   phong_lighting.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jiskim <jiskim@student.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: sehhong <sehhong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/01 14:56:06 by jiskim            #+#    #+#             */
-/*   Updated: 2022/06/01 21:38:06 by jiskim           ###   ########.fr       */
+/*   Updated: 2022/06/02 15:00:31 by sehhong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,6 @@ t_phong	get_phong_vecs(t_poi *poi, t_box *box)
 {
 	t_phong	phong;
 
-	phong.light_vec = normalize_vec(\
-		subtract_vecs(box->lights->pos, poi->point));
 	phong.normal_vec = new_vec(0, 0, 0);
 	phong.cam_vec = normalize_vec(subtract_vecs(box->cam->pos, poi->point));
 	if (poi->type == SPHERE_GENERAL)
@@ -71,6 +69,8 @@ t_phong	get_phong_vecs(t_poi *poi, t_box *box)
 		else
 			phong.normal_vec = scale_vec(((t_pl *)poi->data)->n_vector, -1);
 	}
+	phong.light_vec = normalize_vec(\
+		subtract_vecs(box->lights->pos, poi->point));
 	phong.cos_theta = dot_vecs(phong.light_vec, phong.normal_vec);
 	phong.reflect_vec = add_vecs(scale_vec(phong.light_vec, -1), \
 		scale_vec(phong.normal_vec, 2 * phong.cos_theta));

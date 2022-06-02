@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ray_tracing.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jiskim <jiskim@student.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: sehhong <sehhong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 20:20:41 by jiskim            #+#    #+#             */
-/*   Updated: 2022/06/01 21:37:36 by jiskim           ###   ########.fr       */
+/*   Updated: 2022/06/02 16:44:18 by sehhong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,9 @@ int		shoot_ray(t_vec *vec, t_box *box)
 	double	t;
 	t_ptype type = 0;
 
+	double	cos_theta;
+	t_stype side;
+
 	cur = box->objs;
 	closest_t = INFINITY;
 	while (cur != 0)
@@ -79,9 +82,16 @@ int		shoot_ray(t_vec *vec, t_box *box)
 			t = shoot_ray_plane(vec, (t_pl *)cur->data);
 			type = PLANE_GENERAL;
 		}
+		else if (cur->type == CYLINDER)
+		{
+			t = shoot_ray_cylinder(vec, (t_cy *)cur->data, &poi);
+			//cylinder_top
+			//bottom
+			//side 
+			// 3개의 t값
+		}
+		
 		/**
-			else if (cur->type == CYLINDER)
-			shoot_ray_cy(vec, cur);
 			...
 		 *
 		 */
@@ -107,6 +117,36 @@ int		shoot_ray(t_vec *vec, t_box *box)
 	return (phong_lighting(&poi, box));
 }
 
+void	set_sideview(t_box *box)
+{
+	t_obj	*obj;
+	double	cos_theta;
+	t_stype	side;
+
+	obj = box->objs;
+	cos_theta = 0;
+	while (obj)
+	{
+		if (obj->type == CYLINDER)
+		{
+			cos_theta = dot_vecs(((t_cy *)obj->data)->point, \
+				((t_cy *)obj->data)->n_vector);
+			if (cos_theta == -1)
+				side = TOP;
+			else if (cos_theta == 0)
+				side = SIDE;
+			else if (cos_theta == 1)
+				side = BOTTOM;
+			else if (cos_theta < 0)
+				side = TOP_SIDE;
+			else
+				side = BOTTOM_SIDE;
+			((t_cy *)obj->data)->side = side;
+		}
+		obj = obj->next;
+	}
+}
+
 void	ray_tracing(t_box *box)
 {
 	t_point	cur;
@@ -114,6 +154,7 @@ void	ray_tracing(t_box *box)
 
 	cur = box->top_left;
 	color = 0;
+	set_sideview(box);
 	while (box->top_left.y - cur.y < SCN_HEIGHT)
 	{
 		cur.x = box->top_left.x;
@@ -123,7 +164,6 @@ void	ray_tracing(t_box *box)
 			if (color == DARKNESS)
 			{
 				ft_bzero(box->frame.addr, sizeof(box->frame.addr));
-				printf("camera is in object\n");
 				return ;
 			}
 			box->frame.addr[((int)(box->top_left.y - cur.y) * \

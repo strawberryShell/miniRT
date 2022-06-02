@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structure.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jiskim <jiskim@student.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: sehhong <sehhong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 11:10:00 by sehhong           #+#    #+#             */
-/*   Updated: 2022/06/01 15:16:51 by jiskim           ###   ########.fr       */
+/*   Updated: 2022/06/02 16:33:37 by sehhong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ typedef enum e_otype //도형 구분
 	SPHERE = 0,
 	PLANE,
 	CYLINDER,
+	CONE,
 	ELSE
 }	t_otype;
 
@@ -31,6 +32,15 @@ typedef enum e_ptype
 	CONE_BOTTOM,
 	CONE_SIDE,
 }	t_ptype;
+
+typedef enum e_stype
+{
+	TOP = 0,
+	BOTTOM,
+	SIDE,
+	TOP_SIDE,
+	BOTTOM_SIDE,
+}	t_stype;
 
 typedef struct s_img
 {
@@ -84,6 +94,7 @@ typedef struct s_cy
 {
 	double	radius;
 	double	height;
+	t_stype	side;
 	t_point	point;
 	t_vec	n_vector;
 	t_color	color;
