@@ -6,7 +6,7 @@
 /*   By: jiskim <jiskim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 20:20:41 by jiskim            #+#    #+#             */
-/*   Updated: 2022/06/01 21:35:13 by jiskim           ###   ########.fr       */
+/*   Updated: 2022/06/03 17:29:08 by jiskim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,20 +17,20 @@ int		calc_color(int r, int g, int b)
 	return ((r << 16) | (g << 8) | b);
 }
 
-double	get_root(t_vec *coeffient)
+double	get_root(t_vec *coefficient)
 {
 	double	d;
 	double	t;
 
-	d = pow(coeffient->y, 2) - 4 * coeffient->x * coeffient->z;
-	if (coeffient->x == 0 || d < 0)
+	d = pow(coefficient->y, 2) - 4 * coefficient->x * coefficient->z;
+	if (coefficient->x == 0 || d < 0)
 		t = -1; // no root
 	else
 	{
-		t = (coeffient->y - sqrt(d)) / (2 * coeffient->x); //근의 공식
+		t = (coefficient->y - sqrt(d)) / (2 * coefficient->x); //근의 공식
 		if (t < 0) // behind the camera
 		{
-			t = (coeffient->y + sqrt(d)) / (2 * coeffient->x);
+			t = (coefficient->y + sqrt(d)) / (2 * coefficient->x);
 			if (t > 0) // 도형 중간에 카메라가 있으므로 화면 전체가 black
 				t = DARKNESS;
 			else // 얘도 보이면 안됨 - 루트 없는 취급
@@ -42,14 +42,14 @@ double	get_root(t_vec *coeffient)
 
 double	shoot_ray_sphere(t_vec *vec, t_sp *sp)
 {
-	t_vec	coeffient; //a, b, c
+	t_vec	coefficient; //a, b, c
 
-	coeffient.x = pow(vec->x, 2) + pow(vec->y, 2) + pow(vec->z, 2);
-	coeffient.y = 2 * (vec->x * sp->center.x + vec->y * sp->center.y + \
+	coefficient.x = pow(vec->x, 2) + pow(vec->y, 2) + pow(vec->z, 2);
+	coefficient.y = 2 * (vec->x * sp->center.x + vec->y * sp->center.y + \
 		vec->z * sp->center.z);
-	coeffient.z = pow(sp->center.x, 2) + pow(sp->center.y, 2) + \
+	coefficient.z = pow(sp->center.x, 2) + pow(sp->center.y, 2) + \
 		pow(sp->center.z, 2) - pow(sp->radius, 2);
-	return (get_root(&coeffient));
+	return (get_root(&coefficient));
 }
 
 int		shoot_ray(t_vec *vec, t_box *box)

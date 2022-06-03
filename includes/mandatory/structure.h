@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structure.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sehhong <sehhong@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jiskim <jiskim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 11:10:00 by sehhong           #+#    #+#             */
-/*   Updated: 2022/06/02 16:33:37 by sehhong          ###   ########.fr       */
+/*   Updated: 2022/06/03 18:04:29 by jiskim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ typedef enum e_otype //도형 구분
 	SPHERE = 0,
 	PLANE,
 	CYLINDER,
-	CONE,
 	ELSE
 }	t_otype;
 
@@ -95,7 +94,8 @@ typedef struct s_cy
 	double	radius;
 	double	height;
 	t_stype	side;
-	t_point	point;
+	t_point	top;
+	t_point	bottom;
 	t_vec	n_vector;
 	t_color	color;
 }	t_cy;

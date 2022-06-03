@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   transform_coord.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sehhong <sehhong@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jiskim <jiskim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/12 13:52:07 by sehhong           #+#    #+#             */
-/*   Updated: 2022/05/31 01:09:59 by sehhong          ###   ########.fr       */
+/*   Updated: 2022/06/03 17:08:08 by jiskim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,8 @@ static void	transform_objs(t_box *box, double *matrix)
 		}
 		else if (cur->type == CYLINDER)
 		{
-			((t_cy *)(cur->data))->point = transform_point(matrix, \
-				((t_cy *)(cur->data))->point);
+			((t_cy *)(cur->data))->top = transform_point(matrix, \
+				((t_cy *)(cur->data))->top);
 			((t_cy *)(cur->data))->n_vector = normalize_vec(transform_vec(matrix, \
 				((t_cy *)(cur->data))->n_vector));
 		}

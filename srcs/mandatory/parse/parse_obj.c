@@ -6,7 +6,7 @@
 /*   By: jiskim <jiskim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/14 11:03:49 by sehhong           #+#    #+#             */
-/*   Updated: 2022/05/24 17:09:41 by jiskim           ###   ########.fr       */
+/*   Updated: 2022/06/03 16:42:14 by jiskim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,12 +50,13 @@ void	parse_cylinder(t_box *box, char **arr)
 	ele = "cylinder";
 	validate_arr(arr, 6, ele);
 	cy = (t_cy *)ft_calloc(1, sizeof(t_cy));
-	cy->point = parse_vector(arr[1], ele, POINT);
+	cy->bottom = parse_vector(arr[1], ele, POINT);
 	cy->n_vector = parse_vector(arr[2], ele, VECTOR);
 	//if (get_vec_len(cy->n_vector) != 1)
 	//	exit_with_err("Vector is not normalized: ", ele);
 	cy->radius = ft_atod(arr[3], ele) * 0.5;
 	cy->height = ft_atod(arr[4], ele);
 	cy->color = parse_vector(arr[5], ele, COLOR);
+	cy->top = add_vecs(scale_vec(cy->n_vector, cy->height), cy->bottom);
 	add_obj(box, CYLINDER, cy);
 }

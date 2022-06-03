@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   phong_lighting.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sehhong <sehhong@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jiskim <jiskim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/01 14:56:06 by jiskim            #+#    #+#             */
-/*   Updated: 2022/06/02 15:00:31 by sehhong          ###   ########.fr       */
+/*   Updated: 2022/06/03 18:29:51 by jiskim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,9 +91,9 @@ int	is_shadow(t_poi *poi, t_box *box)
 		{
 			light_vec = subtract_vecs(box->lights->pos, poi->point);
 			if (cur->type == SPHERE)
-				t = shoot_ray_sphere(&light_vec, (t_sp *)cur->data, &poi->point);
+				t = shoot_ray_sp(&light_vec, (t_sp *)cur->data, &poi->point);
 			else if (cur->type == PLANE)
-				t = shoot_ray_plane(&light_vec, (t_pl *)cur->data);
+				t = shoot_ray_pl(&light_vec, (t_pl *)cur->data);
 			if (t > 0 && t < 1)
 				return (1);
 		}

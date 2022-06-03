@@ -3,30 +3,31 @@
 /*                                                        :::      ::::::::   */
 /*   ray_tracing.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sehhong <sehhong@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jiskim <jiskim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 20:20:41 by jiskim            #+#    #+#             */
-/*   Updated: 2022/06/02 18:10:20 by sehhong          ###   ########.fr       */
+/*   Updated: 2022/06/03 18:30:12 by jiskim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-double	get_root(t_vec *coeffient)
+// -1, DARKNESS, 양수
+double	get_root(t_vec *coefficient)
 {
 	double	d;
 	double	t;
 
-	d = pow(coeffient->y, 2) - 4 * coeffient->x * coeffient->z;
-	if (coeffient->x == 0 || d < 0)
+	d = pow(coefficient->y, 2) - 4 * coefficient->x * coefficient->z;
+	if (coefficient->x == 0 || d < 0)
 		t = -1;
 	else
 	{
-		t = (-coeffient->y - sqrt(d)) / (2 * coeffient->x);
+		t = (-coefficient->y - sqrt(d)) / (2 * coefficient->x);
 		if (t < 0)
 		{
-			t = (-coeffient->y + sqrt(d)) / (2 * coeffient->x);
-			if (t > 0)
+			t = (-coefficient->y + sqrt(d)) / (2 * coefficient->x);
+			if (t >= 0)
 				t = DARKNESS;
 			else
 				t = -1;
@@ -35,19 +36,19 @@ double	get_root(t_vec *coeffient)
 	return (t);
 }
 
-double	shoot_ray_sphere(t_vec *ray, t_sp *sp, t_point *start)
+double	shoot_ray_sp(t_vec *ray, t_sp *sp, t_point *start)
 {
-	t_vec	coeffient; //a, b, c
+	t_vec	coefficient; //a, b, c
 	t_vec	center_start;
 
 	center_start = subtract_vecs(*start, sp->center);
-	coeffient.x = dot_vecs(*ray, *ray);
-	coeffient.y = 2 * dot_vecs(center_start, *ray);
-	coeffient.z = dot_vecs(center_start, center_start) - pow(sp->radius, 2);
-	return (get_root(&coeffient));
+	coefficient.x = dot_vecs(*ray, *ray);
+	coefficient.y = 2 * dot_vecs(center_start, *ray);
+	coefficient.z = dot_vecs(center_start, center_start) - pow(sp->radius, 2);
+	return (get_root(&coefficient));
 }
 
-double	shoot_ray_plane(t_vec *ray, t_pl *pl)
+double	shoot_ray_pl(t_vec *ray, t_pl *pl)
 {
 	double	scalar;
 
@@ -57,57 +58,31 @@ double	shoot_ray_plane(t_vec *ray, t_pl *pl)
 	return (dot_vecs(pl->point, pl->n_vector) / scalar);
 }
 
-double	shoot_ray_cylinder(t_vec *ray, t_cy *cy, t_poi *poi)
-{
-	if (cy->side == TOP || cy->side == TOP_SIDE)
-	{
-		
-	}
-	if (cy->side == BOTTOM || cy->side == BOTTOM_SIDE)
-	{
-
-	}
-	if (cy->side == SIDE || cy->side == TOP_SIDE || cy->side == BOTTOM_SIDE)
-	{
-
-	}
-}
-
-
 int		shoot_ray(t_vec *ray, t_box *box)
 {
 	t_obj	*cur;
 	t_poi	poi;
 	double	closest_t;
 	double	t;
-	t_ptype type = 0;
-
-	double	cos_theta;
-	t_stype side;
+	t_ptype type;
 
 	cur = box->objs;
 	closest_t = INFINITY;
+	type = 0;
 	while (cur != 0)
 	{
 		if (cur->type == SPHERE)
 		{
-			t = shoot_ray_sphere(ray, (t_sp *)cur->data, &box->cam->pos);
+			t = shoot_ray_sp(ray, (t_sp *)cur->data, &box->cam->pos);
 			type = SPHERE_GENERAL;
 		}
 		else if (cur->type == PLANE)
 		{
-			t = shoot_ray_plane(ray, (t_pl *)cur->data);
+			t = shoot_ray_pl(ray, (t_pl *)cur->data);
 			type = PLANE_GENERAL;
 		}
-		else if (cur->type == CYLINDER)
-		{
-			t = shoot_ray_cylinder(ray, (t_cy *)cur->data, &poi);
-			//cylinder_top
-			//bottom
-			//side 
-			// 3개의 t값
-		}
-		
+		//else if (cur->type == CYLINDER)
+		//	t = shoot_ray_cy(ray, (t_cy *)cur->data, &poi, &box->cam->pos);
 		/**
 			...
 		 *
@@ -146,7 +121,7 @@ void	set_sideview(t_box *box)
 	{
 		if (obj->type == CYLINDER)
 		{
-			cos_theta = dot_vecs(((t_cy *)obj->data)->point, \
+			cos_theta = dot_vecs(((t_cy *)obj->data)->bottom, \
 				((t_cy *)obj->data)->n_vector);
 			if (cos_theta == -1)
 				side = TOP;

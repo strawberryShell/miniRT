@@ -6,7 +6,7 @@
 /*   By: jiskim <jiskim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 11:03:31 by sehhong           #+#    #+#             */
-/*   Updated: 2022/06/01 21:35:05 by jiskim           ###   ########.fr       */
+/*   Updated: 2022/06/03 18:30:32 by jiskim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,9 @@ int		click_red(t_box *box);
 /* render */
 void	ray_tracing(t_box *box);
 int		phong_lighting(t_poi *poi, t_box *box);
-double	shoot_ray_sphere(t_vec *ray, t_sp *sp, t_point *start);
-double	shoot_ray_plane(t_vec *ray, t_pl *pl);
+double	shoot_ray_sp(t_vec *ray, t_sp *sp, t_point *start);
+double	shoot_ray_pl(t_vec *ray, t_pl *pl);
+double	get_root(t_vec *coefficient);
 
 /* parse */
 void	read_file(t_box *box, char *f_name);
