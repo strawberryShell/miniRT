@@ -6,7 +6,7 @@
 /*   By: jiskim <jiskim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/01 14:56:06 by jiskim            #+#    #+#             */
-/*   Updated: 2022/06/03 18:29:51 by jiskim           ###   ########.fr       */
+/*   Updated: 2022/06/03 20:47:52 by jiskim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,25 @@ t_vec calc_diffuse(t_phong *phong, t_box *box)
 		(cos_theta / 255) * box->lights->b_ratio));
 }
 
+t_vec	get_cy_nvec(t_poi *poi, t_cy *cy)
+{
+	t_vec	normal_vec;
+	t_vec	cp;
+	t_vec	qc;
+
+	if (poi->type == CYLINDER_TOP)
+		normal_vec = cy->n_vector;
+	else if (poi->type == CYLINDER_BOTTOM)
+		normal_vec = scale_vec(cy->n_vector, -1);
+	else
+	{
+		cp = subtract_vecs(poi->point, cy->bottom);
+		qc = scale_vec(cy->n_vector, dot_vecs(cp, cy->n_vector) * -1);
+		normal_vec = scale_vec(add_vecs(qc, cp), 1 / cy->radius);
+	}
+	return (normal_vec);
+}
+
 t_phong	get_phong_vecs(t_poi *poi, t_box *box)
 {
 	t_phong	phong;
@@ -69,6 +88,9 @@ t_phong	get_phong_vecs(t_poi *poi, t_box *box)
 		else
 			phong.normal_vec = scale_vec(((t_pl *)poi->data)->n_vector, -1);
 	}
+	else if (poi->type == CYLINDER_TOP || poi->type == CYLINDER_BOTTOM \
+			|| poi->type == CYLINDER_SIDE)
+		phong.normal_vec = get_cy_nvec(poi, poi->data);
 	phong.light_vec = normalize_vec(\
 		subtract_vecs(box->lights->pos, poi->point));
 	phong.cos_theta = dot_vecs(phong.light_vec, phong.normal_vec);
@@ -91,9 +113,12 @@ int	is_shadow(t_poi *poi, t_box *box)
 		{
 			light_vec = subtract_vecs(box->lights->pos, poi->point);
 			if (cur->type == SPHERE)
-				t = shoot_ray_sp(&light_vec, (t_sp *)cur->data, &poi->point);
+				t = shoot_ray_sp(&light_vec, (t_sp *)cur->data, &poi->point, NULL);
 			else if (cur->type == PLANE)
-				t = shoot_ray_pl(&light_vec, (t_pl *)cur->data);
+				t = shoot_ray_pl(&light_vec, (t_pl *)cur->data, NULL);
+			else if (poi->type == CYLINDER_TOP || poi->type == CYLINDER_BOTTOM \
+				|| poi->type == CYLINDER_SIDE)
+				t = shoot_ray_cy(&light_vec, (t_cy *)cur->data, &poi->point, NULL);
 			if (t > 0 && t < 1)
 				return (1);
 		}
@@ -121,6 +146,9 @@ int phong_lighting(t_poi *poi, t_box *box)
 		obj_color = ((t_sp *)poi->data)->color;
 	else if (poi->type == PLANE_GENERAL)
 		obj_color = ((t_pl *)poi->data)->color;
+	else if (poi->type == CYLINDER_TOP || poi->type == CYLINDER_BOTTOM \
+		|| poi->type == CYLINDER_SIDE)
+		obj_color = ((t_cy *)poi->data)->color;
 	color = multiply_vecs(light, obj_color);
 	return (calc_color(color.x, color.y, color.z));
 }

@@ -6,7 +6,7 @@
 /*   By: jiskim <jiskim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 20:20:41 by jiskim            #+#    #+#             */
-/*   Updated: 2022/06/03 18:30:12 by jiskim           ###   ########.fr       */
+/*   Updated: 2022/06/03 21:42:31 by jiskim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +36,13 @@ double	get_root(t_vec *coefficient)
 	return (t);
 }
 
-double	shoot_ray_sp(t_vec *ray, t_sp *sp, t_point *start)
+double	shoot_ray_sp(t_vec *ray, t_sp *sp, t_point *start, t_ptype *type)
 {
 	t_vec	coefficient; //a, b, c
 	t_vec	center_start;
 
+	if (type)
+	*type = SPHERE_GENERAL;
 	center_start = subtract_vecs(*start, sp->center);
 	coefficient.x = dot_vecs(*ray, *ray);
 	coefficient.y = 2 * dot_vecs(center_start, *ray);
@@ -48,10 +50,12 @@ double	shoot_ray_sp(t_vec *ray, t_sp *sp, t_point *start)
 	return (get_root(&coefficient));
 }
 
-double	shoot_ray_pl(t_vec *ray, t_pl *pl)
+double	shoot_ray_pl(t_vec *ray, t_pl *pl, t_ptype *type)
 {
 	double	scalar;
 
+	if (type)
+		*type = PLANE_GENERAL;
 	scalar = dot_vecs(*ray, pl->n_vector);
 	if (scalar == 0) //명륜진사갈비
 		return (0);
@@ -72,17 +76,11 @@ int		shoot_ray(t_vec *ray, t_box *box)
 	while (cur != 0)
 	{
 		if (cur->type == SPHERE)
-		{
-			t = shoot_ray_sp(ray, (t_sp *)cur->data, &box->cam->pos);
-			type = SPHERE_GENERAL;
-		}
+			t = shoot_ray_sp(ray, (t_sp *)cur->data, &box->cam->pos, &type);
 		else if (cur->type == PLANE)
-		{
-			t = shoot_ray_pl(ray, (t_pl *)cur->data);
-			type = PLANE_GENERAL;
-		}
-		//else if (cur->type == CYLINDER)
-		//	t = shoot_ray_cy(ray, (t_cy *)cur->data, &poi, &box->cam->pos);
+			t = shoot_ray_pl(ray, (t_pl *)cur->data, &type);
+		else if (cur->type == CYLINDER)
+			t = shoot_ray_cy(ray, (t_cy *)cur->data, &box->cam->pos, &type);
 		/**
 			...
 		 *
@@ -114,6 +112,7 @@ void	set_sideview(t_box *box)
 	t_obj	*obj;
 	double	cos_theta;
 	t_stype	side;
+	t_point	middle;
 
 	obj = box->objs;
 	cos_theta = 0;
@@ -121,18 +120,23 @@ void	set_sideview(t_box *box)
 	{
 		if (obj->type == CYLINDER)
 		{
-			cos_theta = dot_vecs(((t_cy *)obj->data)->bottom, \
+			middle = scale_vec(add_vecs(((t_cy *)obj->data)->bottom, \
+				((t_cy *)obj->data)->top), 0.5);
+			printf("middle is %f %f %f\n", middle.x, middle.y, middle.z);
+			cos_theta = dot_vecs(normalize_vec(middle), \
 				((t_cy *)obj->data)->n_vector);
 			if (cos_theta == -1)
 				side = TOP;
-			else if (cos_theta == 0)
-				side = SIDE;
 			else if (cos_theta == 1)
 				side = BOTTOM;
+			else if (cos_theta == 0)
+				side = SIDE;
 			else if (cos_theta < 0)
 				side = TOP_SIDE;
 			else
 				side = BOTTOM_SIDE;
+			// 범위 잘 생각하기
+			printf("cos_theta is %f, side is %d\n",cos_theta, side);
 			((t_cy *)obj->data)->side = side;
 		}
 		obj = obj->next;

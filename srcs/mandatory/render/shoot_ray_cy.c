@@ -6,13 +6,13 @@
 /*   By: jiskim <jiskim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/03 13:23:03 by jiskim            #+#    #+#             */
-/*   Updated: 2022/06/03 17:25:43 by jiskim           ###   ########.fr       */
+/*   Updated: 2022/06/03 21:42:39 by jiskim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-static int	shoot_ray_top(t_vec *ray, t_cy *cy, t_point *start)
+static double	shoot_ray_top(t_vec *ray, t_cy *cy, t_point *start)
 {
 	t_vec	v;
 	double	t;
@@ -28,7 +28,7 @@ static int	shoot_ray_top(t_vec *ray, t_cy *cy, t_point *start)
 	return (-1);
 }
 
-static int	shoot_ray_bottom(t_vec *ray, t_cy *cy, t_point *start)
+static double	shoot_ray_bottom(t_vec *ray, t_cy *cy, t_point *start)
 {
 	t_vec	v;
 	double	t;
@@ -39,12 +39,13 @@ static int	shoot_ray_bottom(t_vec *ray, t_cy *cy, t_point *start)
 	if (t < 0)
 		return (-1);
 	poi = add_vecs(*start, scale_vec(*ray, t));
-	if (get_vec_len(subtract_vecs(poi, cy->bottom)) < cy->radius)
+	int len = get_vec_len(subtract_vecs(poi, cy->bottom));
+	if (len < cy->radius)
 		return (t);
 	return (-1);
 }
 
-static int	shoot_ray_side(t_vec *ray, t_cy *cy, t_point *start)
+static double	shoot_ray_side(t_vec *ray, t_cy *cy, t_point *start)
 {
 	t_vec	w;
 	t_vec	coefficient;
@@ -60,8 +61,7 @@ static int	shoot_ray_side(t_vec *ray, t_cy *cy, t_point *start)
 	t = get_root(&coefficient);
 	if (t < 0) // DARKNESS, -1
 		return (t);
-	poi_height = dot_vecs(subtract_vecs(add_vecs(*start, \
-		scale_vec(*ray, t)), cy->bottom), cy->n_vector);
+	poi_height = dot_vecs(subtract_vecs(add_vecs(*start, scale_vec(*ray, t)), cy->bottom), cy->n_vector);
 	if (is_between(0, cy->height, poi_height))
 		return (t);
 	return (-1);
@@ -71,7 +71,7 @@ static int	shoot_ray_side(t_vec *ray, t_cy *cy, t_point *start)
 // 밑면, 옆면
 // 1. 둘 중 가까운 t를 구함 (get_root 갔다와서 3가지 경우의 수만 존재함.)
 // 2. DARKNESS
-double	check_root(double *t, t_poi *poi)
+double	check_root(double *t, t_ptype *type)
 {
 	if (t[1] == INFINITY) // TOP, BOTTOM, SIDE
 		return (t[0]);
@@ -85,12 +85,12 @@ double	check_root(double *t, t_poi *poi)
 	{
 		if (t[0] >= 0 && t[1] < 0)
 			return (DARKNESS);
-		poi->type = CYLINDER_SIDE;
+		*type = CYLINDER_SIDE;
 		return (t[1]); // -1 or 양수
 	}
 }
 
-double	shoot_ray_cy(t_vec *ray, t_cy *cy, t_poi *poi, t_point *start)
+double	shoot_ray_cy(t_vec *ray, t_cy *cy, t_point *start, t_ptype *type)
 {
 	double	t[2];
 
@@ -99,22 +99,22 @@ double	shoot_ray_cy(t_vec *ray, t_cy *cy, t_poi *poi, t_point *start)
 	if (cy->side == TOP || cy->side == TOP_SIDE)
 	{
 		t[0] = shoot_ray_top(ray, cy, start);
-		poi->type = CYLINDER_TOP;
+		*type = CYLINDER_TOP;
 	}
 	if (cy->side == BOTTOM || cy->side == BOTTOM_SIDE)
 	{
 		t[0] = shoot_ray_bottom(ray, cy, start);
-		poi->type = CYLINDER_BOTTOM;
+		*type = CYLINDER_BOTTOM;
 	}
 	if (cy->side == SIDE || cy->side == TOP_SIDE || cy->side == BOTTOM_SIDE)
 	{
 		if (t[0] == INFINITY)
 		{
 			t[0] = shoot_ray_side(ray, cy, start);
-			poi->type = CYLINDER_SIDE;
+			*type = CYLINDER_SIDE;
 		}
 		else
 			t[1] = shoot_ray_side(ray, cy, start); // 근이 2개
 	}
-	return (check_root(t, poi));
+	return (check_root(t, type));
 }
