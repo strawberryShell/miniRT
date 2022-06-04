@@ -6,7 +6,7 @@
 /*   By: sehhong <sehhong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 20:20:41 by jiskim            #+#    #+#             */
-/*   Updated: 2022/06/04 18:47:04 by sehhong          ###   ########.fr       */
+/*   Updated: 2022/06/04 21:49:21 by sehhong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,8 @@ int		shoot_ray(t_vec *ray, t_box *box)
 			t = shoot_ray_pl(ray, (t_pl *)cur->data, &type);
 		else if (cur->type == CYLINDER)
 			t = shoot_ray_cy(ray, (t_cy *)cur->data, &box->cam->pos, &type);
+		else
+			t = shoot_ray_cn(ray, (t_cn *)cur->data, &box->cam->pos, &type);
 		if (t == DARKNESS)
 			return (DARKNESS);
 		if (t >= 0)

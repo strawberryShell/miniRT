@@ -6,7 +6,7 @@
 /*   By: sehhong <sehhong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/03 13:23:03 by jiskim            #+#    #+#             */
-/*   Updated: 2022/06/04 19:17:37 by sehhong          ###   ########.fr       */
+/*   Updated: 2022/06/04 20:24:20 by sehhong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static double	shoot_ray_top(t_vec *ray, t_cy *cy, t_point *start)
 	v = subtract_vecs(cy->top, *start);
 	t = dot_vecs(v, cy->n_vector) / dot_vecs(*ray, cy->n_vector);
 	if (t < 0)
-		return (-2);
+		return (-1);
 	poi = add_vecs(*start, scale_vec(*ray, t));
 	if (get_vec_len(subtract_vecs(poi, cy->top)) < cy->radius)
 		return (t);
@@ -37,7 +37,7 @@ static double	shoot_ray_bottom(t_vec *ray, t_cy *cy, t_point *start)
 	v = subtract_vecs(cy->bottom, *start);
 	t = dot_vecs(v, cy->n_vector) / dot_vecs(*ray, cy->n_vector);
 	if (t < 0)
-		return (-2);
+		return (-1);
 	poi = add_vecs(*start, scale_vec(*ray, t));
 	if (get_vec_len(subtract_vecs(poi, cy->bottom)) < cy->radius)
 		return (t);

@@ -6,7 +6,7 @@
 /*   By: sehhong <sehhong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 11:03:31 by sehhong           #+#    #+#             */
-/*   Updated: 2022/06/04 16:57:02 by sehhong          ###   ########.fr       */
+/*   Updated: 2022/06/04 21:48:53 by sehhong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ int		phong_lighting(t_poi *poi, t_box *box);
 double	shoot_ray_sp(t_vec *ray, t_sp *sp, t_point *start, t_ptype *type);
 double	shoot_ray_pl(t_vec *ray, t_pl *pl, t_ptype *type);
 double	shoot_ray_cy(t_vec *ray, t_cy *cy, t_point *start, t_ptype *type);
+double	shoot_ray_cn(t_vec *ray, t_cn *cn, t_point *start, t_ptype *type);
 double	get_root(t_vec *coefficient);
 
 /* parse */
@@ -59,6 +60,7 @@ void	parse_cam(t_box *box, char **arr);
 void	parse_sphere(t_box *box, char **arr);
 void	parse_plane(t_box *box, char **arr);
 void	parse_cylinder(t_box *box, char **arr);
+void	parse_cone(t_box *box, char **arr);
 
 /* transform */
 void	fill_tr_matrix(t_cam *cam, double *matrix);

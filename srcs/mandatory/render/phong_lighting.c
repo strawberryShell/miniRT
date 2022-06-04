@@ -6,7 +6,7 @@
 /*   By: sehhong <sehhong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/01 14:56:06 by jiskim            #+#    #+#             */
-/*   Updated: 2022/06/04 17:24:20 by sehhong          ###   ########.fr       */
+/*   Updated: 2022/06/04 21:49:29 by sehhong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,22 @@ t_vec calc_diffuse(t_phong *phong, t_box *box)
 		(cos_theta / 255) * box->lights->b_ratio));
 }
 
+t_vec	get_cn_nvec(t_poi *poi, t_cn *cn)
+{
+	t_vec	normal_vec;
+	t_vec	pc;
+
+	if (poi->type == CONE_BOTTOM)
+		normal_vec = cn->n_vector;
+	else
+	{
+		pc = subtract_vecs(cn->top, poi->point);
+		normal_vec = add_vecs(pc, \
+			scale_vec(cn->n_vector, get_vec_len(pc) / cn->cos_theta));
+	}
+	return (normal_vec);
+}
+
 t_vec	get_cy_nvec(t_poi *poi, t_cy *cy)
 {
 	t_vec	normal_vec;
@@ -91,6 +107,8 @@ t_phong	get_phong_vecs(t_poi *poi, t_box *box)
 	else if (poi->type == CYLINDER_TOP || poi->type == CYLINDER_BOTTOM \
 			|| poi->type == CYLINDER_SIDE)
 		phong.normal_vec = get_cy_nvec(poi, poi->data);
+	else
+		phong.normal_vec = get_cn_nvec(poi, poi->data);
 	phong.light_vec = normalize_vec(\
 		subtract_vecs(box->lights->pos, poi->point));
 	phong.cos_theta = dot_vecs(phong.light_vec, phong.normal_vec);
@@ -118,6 +136,8 @@ int	is_shadow(t_poi *poi, t_box *box)
 				t = shoot_ray_pl(&light_vec, (t_pl *)cur->data, NULL);
 			else if (cur->type == CYLINDER)
 				t = shoot_ray_cy(&light_vec, (t_cy *)cur->data, &poi->point, NULL);
+			else
+				t = shoot_ray_cn(&light_vec, (t_cn *)cur->data, &poi->point, NULL);
 			if (t > 0 && t < 1)
 				return (1);
 		}
@@ -148,6 +168,8 @@ int phong_lighting(t_poi *poi, t_box *box)
 	else if (poi->type == CYLINDER_TOP || poi->type == CYLINDER_BOTTOM \
 		|| poi->type == CYLINDER_SIDE)
 		obj_color = ((t_cy *)poi->data)->color;
+	else
+		obj_color = ((t_cn *)poi->data)->color;
 	color = multiply_vecs(light, obj_color);
 	return (calc_color(color.x, color.y, color.z));
 }

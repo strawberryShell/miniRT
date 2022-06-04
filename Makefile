@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jiskim <jiskim@student.42seoul.kr>         +#+  +:+       +#+         #
+#    By: sehhong <sehhong@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/10 11:02:22 by sehhong           #+#    #+#              #
-#    Updated: 2022/06/03 19:50:22 by jiskim           ###   ########.fr        #
+#    Updated: 2022/06/04 21:49:13 by sehhong          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,6 +35,7 @@ SRCS_M_RENDER		= $(addprefix $(SRCS_M_RENDER_DIR), \
 					ray_tracing.c \
 					phong_lighting.c \
 					shoot_ray_cy.c \
+					shoot_ray_cn.c \
 					)
 
 SRCS_M_CTLMLX		= $(addprefix $(SRCS_M_CTLMLX_DIR), \
