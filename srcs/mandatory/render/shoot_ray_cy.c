@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shoot_ray_cy.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jiskim <jiskim@student.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: sehhong <sehhong@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/03 13:23:03 by jiskim            #+#    #+#             */
-/*   Updated: 2022/06/03 21:42:39 by jiskim           ###   ########.fr       */
+/*   Updated: 2022/06/04 12:27:57 by sehhong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ static double	shoot_ray_side(t_vec *ray, t_cy *cy, t_point *start)
 	double	t;
 	double	poi_height;
 
-	w = subtract_vecs(*start, cy->top);
+	w = subtract_vecs(*start, cy->bottom);
 	coefficient.x = dot_vecs(*ray, *ray) - pow(dot_vecs(*ray, cy->n_vector), 2);
 	coefficient.y = 2 * (dot_vecs(*ray, w) - \
 		(dot_vecs(*ray, cy->n_vector) * dot_vecs(w, cy->n_vector)));
@@ -92,6 +92,43 @@ double	check_root(double *t, t_ptype *type)
 
 double	shoot_ray_cy(t_vec *ray, t_cy *cy, t_point *start, t_ptype *type)
 {
+	double	t;
+	double 	tmin;
+
+	tmin = INFINITY;
+	// if (cy->side == TOP || cy->side == TOP_SIDE)
+	// {
+		t = shoot_ray_top(ray, cy, start);
+		if (t < tmin && t >= 0)
+		{
+			tmin = t;
+			*type = CYLINDER_TOP;
+		}
+	// }
+	// if (cy->side == BOTTOM || cy->side == BOTTOM_SIDE)
+	// {
+		t = shoot_ray_bottom(ray, cy, start);
+		if (t < tmin && t >= 0)
+		{
+			tmin = t;
+			*type = CYLINDER_TOP;
+		}
+	// }
+	// if (cy->side == SIDE || cy->side == TOP_SIDE || cy->side == BOTTOM_SIDE)
+	// {
+		t =shoot_ray_side(ray, cy, start);
+		if (t < tmin && t >= 0)
+		{
+			tmin = t;
+			*type = CYLINDER_SIDE;
+		}
+	// }
+	return (tmin);
+}
+
+/*
+double	shoot_ray_cy(t_vec *ray, t_cy *cy, t_point *start, t_ptype *type)
+{
 	double	t[2];
 
 	t[0] = INFINITY;
@@ -118,3 +155,4 @@ double	shoot_ray_cy(t_vec *ray, t_cy *cy, t_point *start, t_ptype *type)
 	}
 	return (check_root(t, type));
 }
+*/
