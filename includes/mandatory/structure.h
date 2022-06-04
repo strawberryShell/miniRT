@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structure.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jiskim <jiskim@student.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: sehhong <sehhong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 11:10:00 by sehhong           #+#    #+#             */
-/*   Updated: 2022/06/03 18:04:29 by jiskim           ###   ########.fr       */
+/*   Updated: 2022/06/04 17:41:17 by sehhong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,15 +31,6 @@ typedef enum e_ptype
 	CONE_BOTTOM,
 	CONE_SIDE,
 }	t_ptype;
-
-typedef enum e_stype
-{
-	TOP = 0,
-	BOTTOM,
-	SIDE,
-	TOP_SIDE,
-	BOTTOM_SIDE,
-}	t_stype;
 
 typedef struct s_img
 {
@@ -93,7 +84,6 @@ typedef struct s_cy
 {
 	double	radius;
 	double	height;
-	t_stype	side;
 	t_point	top;
 	t_point	bottom;
 	t_vec	n_vector;

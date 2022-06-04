@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   phong_lighting.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jiskim <jiskim@student.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: sehhong <sehhong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/01 14:56:06 by jiskim            #+#    #+#             */
-/*   Updated: 2022/06/03 20:47:52 by jiskim           ###   ########.fr       */
+/*   Updated: 2022/06/04 17:24:20 by sehhong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,8 +116,7 @@ int	is_shadow(t_poi *poi, t_box *box)
 				t = shoot_ray_sp(&light_vec, (t_sp *)cur->data, &poi->point, NULL);
 			else if (cur->type == PLANE)
 				t = shoot_ray_pl(&light_vec, (t_pl *)cur->data, NULL);
-			else if (poi->type == CYLINDER_TOP || poi->type == CYLINDER_BOTTOM \
-				|| poi->type == CYLINDER_SIDE)
+			else if (cur->type == CYLINDER)
 				t = shoot_ray_cy(&light_vec, (t_cy *)cur->data, &poi->point, NULL);
 			if (t > 0 && t < 1)
 				return (1);

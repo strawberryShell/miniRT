@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ray_tracing.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jiskim <jiskim@student.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: sehhong <sehhong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 20:20:41 by jiskim            #+#    #+#             */
-/*   Updated: 2022/06/03 21:42:31 by jiskim           ###   ########.fr       */
+/*   Updated: 2022/06/04 17:41:38 by sehhong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,11 +81,6 @@ int		shoot_ray(t_vec *ray, t_box *box)
 			t = shoot_ray_pl(ray, (t_pl *)cur->data, &type);
 		else if (cur->type == CYLINDER)
 			t = shoot_ray_cy(ray, (t_cy *)cur->data, &box->cam->pos, &type);
-		/**
-			...
-		 *
-		 */
-		// 이전에 구한 벡터와 비교
 		if (t == DARKNESS)
 			return (DARKNESS);
 		if (t >= 0)
@@ -107,42 +102,6 @@ int		shoot_ray(t_vec *ray, t_box *box)
 	return (phong_lighting(&poi, box));
 }
 
-void	set_sideview(t_box *box)
-{
-	t_obj	*obj;
-	double	cos_theta;
-	t_stype	side;
-	t_point	middle;
-
-	obj = box->objs;
-	cos_theta = 0;
-	while (obj)
-	{
-		if (obj->type == CYLINDER)
-		{
-			middle = scale_vec(add_vecs(((t_cy *)obj->data)->bottom, \
-				((t_cy *)obj->data)->top), 0.5);
-			printf("middle is %f %f %f\n", middle.x, middle.y, middle.z);
-			cos_theta = dot_vecs(normalize_vec(middle), \
-				((t_cy *)obj->data)->n_vector);
-			if (cos_theta == -1)
-				side = TOP;
-			else if (cos_theta == 1)
-				side = BOTTOM;
-			else if (cos_theta == 0)
-				side = SIDE;
-			else if (cos_theta < 0)
-				side = TOP_SIDE;
-			else
-				side = BOTTOM_SIDE;
-			// 범위 잘 생각하기
-			printf("cos_theta is %f, side is %d\n",cos_theta, side);
-			((t_cy *)obj->data)->side = side;
-		}
-		obj = obj->next;
-	}
-}
-
 void	ray_tracing(t_box *box)
 {
 	t_point	cur;
@@ -150,7 +109,6 @@ void	ray_tracing(t_box *box)
 
 	cur = box->top_left;
 	color = 0;
-	set_sideview(box);
 	while (box->top_left.y - cur.y < SCN_HEIGHT)
 	{
 		cur.x = box->top_left.x;

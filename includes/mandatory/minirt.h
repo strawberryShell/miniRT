@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jiskim <jiskim@student.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: sehhong <sehhong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 11:03:31 by sehhong           #+#    #+#             */
-/*   Updated: 2022/06/03 19:49:23 by jiskim           ###   ########.fr       */
+/*   Updated: 2022/06/04 16:57:02 by sehhong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINIRT_H
 # define MINIRT_H
 
-# define SCN_WIDTH	800
-# define SCN_HEIGHT	400
+# define SCN_WIDTH	1024
+# define SCN_HEIGHT	720
 # define POINT	0
 # define COLOR	1
 # define VECTOR	2
