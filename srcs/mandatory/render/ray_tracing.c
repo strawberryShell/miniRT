@@ -6,7 +6,7 @@
 /*   By: sehhong <sehhong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 20:20:41 by jiskim            #+#    #+#             */
-/*   Updated: 2022/06/04 17:41:38 by sehhong          ###   ########.fr       */
+/*   Updated: 2022/06/04 18:47:04 by sehhong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ double	shoot_ray_sp(t_vec *ray, t_sp *sp, t_point *start, t_ptype *type)
 	t_vec	center_start;
 
 	if (type)
-	*type = SPHERE_GENERAL;
+		*type = SPHERE_GENERAL;
 	center_start = subtract_vecs(*start, sp->center);
 	coefficient.x = dot_vecs(*ray, *ray);
 	coefficient.y = 2 * dot_vecs(center_start, *ray);
