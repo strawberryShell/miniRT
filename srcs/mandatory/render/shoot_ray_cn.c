@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shoot_ray_cn.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sehhong <sehhong@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sehhong <sehhong@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/04 20:52:02 by sehhong           #+#    #+#             */
-/*   Updated: 2022/06/04 21:39:20 by sehhong          ###   ########.fr       */
+/*   Updated: 2022/06/05 17:08:41 by sehhong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,26 +30,33 @@ static double	shoot_ray_bottom(t_vec *ray, t_cn *cn, t_point *start)
 	return (-1);
 }
 
-static double	shoot_ray_side(t_vec *ray, t_cn *cn, t_point *start)
+static	double	find_t_side(t_vec *ray, t_cn *cn, t_point *start)
 {
 	t_vec   w;
     t_vec   coefficient;
-    double  t;
-    t_vec   cp;
+	double	m;
 
     w = subtract_vecs(*start, cn->top);
-    coefficient.x = pow(dot_vecs(*ray, cn->n_vector), 2) - \
-        pow(cn->cos_theta, 2);
-    coefficient.y = 2 * (dot_vecs(*ray, cn->n_vector) * \
-        dot_vecs(w, cn->n_vector) - dot_vecs(*ray, w) * pow(cn->cos_theta, 2));
-    coefficient.z = pow(dot_vecs(w, cn->n_vector), 2) - dot_vecs(w, w) * \
-        pow(cn->cos_theta, 2);
-    t = get_root(&coefficient);
+	m = pow(cn->radius / cn->height, 2) + 1;
+    coefficient.x = dot_vecs(*ray, *ray) - \
+		m * pow(dot_vecs(*ray, cn->n_vector), 2);
+    coefficient.y = 2 * (dot_vecs(*ray, w) - m * \
+		dot_vecs(*ray, cn->n_vector) * dot_vecs(w, cn->n_vector));
+    coefficient.z = dot_vecs(w, w) - m * pow(dot_vecs(w, cn->n_vector), 2);
+	return (get_root(&coefficient));
+}
+
+static double	shoot_ray_side(t_vec *ray, t_cn *cn, t_point *start)
+{
+    double  t;
+    double  hq;
+
+    t = find_t_side(ray, cn, start);
     if (t < 0)
         return (-1);
-    cp = subtract_vecs(add_vecs(scale_vec(*ray, t), *start), cn->top);
-    if (dot_vecs(normalize_vec(cp), cn->n_vector) > 0 && \
-        dot_vecs(cp, cn->n_vector) < cn->height)
+    hq = dot_vecs(subtract_vecs(add_vecs(scale_vec(*ray, t), *start), cn->top),\
+		cn->n_vector);
+    if (hq < cn->height && hq > 0)
         return (t);
 	return (-1);
 }
