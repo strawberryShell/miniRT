@@ -6,7 +6,7 @@
 /*   By: jiskim <jiskim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/03 13:23:03 by jiskim            #+#    #+#             */
-/*   Updated: 2022/06/06 17:45:19 by jiskim           ###   ########.fr       */
+/*   Updated: 2022/06/06 22:26:34 by jiskim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,17 @@ static double	shoot_ray_top(t_vec *ray, t_cy *cy, t_point *start)
 {
 	t_vec	v;
 	double	t;
-	t_point	poi;
+	double	cos_theta;
 
 	v = subtract_vecs(cy->top, *start);
-	t = dot_vecs(v, cy->n_vector) / dot_vecs(*ray, cy->n_vector);
+	cos_theta = dot_vecs(*ray, cy->n_vector);
+	if (cos_theta == 0)
+		return (-1);
+	t = dot_vecs(v, cy->n_vector) / cos_theta;
 	if (t < 0)
 		return (-1);
-	poi = add_vecs(*start, scale_vec(*ray, t));
-	if (get_vec_len(subtract_vecs(poi, cy->top)) <= cy->radius)
+	if (get_vec_len(subtract_vecs(add_vecs(*start, \
+		scale_vec(*ray, t)), cy->top)) <= cy->radius)
 		return (t);
 	return (-1);
 }
@@ -32,14 +35,17 @@ static double	shoot_ray_bottom(t_vec *ray, t_cy *cy, t_point *start)
 {
 	t_vec	v;
 	double	t;
-	t_point	poi;
+	double	cos_theta;
 
 	v = subtract_vecs(cy->bottom, *start);
-	t = dot_vecs(v, cy->n_vector) / dot_vecs(*ray, cy->n_vector);
+	cos_theta = dot_vecs(*ray, cy->n_vector);
+	if (cos_theta == 0)
+		return (-1);
+	t = dot_vecs(v, cy->n_vector) / cos_theta;
 	if (t < 0)
 		return (-1);
-	poi = add_vecs(*start, scale_vec(*ray, t));
-	if (get_vec_len(subtract_vecs(poi, cy->bottom)) <= cy->radius)
+	if (get_vec_len(subtract_vecs(add_vecs(*start, scale_vec(*ray, t)), \
+		cy->bottom)) <= cy->radius)
 		return (t);
 	return (-1);
 }
@@ -60,7 +66,8 @@ static double	shoot_ray_side(t_vec *ray, t_cy *cy, t_point *start)
 	t = get_root(&coef);
 	if (t < 0)
 		return (-1);
-	poi_height = dot_vecs(subtract_vecs(add_vecs(*start, scale_vec(*ray, t)), cy->bottom), cy->n_vector);
+	poi_height = dot_vecs(subtract_vecs(add_vecs(*start, \
+		scale_vec(*ray, t)), cy->bottom), cy->n_vector);
 	if (is_between(0, cy->height, poi_height))
 		return (t);
 	return (-1);
@@ -69,16 +76,14 @@ static double	shoot_ray_side(t_vec *ray, t_cy *cy, t_point *start)
 double	shoot_ray_cy(t_vec *ray, t_cy *cy, t_point *start, t_ptype *type)
 {
 	double	t;
-	double 	tmin;
+	double	tmin;
 	t_ptype	cy_type;
 
 	tmin = INFINITY;
+	cy_type = CYLINDER_TOP;
 	t = shoot_ray_top(ray, cy, start);
 	if (t < tmin && t >= 0)
-	{
 		tmin = t;
-		cy_type = CYLINDER_TOP;
-	}
 	t = shoot_ray_bottom(ray, cy, start);
 	if (t < tmin && t >= 0)
 	{

@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   read_file.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sehhong <sehhong@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jiskim <jiskim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 23:33:38 by sehhong           #+#    #+#             */
-/*   Updated: 2022/06/04 20:39:54 by sehhong          ###   ########.fr       */
+/*   Updated: 2022/06/06 21:18:14 by jiskim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-static	void	analyze_line(t_box *box, char *line)
+static void	analyze_line(t_box *box, char *line)
 {
 	char	**arr;
 
@@ -40,7 +40,7 @@ static	void	analyze_line(t_box *box, char *line)
 }
 
 // 파싱결과 validate하기
-static	void	validate_file(t_box *box)
+static void	validate_file(t_box *box)
 {
 	if (!box->cam)
 		exit_with_err("Cannot find camera element in the file", NULL);
@@ -53,15 +53,21 @@ static	void	validate_file(t_box *box)
 		exit_with_err("Cannot find any object element in the file", NULL);
 }
 
-void	read_file(t_box *box, char *f_name)
+static void	check_filename(char *f_name)
 {
 	char	*ptr;
-	char	*line;
-	int		fd;
 
 	ptr = ft_strrchr(f_name, '.');
 	if (!ptr || ft_strncmp(ptr + 1, "rt", 3))
 		exit_with_err("Invalid format of file", NULL);
+}
+
+void	read_file(t_box *box, char *f_name)
+{
+	char	*line;
+	int		fd;
+
+	check_filename(f_name);
 	fd = open(f_name, O_RDONLY);
 	if (fd == -1)
 		exit_with_err("Failed to call open(): ", strerror(errno));
@@ -79,7 +85,6 @@ void	read_file(t_box *box, char *f_name)
 		if (*line)
 			analyze_line(box, line);
 		free(line);
-		line = NULL;
 	}
 	close(fd);
 	validate_file(box);

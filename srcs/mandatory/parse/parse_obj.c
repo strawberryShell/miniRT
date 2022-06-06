@@ -6,7 +6,7 @@
 /*   By: jiskim <jiskim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/14 11:03:49 by sehhong           #+#    #+#             */
-/*   Updated: 2022/06/06 15:28:55 by jiskim           ###   ########.fr       */
+/*   Updated: 2022/06/06 21:14:48 by jiskim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,6 @@ void	parse_plane(t_box *box, char **arr)
 	pl = (t_pl *)ft_calloc(1, sizeof(t_pl));
 	pl->point = parse_vector(arr[1], ele, POINT);
 	pl->n_vector = parse_vector(arr[2], ele, VECTOR);
-	//if (get_vec_len(pl->n_vector) != 1)
-	//	exit_with_err("Vector is not normalized: ", ele);
 	pl->color = parse_vector(arr[3], ele, COLOR);
 	add_obj(box, PLANE, pl);
 }
@@ -54,8 +52,6 @@ void	parse_cylinder(t_box *box, char **arr)
 	cy = (t_cy *)ft_calloc(1, sizeof(t_cy));
 	cy->bottom = parse_vector(arr[1], ele, POINT);
 	cy->n_vector = parse_vector(arr[2], ele, VECTOR);
-	//if (get_vec_len(cy->n_vector) != 1)
-	//	exit_with_err("Vector is not normalized: ", ele);
 	cy->radius = ft_atod(arr[3], ele) * 0.5;
 	if (cy->radius <= 0)
 		exit_with_err("Invalid value of radius : ", ele);
@@ -77,8 +73,6 @@ void	parse_cone(t_box *box, char **arr)
 	cn = (t_cn *)ft_calloc(1, sizeof(t_cn));
 	cn->top = parse_vector(arr[1], ele, POINT);
 	cn->n_vector = parse_vector(arr[2], ele, VECTOR);
-	//if (get_vec_len(cn->n_vector) != 1)
-	//	exit_with_err("Vector is not normalized: ", ele);
 	cn->radius = ft_atod(arr[3], ele) * 0.5;
 	if (cn->radius <= 0)
 		exit_with_err("Invalid value of radius : ", ele);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt_bonus.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sehhong <sehhong@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: jiskim <jiskim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 10:30:56 by sehhong           #+#    #+#             */
-/*   Updated: 2022/05/30 15:14:03 by sehhong          ###   ########.fr       */
+/*   Updated: 2022/06/06 22:29:31 by jiskim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,11 +56,11 @@ void	parse_plane(t_box *box, char **arr);
 void	parse_cylinder(t_box *box, char **arr);
 void	parse_cone(t_box *box, char **arr);
 
-/* transform */
+/* xform */
 void	fill_tr_matrix(t_cam *cam, double *matrix);
-void	transform_coord(t_box *box);
-t_vec	transform_vec(double *m, t_vec vec);
-t_vec	transform_point(double *m, t_vec point);
+void	xform_coord(t_box *box);
+t_vec	xform_vec(double *m, t_vec vec);
+t_vec	xform_point(double *m, t_vec point);
 
 /* utils */
 void	exit_with_err(char *err_str, char *err_str2);

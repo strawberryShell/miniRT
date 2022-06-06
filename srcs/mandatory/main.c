@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sehhong <sehhong@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jiskim <jiskim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 11:00:12 by sehhong           #+#    #+#             */
-/*   Updated: 2022/06/02 16:27:24 by sehhong          ###   ########.fr       */
+/*   Updated: 2022/06/06 22:29:31 by jiskim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	main(int argc, char **argv)
 	if (argc != 2)
 		exit_with_err("Invalid number of argument", NULL);
 	read_file(&box, argv[1]);
-	transform_coord(&box);
+	xform_coord(&box);
 	init_mlx_attr(&box);
 	ray_tracing(&box);
 	mlx_put_image_to_window(box.mlx, box.win, (char *)box.frame.img, 0, 0);

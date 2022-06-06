@@ -6,7 +6,7 @@
 /*   By: jiskim <jiskim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/14 11:05:41 by sehhong           #+#    #+#             */
-/*   Updated: 2022/06/01 14:47:33 by jiskim           ###   ########.fr       */
+/*   Updated: 2022/06/06 21:15:00 by jiskim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,10 +62,8 @@ void	parse_cam(t_box *box, char **arr)
 	box->cam = (t_cam *)ft_calloc(1, sizeof(t_cam));
 	box->cam->pos = parse_vector(arr[1], ele, POINT);
 	box->cam->n_vector = parse_vector(arr[2], ele, VECTOR);
-	//if (get_vec_len(box->cam->n_vector) != 1)
-	//	exit_with_err("Vector is not normalized: ", ele);
 	fov = ft_atod(arr[3], ele);
-	if (!is_between(0, 180, fov))
+	if (fov >= 180 || fov <= 0)
 		exit_with_err("Invalid value of FOV", NULL);
 	box->cam->foc_len = 0.5 * SCN_WIDTH * (1 / tan(0.5 * fov * M_PI / 180));
 }

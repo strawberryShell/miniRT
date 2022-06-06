@@ -6,7 +6,7 @@
 /*   By: jiskim <jiskim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 17:05:22 by sehhong           #+#    #+#             */
-/*   Updated: 2022/05/31 17:01:10 by jiskim           ###   ########.fr       */
+/*   Updated: 2022/06/06 21:11:35 by jiskim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,19 +30,11 @@ double	get_vec_len(t_vec vec)
 	return (sqrt(square));
 }
 
-double	dot_vecs(t_vec vec1, t_vec vec2)
+int	cmp_vec(t_vec vec1, t_vec vec2)
 {
-	return (vec1.x * vec2.x + vec1.y * vec2.y + vec1.z * vec2.z);
-}
-
-t_vec	cross_vecs(t_vec vec1, t_vec vec2)
-{
-	t_vec	new_vec;
-
-	new_vec.x = vec1.y * vec2.z - vec1.z * vec2.y;
-	new_vec.y = vec1.z * vec2.x - vec1.x * vec2.z;
-	new_vec.z = vec1.x * vec2.y - vec1.y * vec2.x;
-	return (new_vec);
+	if (vec1.x == vec2.x && vec1.y == vec2.y && vec1.z == vec2.z)
+		return (0);
+	return (1);
 }
 
 t_vec	scale_vec(t_vec vec, double k)
@@ -52,43 +44,6 @@ t_vec	scale_vec(t_vec vec, double k)
 	new_vec.x = k * vec.x;
 	new_vec.y = k * vec.y;
 	new_vec.z = k * vec.z;
-	return (new_vec);
-}
-
-t_vec	add_vecs(t_vec vec1, t_vec vec2)
-{
-	t_vec	new_vec;
-
-	new_vec.x = vec1.x + vec2.x;
-	new_vec.y = vec1.y + vec2.y;
-	new_vec.z = vec1.z + vec2.z;
-	return (new_vec);
-}
-
-t_vec	subtract_vecs(t_vec vec1, t_vec vec2)
-{
-	t_vec	new_vec;
-
-	new_vec.x = vec1.x - vec2.x;
-	new_vec.y = vec1.y - vec2.y;
-	new_vec.z = vec1.z - vec2.z;
-	return (new_vec);
-}
-
-int	cmp_vec(t_vec vec1, t_vec vec2)
-{
-	if (vec1.x == vec2.x && vec1.y == vec2.y && vec1.z == vec2.z)
-		return (0);
-	return (1);
-}
-
-t_vec	multiply_vecs(t_vec vec1, t_vec vec2)
-{
-	t_vec	new_vec;
-
-	new_vec.x = vec1.x * vec2.x;
-	new_vec.y = vec1.y * vec2.y;
-	new_vec.z = vec1.z * vec2.z;
 	return (new_vec);
 }
 
