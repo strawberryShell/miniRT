@@ -6,7 +6,7 @@
 /*   By: jiskim <jiskim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/12 13:52:07 by sehhong           #+#    #+#             */
-/*   Updated: 2022/06/03 17:08:08 by jiskim           ###   ########.fr       */
+/*   Updated: 2022/06/06 17:47:05 by jiskim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,7 @@ static void	transform_objs(t_box *box, double *matrix)
 static int	need_transform(t_cam *cam)
 {
 	return (!(!cam->pos.x && !cam->pos.y && !cam->pos.z && \
-		!cam->n_vector.x && !cam->n_vector.y && \
-		cam->n_vector.z == -1));
+		!cam->n_vector.x && !cam->n_vector.y && cam->n_vector.z == -1));
 }
 
 void	transform_coord(t_box *box)

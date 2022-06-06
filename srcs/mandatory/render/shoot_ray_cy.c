@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shoot_ray_cy.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sehhong <sehhong@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jiskim <jiskim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/03 13:23:03 by jiskim            #+#    #+#             */
-/*   Updated: 2022/06/04 20:24:20 by sehhong          ###   ########.fr       */
+/*   Updated: 2022/06/06 17:45:19 by jiskim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static double	shoot_ray_top(t_vec *ray, t_cy *cy, t_point *start)
 	if (t < 0)
 		return (-1);
 	poi = add_vecs(*start, scale_vec(*ray, t));
-	if (get_vec_len(subtract_vecs(poi, cy->top)) < cy->radius)
+	if (get_vec_len(subtract_vecs(poi, cy->top)) <= cy->radius)
 		return (t);
 	return (-1);
 }
@@ -39,7 +39,7 @@ static double	shoot_ray_bottom(t_vec *ray, t_cy *cy, t_point *start)
 	if (t < 0)
 		return (-1);
 	poi = add_vecs(*start, scale_vec(*ray, t));
-	if (get_vec_len(subtract_vecs(poi, cy->bottom)) < cy->radius)
+	if (get_vec_len(subtract_vecs(poi, cy->bottom)) <= cy->radius)
 		return (t);
 	return (-1);
 }
@@ -47,19 +47,19 @@ static double	shoot_ray_bottom(t_vec *ray, t_cy *cy, t_point *start)
 static double	shoot_ray_side(t_vec *ray, t_cy *cy, t_point *start)
 {
 	t_vec	w;
-	t_vec	coefficient;
+	t_vec	coef;
 	double	t;
 	double	poi_height;
 
 	w = subtract_vecs(*start, cy->bottom);
-	coefficient.x = dot_vecs(*ray, *ray) - pow(dot_vecs(*ray, cy->n_vector), 2);
-	coefficient.y = 2 * (dot_vecs(*ray, w) - \
+	coef.x = dot_vecs(*ray, *ray) - pow(dot_vecs(*ray, cy->n_vector), 2);
+	coef.y = 2 * (dot_vecs(*ray, w) - \
 		(dot_vecs(*ray, cy->n_vector) * dot_vecs(w, cy->n_vector)));
-	coefficient.z = dot_vecs(w, w) - pow(dot_vecs(w, cy->n_vector), 2) - \
+	coef.z = dot_vecs(w, w) - pow(dot_vecs(w, cy->n_vector), 2) - \
 		pow(cy->radius, 2);
-	t = get_root(&coefficient);
+	t = get_root(&coef);
 	if (t < 0)
-		return (t);
+		return (-1);
 	poi_height = dot_vecs(subtract_vecs(add_vecs(*start, scale_vec(*ray, t)), cy->bottom), cy->n_vector);
 	if (is_between(0, cy->height, poi_height))
 		return (t);

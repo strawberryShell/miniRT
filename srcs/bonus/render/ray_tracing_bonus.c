@@ -6,7 +6,7 @@
 /*   By: jiskim <jiskim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 20:20:41 by jiskim            #+#    #+#             */
-/*   Updated: 2022/06/03 17:29:08 by jiskim           ###   ########.fr       */
+/*   Updated: 2022/06/06 15:44:23 by jiskim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,20 +17,20 @@ int		calc_color(int r, int g, int b)
 	return ((r << 16) | (g << 8) | b);
 }
 
-double	get_root(t_vec *coefficient)
+double	get_root(t_vec *coef)
 {
 	double	d;
 	double	t;
 
-	d = pow(coefficient->y, 2) - 4 * coefficient->x * coefficient->z;
-	if (coefficient->x == 0 || d < 0)
+	d = pow(coef->y, 2) - 4 * coef->x * coef->z;
+	if (coef->x == 0 || d < 0)
 		t = -1; // no root
 	else
 	{
-		t = (coefficient->y - sqrt(d)) / (2 * coefficient->x); //근의 공식
+		t = (coef->y - sqrt(d)) / (2 * coef->x); //근의 공식
 		if (t < 0) // behind the camera
 		{
-			t = (coefficient->y + sqrt(d)) / (2 * coefficient->x);
+			t = (coef->y + sqrt(d)) / (2 * coef->x);
 			if (t > 0) // 도형 중간에 카메라가 있으므로 화면 전체가 black
 				t = DARKNESS;
 			else // 얘도 보이면 안됨 - 루트 없는 취급
@@ -42,14 +42,14 @@ double	get_root(t_vec *coefficient)
 
 double	shoot_ray_sphere(t_vec *vec, t_sp *sp)
 {
-	t_vec	coefficient; //a, b, c
+	t_vec	coef; //a, b, c
 
-	coefficient.x = pow(vec->x, 2) + pow(vec->y, 2) + pow(vec->z, 2);
-	coefficient.y = 2 * (vec->x * sp->center.x + vec->y * sp->center.y + \
+	coef.x = pow(vec->x, 2) + pow(vec->y, 2) + pow(vec->z, 2);
+	coef.y = 2 * (vec->x * sp->center.x + vec->y * sp->center.y + \
 		vec->z * sp->center.z);
-	coefficient.z = pow(sp->center.x, 2) + pow(sp->center.y, 2) + \
+	coef.z = pow(sp->center.x, 2) + pow(sp->center.y, 2) + \
 		pow(sp->center.z, 2) - pow(sp->radius, 2);
-	return (get_root(&coefficient));
+	return (get_root(&coef));
 }
 
 int		shoot_ray(t_vec *vec, t_box *box)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_obj.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sehhong <sehhong@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: jiskim <jiskim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/14 11:03:49 by sehhong           #+#    #+#             */
-/*   Updated: 2022/06/05 17:09:34 by sehhong          ###   ########.fr       */
+/*   Updated: 2022/06/06 15:28:55 by jiskim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ void	parse_sphere(t_box *box, char **arr)
 	sp = (t_sp *)ft_calloc(1, sizeof(t_sp));
 	sp->center = parse_vector(arr[1], ele, POINT);
 	sp->radius = ft_atod(arr[2], ele) * 0.5;
+	if (sp->radius < 0)
+		exit_with_err("Invalid value of radius : ", ele);
 	sp->color = parse_vector(arr[3], ele, COLOR);
 	add_obj(box, SPHERE, sp);
 }
@@ -55,7 +57,11 @@ void	parse_cylinder(t_box *box, char **arr)
 	//if (get_vec_len(cy->n_vector) != 1)
 	//	exit_with_err("Vector is not normalized: ", ele);
 	cy->radius = ft_atod(arr[3], ele) * 0.5;
+	if (cy->radius <= 0)
+		exit_with_err("Invalid value of radius : ", ele);
 	cy->height = ft_atod(arr[4], ele);
+	if (cy->height <= 0)
+		exit_with_err("Invalid value of height : ", ele);
 	cy->color = parse_vector(arr[5], ele, COLOR);
 	cy->top = add_vecs(scale_vec(cy->n_vector, cy->height), cy->bottom);
 	add_obj(box, CYLINDER, cy);
@@ -74,7 +80,11 @@ void	parse_cone(t_box *box, char **arr)
 	//if (get_vec_len(cn->n_vector) != 1)
 	//	exit_with_err("Vector is not normalized: ", ele);
 	cn->radius = ft_atod(arr[3], ele) * 0.5;
+	if (cn->radius <= 0)
+		exit_with_err("Invalid value of radius : ", ele);
 	cn->height = ft_atod(arr[4], ele);
+	if (cn->height <= 0)
+		exit_with_err("Invalid value of height : ", ele);
 	cn->color = parse_vector(arr[5], ele, COLOR);
 	add_obj(box, CONE, cn);
 }

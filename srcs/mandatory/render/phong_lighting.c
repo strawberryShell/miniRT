@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   phong_lighting.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sehhong <sehhong@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: jiskim <jiskim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/01 14:56:06 by jiskim            #+#    #+#             */
-/*   Updated: 2022/06/05 17:11:27 by sehhong          ###   ########.fr       */
+/*   Updated: 2022/06/06 17:39:21 by jiskim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,6 @@ t_phong	get_phong_vecs(t_poi *poi, t_box *box)
 {
 	t_phong	phong;
 
-	phong.normal_vec = new_vec(0, 0, 0);
 	phong.cam_vec = normalize_vec(subtract_vecs(box->cam->pos, poi->point));
 	if (poi->type == SPHERE_GENERAL)
 		phong.normal_vec = normalize_vec(\
@@ -148,21 +147,37 @@ int	is_shadow(t_poi *poi, t_box *box)
 	return (0);
 }
 
+int	is_darkness(t_phong *phong)
+{
+	double res = dot_vecs(phong->cam_vec, phong->normal_vec);
+	printf("cos is %f\n", res);
+	if (dot_vecs(phong->cam_vec, phong->normal_vec) <= 0)
+		return (1);
+	return (0);
+}
+
 int phong_lighting(t_poi *poi, t_box *box)
 {
 	t_phong	phong;
 	t_color	obj_color;
 	t_color color;
 	t_color	light;
+	static int	initial = 0;
 
+	phong = get_phong_vecs(poi, box);
+	if (!initial)
+	{
+		initial = 1;
+		if (is_darkness(&phong))
+		{
+			printf("어두메다크니스\n");
+			return (DARKNESS);
+		}
+	}
 	light = scale_vec(*box->amb_light, (double)1 / 255);
 	if (!is_shadow(poi, box))
-	{
-		phong = get_phong_vecs(poi, box);
 		light = add_vecs(add_vecs(calc_diffuse(&phong, box), \
 			calc_specular(&phong, box)), light);
-	}
-	obj_color = new_vec(0, 0, 0);
 	if (poi->type == SPHERE_GENERAL)
 		obj_color = ((t_sp *)poi->data)->color;
 	else if (poi->type == PLANE_GENERAL)

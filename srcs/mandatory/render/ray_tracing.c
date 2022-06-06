@@ -3,33 +3,37 @@
 /*                                                        :::      ::::::::   */
 /*   ray_tracing.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sehhong <sehhong@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jiskim <jiskim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 20:20:41 by jiskim            #+#    #+#             */
-/*   Updated: 2022/06/04 21:49:21 by sehhong          ###   ########.fr       */
+/*   Updated: 2022/06/06 16:07:29 by jiskim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-// -1, DARKNESS, 양수
-double	get_root(t_vec *coefficient)
+double	get_root(t_vec *coef)
 {
 	double	d;
 	double	t;
 
-	d = pow(coefficient->y, 2) - 4 * coefficient->x * coefficient->z;
-	if (coefficient->x == 0 || d < 0)
+	d = pow(coef->y, 2) - 4 * coef->x * coef->z;
+	if (d < 0)
 		t = -1;
+	else if (coef->x == 0)
+	{
+		if (coef->y == 0)
+			t = -1;
+		else
+			t = -(coef->z) / coef->y;
+	}
 	else
 	{
-		t = (-coefficient->y - sqrt(d)) / (2 * coefficient->x);
+		t = (-coef->y - sqrt(d)) / (2 * coef->x);
 		if (t < 0)
 		{
-			t = (-coefficient->y + sqrt(d)) / (2 * coefficient->x);
-			if (t >= 0)
-				t = DARKNESS;
-			else
+			t = (-coef->y + sqrt(d)) / (2 * coef->x);
+			if (t < 0)
 				t = -1;
 		}
 	}
@@ -38,16 +42,16 @@ double	get_root(t_vec *coefficient)
 
 double	shoot_ray_sp(t_vec *ray, t_sp *sp, t_point *start, t_ptype *type)
 {
-	t_vec	coefficient; //a, b, c
+	t_vec	coef;
 	t_vec	center_start;
 
 	if (type)
 		*type = SPHERE_GENERAL;
 	center_start = subtract_vecs(*start, sp->center);
-	coefficient.x = dot_vecs(*ray, *ray);
-	coefficient.y = 2 * dot_vecs(center_start, *ray);
-	coefficient.z = dot_vecs(center_start, center_start) - pow(sp->radius, 2);
-	return (get_root(&coefficient));
+	coef.x = dot_vecs(*ray, *ray);
+	coef.y = 2 * dot_vecs(center_start, *ray);
+	coef.z = dot_vecs(center_start, center_start) - pow(sp->radius, 2);
+	return (get_root(&coef));
 }
 
 double	shoot_ray_pl(t_vec *ray, t_pl *pl, t_ptype *type)
@@ -57,7 +61,7 @@ double	shoot_ray_pl(t_vec *ray, t_pl *pl, t_ptype *type)
 	if (type)
 		*type = PLANE_GENERAL;
 	scalar = dot_vecs(*ray, pl->n_vector);
-	if (scalar == 0) //명륜진사갈비
+	if (scalar == 0)
 		return (0);
 	return (dot_vecs(pl->point, pl->n_vector) / scalar);
 }
@@ -83,8 +87,6 @@ int		shoot_ray(t_vec *ray, t_box *box)
 			t = shoot_ray_cy(ray, (t_cy *)cur->data, &box->cam->pos, &type);
 		else
 			t = shoot_ray_cn(ray, (t_cn *)cur->data, &box->cam->pos, &type);
-		if (t == DARKNESS)
-			return (DARKNESS);
 		if (t >= 0)
 		{
 			if (t == 0)
