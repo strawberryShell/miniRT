@@ -6,7 +6,7 @@
 /*   By: jiskim <jiskim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/14 11:11:40 by sehhong           #+#    #+#             */
-/*   Updated: 2022/06/06 18:49:05 by jiskim           ###   ########.fr       */
+/*   Updated: 2022/06/07 16:22:30 by jiskim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,9 +98,9 @@ t_vec	parse_vector(char *str, char *ele, int vec_type)
 	}
 	else if (vec_type == VECTOR)
 	{
-		new_vec = normalize_vec(new_vec);
 		if (new_vec.x == 0 && new_vec.y == 0 && new_vec.z == 0)
 			exit_with_err("Vector length is zero: ", ele);
+		new_vec = normalize_vec(new_vec);
 	}
 	free_str_arr(&xyz);
 	return (new_vec);

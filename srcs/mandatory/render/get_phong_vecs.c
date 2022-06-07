@@ -6,7 +6,7 @@
 /*   By: jiskim <jiskim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/06 21:50:22 by jiskim            #+#    #+#             */
-/*   Updated: 2022/06/06 21:50:44 by jiskim           ###   ########.fr       */
+/*   Updated: 2022/06/07 19:23:58 by jiskim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,9 @@ static t_vec	get_cn_nvec(t_poi *poi, t_cn *cn)
 	else
 	{
 		hp = subtract_vecs(poi->point, cn->top);
+		if (hp.x == 0 && hp.y == 0 && hp.z == 0)
+			return (scale_vec(cn->n_vector, -1));
 		cos_theta = cn->height / sqrt(pow(cn->height, 2) + pow(cn->radius, 2));
-		// TODO 정말 000 벡터가 안나오는지 확인
 		normal_vec = normalize_vec(add_vecs(hp, \
 			scale_vec(cn->n_vector, -1 * get_vec_len(hp) / cos_theta)));
 	}
@@ -73,6 +74,8 @@ t_phong	get_phong_vecs(t_poi *poi, t_box *box)
 	phong.light_vec = normalize_vec(\
 		subtract_vecs(box->lights->pos, poi->point));
 	phong.cos_theta = dot_vecs(phong.light_vec, phong.normal_vec);
+	if (phong.cos_theta < 0)
+		phong.cos_theta = 0;
 	phong.reflect_vec = add_vecs(scale_vec(phong.light_vec, -1), \
 		scale_vec(phong.normal_vec, 2 * phong.cos_theta));
 	return (phong);

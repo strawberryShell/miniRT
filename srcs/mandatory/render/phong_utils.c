@@ -6,7 +6,7 @@
 /*   By: jiskim <jiskim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/06 21:58:43 by jiskim            #+#    #+#             */
-/*   Updated: 2022/06/06 21:59:26 by jiskim           ###   ########.fr       */
+/*   Updated: 2022/06/07 18:57:38 by jiskim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ int	is_shadow(t_poi *poi, t_box *box)
 	{
 		if (poi->data != cur->data)
 		{
-			light = subtract_vecs(box->lights->pos, poi->point);
 			if (cur->type == SPHERE)
 				t = shoot_ray_sp(&light, (t_sp *)cur->data, &poi->point, NULL);
 			else if (cur->type == PLANE)
@@ -49,7 +48,7 @@ int	is_shadow(t_poi *poi, t_box *box)
 				t = shoot_ray_cy(&light, (t_cy *)cur->data, &poi->point, NULL);
 			else
 				t = shoot_ray_cn(&light, (t_cn *)cur->data, &poi->point, NULL);
-			if (t > 0 && t < 1)
+			if (t >= 0 && t < 1)
 				return (1);
 		}
 		cur = cur->next;
