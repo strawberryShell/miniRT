@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   minirt_bonus.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jiskim <jiskim@student.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: sehhong <sehhong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 10:30:56 by sehhong           #+#    #+#             */
-/*   Updated: 2022/06/06 22:29:31 by jiskim           ###   ########.fr       */
+/*   Updated: 2022/06/07 22:38:17 by sehhong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINIRT_BONUS_H
 # define MINIRT_BONUS_H
 
-# define SCN_WIDTH	800
-# define SCN_HEIGHT	400
+# define SCN_WIDTH	1200
+# define SCN_HEIGHT	1000
 # define POINT		0
 # define COLOR		1
 # define VECTOR		2
@@ -23,13 +23,12 @@
 # define CLICK_RED	17
 
 # include <math.h>
-# include <stdlib.h>	//malloc
-# include <string.h>		//strerror
-# include <sys/errno.h>	//errno
-# include <fcntl.h>		//open
-# include <unistd.h>	//close
-# include <string.h> 	//?
-# include <stdio.h>		//printf
+# include <stdlib.h>
+# include <string.h>
+# include <sys/errno.h>
+# include <fcntl.h>
+# include <unistd.h>
+# include <stdio.h>
 # include "libft.h"
 # include "mlx.h"
 # include "structure_bonus.h"
@@ -41,6 +40,17 @@ int		click_red(t_box *box);
 
 /* render */
 void	ray_tracing(t_box *box);
+int		phong_lighting(t_poi *poi, t_box *box);
+t_phong	get_phong_vecs(t_poi *poi, t_box *box);
+double	shoot_ray_sp(t_vec *ray, t_sp *sp, t_point *start, t_ptype *type);
+double	shoot_ray_pl(t_vec *ray, t_pl *pl, t_ptype *type);
+double	shoot_ray_cy(t_vec *ray, t_cy *cy, t_point *start, t_ptype *type);
+double	shoot_ray_cn(t_vec *ray, t_cn *cn, t_point *start, t_ptype *type);
+double	get_root(t_vec *coef);
+int		calc_color(int r, int g, int b);
+int		is_shadow(t_poi *poi, t_box *box);
+t_color	*get_obj_color(t_poi *poi);
+double	shoot_ray_obj(t_obj *obj, t_vec *ray, t_vec *cam_pos, t_ptype *type);
 
 /* parse */
 void	read_file(t_box *box, char *f_name);

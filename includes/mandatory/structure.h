@@ -3,23 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   structure.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sehhong <sehhong@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: sehhong <sehhong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 11:10:00 by sehhong           #+#    #+#             */
-/*   Updated: 2022/06/05 17:09:17 by sehhong          ###   ########.fr       */
+/*   Updated: 2022/06/07 22:33:11 by sehhong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef STRUCTURE_H
 # define STRUCTURE_H
 
-typedef enum e_otype //도형 구분
+typedef enum e_otype
 {
 	SPHERE = 0,
 	PLANE,
 	CYLINDER,
-	CONE,
-	ELSE
+	CONE
 }	t_otype;
 
 typedef enum e_ptype
@@ -109,7 +108,7 @@ typedef struct s_obj
 
 typedef struct s_poi
 {
-	t_ptype type; // 구, 평면, 원기둥뚜겅, 바닥, 옆면
+	t_ptype type;
 	t_point	point;
 	void 	*data;
 }	t_poi;

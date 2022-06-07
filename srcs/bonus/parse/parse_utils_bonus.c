@@ -6,7 +6,7 @@
 /*   By: sehhong <sehhong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/14 11:11:40 by sehhong           #+#    #+#             */
-/*   Updated: 2022/05/31 01:19:06 by sehhong          ###   ########.fr       */
+/*   Updated: 2022/06/07 22:30:48 by sehhong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,11 @@ t_vec	parse_vector(char *str, char *ele, int vec_type)
 			exit_with_err("Color value is not in range: ", ele);
 	}
 	else if (vec_type == VECTOR)
+	{
+		if (new_vec.x == 0 && new_vec.y == 0 && new_vec.z == 0)
+			exit_with_err("Vector length is zero: ", ele);
 		new_vec = normalize_vec(new_vec);
+	}
 	free_str_arr(&xyz);
 	return (new_vec);
 }

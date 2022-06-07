@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   read_file_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sehhong <sehhong@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: sehhong <sehhong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 23:33:38 by sehhong           #+#    #+#             */
-/*   Updated: 2022/05/30 11:05:09 by sehhong          ###   ########.fr       */
+/*   Updated: 2022/06/07 22:27:47 by sehhong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,12 @@ static	void	analyze_line(t_box *box, char *line)
 	arr = ft_split(line, ' ');
 	if (!arr)
 		exit_with_err("Failed to call malloc()", NULL);
+	// TODO : norm check
+	if (!*arr)
+	{
+		free(arr);
+		return ;
+	}
 	if (!ft_strncmp(arr[0], "A", 2))
 		parse_ambient(box, arr);
 	else if (!ft_strncmp(arr[0], "L", 2))
@@ -52,15 +58,21 @@ static	void	validate_file(t_box *box)
 		exit_with_err("Cannot find any object element in the file", NULL);
 }
 
-void	read_file(t_box *box, char *f_name)
+static void	check_filename(char *f_name)
 {
 	char	*ptr;
-	char	*line;
-	int		fd;
 
 	ptr = ft_strrchr(f_name, '.');
 	if (!ptr || ft_strncmp(ptr + 1, "rt", 3))
 		exit_with_err("Invalid format of file", NULL);
+}
+
+void	read_file(t_box *box, char *f_name)
+{
+	char	*line;
+	int		fd;
+
+	check_filename(f_name);
 	fd = open(f_name, O_RDONLY);
 	if (fd == -1)
 		exit_with_err("Failed to call open(): ", strerror(errno));
@@ -78,7 +90,6 @@ void	read_file(t_box *box, char *f_name)
 		if (*line)
 			analyze_line(box, line);
 		free(line);
-		line = NULL;
 	}
 	close(fd);
 	validate_file(box);

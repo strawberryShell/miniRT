@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   init_mlx_attr_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sehhong <sehhong@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: sehhong <sehhong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 18:15:05 by jiskim            #+#    #+#             */
-/*   Updated: 2022/05/30 10:42:40 by sehhong          ###   ########.fr       */
+/*   Updated: 2022/06/07 22:36:40 by sehhong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt_bonus.h"
 
-void	init_frame(t_img *frame, void *mlx)
+static void	init_frame(t_img *frame, void *mlx)
 {
 	frame->img = mlx_new_image(mlx, SCN_WIDTH, SCN_HEIGHT);
 	if (!frame->img)

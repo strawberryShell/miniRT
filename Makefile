@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jiskim <jiskim@student.42seoul.kr>         +#+  +:+       +#+         #
+#    By: sehhong <sehhong@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/10 11:02:22 by sehhong           #+#    #+#              #
-#    Updated: 2022/06/06 22:29:31 by jiskim           ###   ########.fr        #
+#    Updated: 2022/06/07 22:37:35 by sehhong          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -67,6 +67,7 @@ SRCS_B_PARSE_DIR	= ./srcs/bonus/parse/
 SRCS_B_XFORM_DIR	= ./srcs/bonus/xform/
 SRCS_B_RENDER_DIR	= ./srcs/bonus/render/
 SRCS_B_CTLMLX_DIR	= ./srcs/bonus/ctrl_mlx/
+SRCS_B_VECTOR_DIR	= ./srcs/bonus/vector/
 
 SRCS_B_PARSE		= $(addprefix $(SRCS_B_PARSE_DIR), \
 					parse_obj_bonus.c \
@@ -83,21 +84,32 @@ SRCS_B_XFORM		= $(addprefix $(SRCS_B_XFORM_DIR), \
 
 SRCS_B_RENDER		= $(addprefix $(SRCS_B_RENDER_DIR), \
 					ray_tracing_bonus.c \
+					phong_lighting_bonus.c \
+					shoot_ray_cy_bonus.c \
+					shoot_ray_cn_bonus.c \
+					get_phong_vecs_bonus.c \
+					phong_utils_bonus.c \
+					shoot_ray_obj_bonus.c \
 					)
 
-SRCS_B_CTLMLX			= $(addprefix $(SRCS_B_CTLMLX_DIR), \
-					ctrl_mlx_hook.c \
+SRCS_B_CTLMLX		= $(addprefix $(SRCS_B_CTLMLX_DIR), \
+					ctrl_mlx_hook_bonus.c \
 					init_mlx_attr_bonus.c \
+					)
+
+SRCS_B_VECTOR		= $(addprefix $(SRCS_B_VECTOR_DIR), \
+					vector_operations_bonus.c \
+					vector_utils_bonus.c \
 					)
 
 SRCS_B				= $(addprefix $(SRCS_B_DIR), \
 					main_bonus.c \
 					utils_bonus.c \
-					vector_utils_bonus.c \
 					)
 
+
 SRCS_B				+= $(SRCS_B_PARSE) $(SRCS_B_XFORM) $(SRCS_B_RENDER) \
-					$(SRCS_B_CTLMLX)
+					$(SRCS_B_CTLMLX) $(SRCS_B_VECTOR)
 
 OBJS_B				= $(SRCS_B:.c=.o)
 

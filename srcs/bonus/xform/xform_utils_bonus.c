@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   xform_utils_bonus.c                            :+:      :+:    :+:   */
+/*   xform_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sehhong <sehhong@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: jiskim <jiskim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/14 11:19:30 by sehhong           #+#    #+#             */
-/*   Updated: 2022/05/30 10:46:14 by sehhong          ###   ########.fr       */
+/*   Updated: 2022/05/24 19:59:21 by jiskim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,11 @@ t_point	xform_point(double *matrix, t_point point)
 {
 	t_point	new_point;
 
-	new_point.x = matrix[0] * point.x + matrix[1] * point.y + matrix[2] * point.z + matrix[3];
-	new_point.y = matrix[4] * point.x + matrix[5] * point.y + matrix[6] * point.z + matrix[7];
-	new_point.z = matrix[8] * point.x + matrix[9] * point.y + matrix[10] * point.z + matrix[11];
+	new_point.x = matrix[0] * point.x + matrix[1] * point.y + \
+		matrix[2] * point.z + matrix[3];
+	new_point.y = matrix[4] * point.x + matrix[5] * point.y + \
+		matrix[6] * point.z + matrix[7];
+	new_point.z = matrix[8] * point.x + matrix[9] * point.y + \
+		matrix[10] * point.z + matrix[11];
 	return (new_point);
 }

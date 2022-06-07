@@ -6,7 +6,7 @@
 /*   By: sehhong <sehhong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 23:33:38 by sehhong           #+#    #+#             */
-/*   Updated: 2022/06/07 21:16:00 by sehhong          ###   ########.fr       */
+/*   Updated: 2022/06/07 22:26:41 by sehhong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ static void	analyze_line(t_box *box, char *line)
 	arr = NULL;
 }
 
-// 파싱결과 validate하기
 static void	validate_file(t_box *box)
 {
 	if (!box->cam)

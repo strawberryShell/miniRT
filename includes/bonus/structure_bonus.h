@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structure_bonus.h                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sehhong <sehhong@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: sehhong <sehhong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 10:31:54 by sehhong           #+#    #+#             */
-/*   Updated: 2022/05/30 11:08:28 by sehhong          ###   ########.fr       */
+/*   Updated: 2022/06/07 22:33:29 by sehhong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,19 @@ typedef enum e_otype
 	SPHERE = 0,
 	PLANE,
 	CYLINDER,
-	CONE,
-	ELSE
+	CONE
 }	t_otype;
+
+typedef enum e_ptype
+{
+	SPHERE_GENERAL = 0,
+	PLANE_GENERAL,
+	CYLINDER_TOP,
+	CYLINDER_BOTTOM,
+	CYLINDER_SIDE,
+	CONE_BOTTOM,
+	CONE_SIDE,
+}	t_ptype;
 
 typedef struct s_img
 {
@@ -74,17 +84,17 @@ typedef struct s_cy
 {
 	double	radius;
 	double	height;
-	t_point	point;
+	t_point	top;
+	t_point	bottom;
 	t_vec	n_vector;
 	t_color	color;
 }	t_cy;
 
-// 원뿔(cone)
 typedef struct s_cn
 {
 	double	height;
 	double	radius;
-	t_point	point;
+	t_point	top;
 	t_vec	n_vector;
 	t_color	color;
 }	t_cn;
@@ -98,10 +108,19 @@ typedef struct s_obj
 
 typedef struct s_poi
 {
-	double	t;
-	t_point	poi;
-	t_obj	*obj;
+	t_ptype type;
+	t_point	point;
+	void 	*data;
 }	t_poi;
+
+typedef struct s_phong
+{
+	double	cos_theta;
+	t_vec	light_vec;
+	t_vec	normal_vec;
+	t_vec	cam_vec;
+	t_vec	reflect_vec;
+}	t_phong;
 
 typedef struct s_box
 {

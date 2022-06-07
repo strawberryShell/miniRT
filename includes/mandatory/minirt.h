@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jiskim <jiskim@student.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: sehhong <sehhong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 11:03:31 by sehhong           #+#    #+#             */
-/*   Updated: 2022/06/06 22:29:31 by jiskim           ###   ########.fr       */
+/*   Updated: 2022/06/07 22:35:08 by sehhong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,12 @@
 # define CLICK_RED	17
 
 # include <math.h>
-# include <stdlib.h>	//malloc
-# include <string.h>		//strerror
-# include <sys/errno.h>	//errno
-# include <fcntl.h>		//open
-# include <unistd.h>	//close
-# include <string.h> 	//?
-# include <stdio.h>		//printf
+# include <stdlib.h>
+# include <string.h>
+# include <sys/errno.h>
+# include <fcntl.h>
+# include <unistd.h>
+# include <stdio.h>
 # include "libft.h"
 # include "mlx.h"
 # include "structure.h"
