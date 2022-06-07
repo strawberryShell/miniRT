@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   phong_lighting.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jiskim <jiskim@student.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: sehhong <sehhong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/01 14:56:06 by jiskim            #+#    #+#             */
-/*   Updated: 2022/06/07 19:25:03 by jiskim           ###   ########.fr       */
+/*   Updated: 2022/06/07 21:53:22 by sehhong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,12 +46,11 @@ int	phong_lighting(t_poi *poi, t_box *box)
 			return (DARKNESS);
 	}
 	light = scale_vec(*box->amb_light, (double)1 / 255);
-	if (phong.cos_theta != 0 && !is_shadow(poi, box))
+	if (phong.cos_theta != 0 || !is_shadow(poi, box))
 	{
-		light = add_vecs(add_vecs(calc_diffuse(&phong, box), \
-			calc_specular(&phong, box)), light);
+		light = add_vecs(light, calc_diffuse(&phong, box));
+		light = add_vecs(light, calc_specular(&phong, box));
 	}
-
 	color = multiply_vecs(light, *get_obj_color(poi));
 	return (calc_color(color.x, color.y, color.z));
 }

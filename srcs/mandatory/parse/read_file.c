@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   read_file.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jiskim <jiskim@student.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: sehhong <sehhong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 23:33:38 by sehhong           #+#    #+#             */
-/*   Updated: 2022/06/06 21:18:14 by jiskim           ###   ########.fr       */
+/*   Updated: 2022/06/07 21:16:00 by sehhong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,12 @@ static void	analyze_line(t_box *box, char *line)
 	arr = ft_split(line, ' ');
 	if (!arr)
 		exit_with_err("Failed to call malloc()", NULL);
+	// TODO : norm check
+	if (!*arr)
+	{
+		free(arr);
+		return ;
+	}
 	if (!ft_strncmp(arr[0], "A", 2))
 		parse_ambient(box, arr);
 	else if (!ft_strncmp(arr[0], "L", 2))
