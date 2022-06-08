@@ -6,7 +6,7 @@
 #    By: sehhong <sehhong@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/10 11:02:22 by sehhong           #+#    #+#              #
-#    Updated: 2022/06/07 22:37:35 by sehhong          ###   ########.fr        #
+#    Updated: 2022/06/08 20:00:06 by sehhong          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -166,6 +166,9 @@ bonus:
 
 debug: fclean
 	@make DEBUG=1
+
+dbonus: 
+	@make WITH_BONUS=1 debug
 
 re: fclean all
 

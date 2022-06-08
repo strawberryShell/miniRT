@@ -6,7 +6,7 @@
 /*   By: sehhong <sehhong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 23:33:38 by sehhong           #+#    #+#             */
-/*   Updated: 2022/06/07 22:26:41 by sehhong          ###   ########.fr       */
+/*   Updated: 2022/06/08 20:15:00 by sehhong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,30 +17,25 @@ static void	analyze_line(t_box *box, char *line)
 	char	**arr;
 
 	arr = ft_split(line, ' ');
-	if (!arr)
-		exit_with_err("Failed to call malloc()", NULL);
-	// TODO : norm check
-	if (!*arr)
+	if (*arr)
 	{
-		free(arr);
-		return ;
+		if (!ft_strncmp(arr[0], "A", 2))
+			parse_ambient(box, arr);
+		else if (!ft_strncmp(arr[0], "L", 2))
+			parse_light(box, arr);
+		else if (!ft_strncmp(arr[0], "C", 2))
+			parse_cam(box, arr);
+		else if (!ft_strncmp(arr[0], "sp", 3))
+			parse_sphere(box, arr);
+		else if (!ft_strncmp(arr[0], "pl", 3))
+			parse_plane(box, arr);
+		else if (!ft_strncmp(arr[0], "cy", 3))
+			parse_cylinder(box, arr);
+		else if (!ft_strncmp(arr[0], "cn", 3))
+			parse_cone(box, arr);
+		else
+			exit_with_err("Wrong type identifier was given in the file", NULL);
 	}
-	if (!ft_strncmp(arr[0], "A", 2))
-		parse_ambient(box, arr);
-	else if (!ft_strncmp(arr[0], "L", 2))
-		parse_light(box, arr);
-	else if (!ft_strncmp(arr[0], "C", 2))
-		parse_cam(box, arr);
-	else if (!ft_strncmp(arr[0], "sp", 3))
-		parse_sphere(box, arr);
-	else if (!ft_strncmp(arr[0], "pl", 3))
-		parse_plane(box, arr);
-	else if (!ft_strncmp(arr[0], "cy", 3))
-		parse_cylinder(box, arr);
-	else if (!ft_strncmp(arr[0], "cn", 3))
-		parse_cone(box, arr);
-	else
-		exit_with_err("Wrong type identifier was given in the file", NULL);
 	free_str_arr(&arr);
 	arr = NULL;
 }

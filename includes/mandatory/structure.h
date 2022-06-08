@@ -6,7 +6,7 @@
 /*   By: sehhong <sehhong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 11:10:00 by sehhong           #+#    #+#             */
-/*   Updated: 2022/06/07 22:33:11 by sehhong          ###   ########.fr       */
+/*   Updated: 2022/06/08 21:23:20 by sehhong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,8 @@ typedef struct s_vec
 	double	z;
 }	t_vec;
 
-typedef t_vec t_color;
-typedef t_vec t_point;
+typedef t_vec	t_color;
+typedef t_vec	t_point;
 
 typedef struct s_cam
 {
@@ -108,9 +108,9 @@ typedef struct s_obj
 
 typedef struct s_poi
 {
-	t_ptype type;
+	t_ptype	type;
 	t_point	point;
-	void 	*data;
+	void	*data;
 }	t_poi;
 
 typedef struct s_phong

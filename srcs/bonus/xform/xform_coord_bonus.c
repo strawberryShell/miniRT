@@ -12,6 +12,26 @@
 
 #include "minirt_bonus.h"
 
+static void	xform_cycn(double *matrix, t_obj *cur)
+{
+	if (cur->type == CYLINDER)
+	{
+		((t_cy *)(cur->data))->top = xform_point(matrix, \
+			((t_cy *)(cur->data))->top);
+		((t_cy *)(cur->data))->bottom = xform_point(matrix, \
+			((t_cy *)(cur->data))->bottom);
+		((t_cy *)(cur->data))->n_vector = normalize_vec(xform_vec(matrix, \
+			((t_cy *)(cur->data))->n_vector));
+	}
+	else
+	{
+		((t_cn *)(cur->data))->top = xform_point(matrix, \
+			((t_cn *)(cur->data))->top);
+		((t_cn *)(cur->data))->n_vector = normalize_vec(xform_vec(matrix, \
+			((t_cn *)(cur->data))->n_vector));
+	}
+}
+
 static void	xform_objs(t_box *box, double *matrix)
 {
 	t_obj	*cur;
@@ -29,22 +49,8 @@ static void	xform_objs(t_box *box, double *matrix)
 			((t_pl *)(cur->data))->n_vector = normalize_vec(xform_vec(matrix, \
 				((t_pl *)(cur->data))->n_vector));
 		}
-		else if (cur->type == CYLINDER)
-		{
-			((t_cy *)(cur->data))->top = xform_point(matrix, \
-				((t_cy *)(cur->data))->top);
-			((t_cy *)(cur->data))->bottom = xform_point(matrix, \
-				((t_cy *)(cur->data))->bottom);
-			((t_cy *)(cur->data))->n_vector = normalize_vec(xform_vec(matrix, \
-				((t_cy *)(cur->data))->n_vector));
-		}
-		else if (cur->type == CONE)
-		{
-			((t_cn *)(cur->data))->top = xform_point(matrix, \
-				((t_cn *)(cur->data))->top);
-			((t_cn *)(cur->data))->n_vector = normalize_vec(xform_vec(matrix, \
-				((t_cn *)(cur->data))->n_vector));
-		}
+		else
+			xform_cycn(matrix, cur);
 		cur = cur->next;
 	}
 }
@@ -65,13 +71,7 @@ void	xform_coord(t_box *box)
 		return ;
 	matrix = (double *)ft_calloc(16, sizeof(double));
 	fill_tr_matrix(box->cam, matrix);
-	printf("xform matrix:\n");
-	printf("%f %f %f %f\n", matrix[0], matrix[1], matrix[2], matrix[3]);
-	printf("%f %f %f %f\n", matrix[4], matrix[5], matrix[6], matrix[7]);
-	printf("%f %f %f %f\n", matrix[8], matrix[9], matrix[10], matrix[11]);
-	printf("%f %f %f %f\n", matrix[12], matrix[13], matrix[14], matrix[15]);
 	box->lights->pos = xform_point(matrix, box->lights->pos);
-	printf("light pos: (%f %f %f)\n", box->lights->pos.x,box->lights->pos.y, box->lights->pos.z);
 	box->cam->pos = xform_point(matrix, box->cam->pos);
 	box->cam->n_vector = xform_vec(matrix, box->cam->n_vector);
 	xform_objs(box, matrix);

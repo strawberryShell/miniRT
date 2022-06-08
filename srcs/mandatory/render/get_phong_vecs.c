@@ -6,7 +6,7 @@
 /*   By: sehhong <sehhong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/06 21:50:22 by jiskim            #+#    #+#             */
-/*   Updated: 2022/06/08 17:53:40 by sehhong          ###   ########.fr       */
+/*   Updated: 2022/06/08 21:20:18 by sehhong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,11 +66,10 @@ t_phong	get_phong_vecs(t_poi *poi, t_box *box)
 		else
 			phong.normal_vec = scale_vec(((t_pl *)poi->data)->n_vector, -1);
 	}
-	else if (poi->type == CYLINDER_TOP || poi->type == CYLINDER_BOTTOM \
-			|| poi->type == CYLINDER_SIDE)
-		phong.normal_vec = get_cy_nvec(poi, poi->data);
-	else
+	else if (poi->type == CONE_BOTTOM || poi->type == CONE_SIDE)
 		phong.normal_vec = get_cn_nvec(poi, poi->data);
+	else
+		phong.normal_vec = get_cy_nvec(poi, poi->data);
 	phong.light_vec = normalize_vec(\
 		subtract_vecs(box->lights->pos, poi->point));
 	phong.cos_theta = dot_vecs(phong.light_vec, phong.normal_vec);

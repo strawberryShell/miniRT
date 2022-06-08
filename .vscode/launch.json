@@ -12,6 +12,15 @@
 			"args": ["./test.rt"],
 			"cwd": "${workspaceFolder}",
 			"preLaunchTask": "use makefile",
+		},
+		{
+			"type": "lldb",
+			"request": "launch",
+			"name": "Bonus Debug",
+			"program": "${workspaceFolder}/minirt",
+			"args": ["./test.rt"],
+			"cwd": "${workspaceFolder}",
+			"preLaunchTask": "debug bonus use makefile",
 		}
 	]
 }

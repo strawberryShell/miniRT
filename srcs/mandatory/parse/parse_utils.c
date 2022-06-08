@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jiskim <jiskim@student.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: sehhong <sehhong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/14 11:11:40 by sehhong           #+#    #+#             */
-/*   Updated: 2022/06/07 16:22:30 by jiskim           ###   ########.fr       */
+/*   Updated: 2022/06/08 20:11:47 by sehhong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ static void	add_value(char c, int *dec_cnt, double *d)
 	}
 }
 
-// TODO 범위 제한??
 double	ft_atod(char *str, char *ele)
 {
 	double	d;

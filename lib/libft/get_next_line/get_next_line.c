@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jiskim <jiskim@student.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: sehhong <sehhong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/20 14:56:00 by jiskim            #+#    #+#             */
-/*   Updated: 2022/05/24 18:07:14 by jiskim           ###   ########.fr       */
+/*   Updated: 2022/06/08 21:23:39 by sehhong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ int	get_next_line(int fd, char **line)
 			return (ft_free(success, buf));
 		check_read = read(fd, buf, BUFFER_SIZE);
 	}
-	if (check_read == 0) //eof
+	if (check_read == 0)
 		return (ft_free(buf_split(&buf_remain, line, check_read), buf));
 	return (check_read);
 }

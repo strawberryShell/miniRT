@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fill_tr_matrix.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sehhong <sehhong@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: sehhong <sehhong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/14 11:23:40 by sehhong           #+#    #+#             */
-/*   Updated: 2022/06/07 12:07:51 by sehhong          ###   ########.fr       */
+/*   Updated: 2022/06/08 19:55:00 by sehhong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,7 @@ void	fill_tr_matrix(t_cam *cam, double *matrix)
 	ran_vec = new_vec(0, 1, 0);
 	if (!cmp_vec(z_axis, ran_vec) || !cmp_vec(cam->n_vector, ran_vec))
 		ran_vec = new_vec(0, 0, 1);
-	// right-handed vs left_handed 잘못고름...
 	x_axis = normalize_vec(cross_vecs(ran_vec, z_axis));
-	// 벡터의 내적: 순서 중요 (a x b != b x a)
 	y_axis = normalize_vec(cross_vecs(z_axis, x_axis));
 	fill_rotation(matrix, x_axis, y_axis, z_axis);
 	fill_translation(cam, matrix);
