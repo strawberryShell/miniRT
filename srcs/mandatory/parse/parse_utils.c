@@ -6,7 +6,7 @@
 /*   By: sehhong <sehhong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/14 11:11:40 by sehhong           #+#    #+#             */
-/*   Updated: 2022/06/08 20:11:47 by sehhong          ###   ########.fr       */
+/*   Updated: 2022/06/08 21:47:20 by sehhong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,9 @@ t_vec	parse_vector(char *str, char *ele, int vec_type)
 	}
 	else if (vec_type == VECTOR)
 	{
+		if (!is_between(-1, 1, new_vec.x) || !is_between(-1, 1, new_vec.y) \
+			|| !is_between(-1, 1, new_vec.z))
+			exit_with_err("Vector is out of range: ", ele);
 		if (new_vec.x == 0 && new_vec.y == 0 && new_vec.z == 0)
 			exit_with_err("Vector length is zero: ", ele);
 		new_vec = normalize_vec(new_vec);

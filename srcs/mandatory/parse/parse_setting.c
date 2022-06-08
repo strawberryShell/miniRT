@@ -6,7 +6,7 @@
 /*   By: sehhong <sehhong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/14 11:05:41 by sehhong           #+#    #+#             */
-/*   Updated: 2022/06/07 22:29:58 by sehhong          ###   ########.fr       */
+/*   Updated: 2022/06/08 21:42:23 by sehhong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	parse_ambient(t_box *box, char **arr)
 	double	b_ratio;
 	t_color	light;
 
-	ele = "ambient lightning";
+	ele = "ambient lighting";
 	if (box->amb_light)
 		exit_with_err(ele, " should be given only once");
 	validate_arr(arr, 3, ele);

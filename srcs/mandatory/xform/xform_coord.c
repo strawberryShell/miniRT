@@ -71,6 +71,11 @@ void	xform_coord(t_box *box)
 		return ;
 	matrix = (double *)ft_calloc(16, sizeof(double));
 	fill_tr_matrix(box->cam, matrix);
+	printf("xform matrix:\n");
+	printf("%f %f %f %f\n", matrix[0], matrix[1], matrix[2], matrix[3]);
+	printf("%f %f %f %f\n", matrix[4], matrix[5], matrix[6], matrix[7]);
+	printf("%f %f %f %f\n", matrix[8], matrix[9], matrix[10], matrix[11]);
+	printf("%f %f %f %f\n", matrix[12], matrix[13], matrix[14], matrix[15]);
 	box->lights->pos = xform_point(matrix, box->lights->pos);
 	box->cam->pos = xform_point(matrix, box->cam->pos);
 	box->cam->n_vector = xform_vec(matrix, box->cam->n_vector);

@@ -6,7 +6,7 @@
 /*   By: sehhong <sehhong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 23:33:38 by sehhong           #+#    #+#             */
-/*   Updated: 2022/06/08 20:15:00 by sehhong          ###   ########.fr       */
+/*   Updated: 2022/06/08 21:42:23 by sehhong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ static void	validate_file(t_box *box)
 	if (!box->cam)
 		exit_with_err("Cannot find camera element in the file", NULL);
 	if (!box->amb_light)
-		exit_with_err("Cannot find ambient lightning element in the file", \
+		exit_with_err("Cannot find ambient lighting element in the file", \
 			NULL);
 	if (!box->lights)
 		exit_with_err("Cannot find light element in the file", NULL);
