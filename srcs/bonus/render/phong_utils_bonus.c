@@ -6,7 +6,7 @@
 /*   By: sehhong <sehhong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/06 21:58:43 by jiskim            #+#    #+#             */
-/*   Updated: 2022/06/07 22:36:40 by sehhong          ###   ########.fr       */
+/*   Updated: 2022/06/08 17:35:06 by sehhong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ int	is_shadow(t_poi *poi, t_box *box)
 	double	t;
 
 	cur = box->objs;
+	light = subtract_vecs(box->lights->pos, poi->point);
 	while (cur)
 	{
 		if (poi->data != cur->data)

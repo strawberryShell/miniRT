@@ -6,7 +6,7 @@
 /*   By: sehhong <sehhong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/01 14:56:06 by jiskim            #+#    #+#             */
-/*   Updated: 2022/06/07 22:36:40 by sehhong          ###   ########.fr       */
+/*   Updated: 2022/06/08 17:34:28 by sehhong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int	phong_lighting(t_poi *poi, t_box *box)
 			return (DARKNESS);
 	}
 	light = scale_vec(*box->amb_light, (double)1 / 255);
-	if (phong.cos_theta != 0 || !is_shadow(poi, box))
+	if (phong.cos_theta != 0 && !is_shadow(poi, box))
 	{
 		light = add_vecs(light, calc_diffuse(&phong, box));
 		light = add_vecs(light, calc_specular(&phong, box));
