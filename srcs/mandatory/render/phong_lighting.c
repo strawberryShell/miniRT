@@ -6,7 +6,7 @@
 /*   By: sehhong <sehhong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/01 14:56:06 by jiskim            #+#    #+#             */
-/*   Updated: 2022/06/07 22:13:37 by sehhong          ###   ########.fr       */
+/*   Updated: 2022/06/08 17:00:26 by sehhong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ t_vec	calc_specular(t_phong *phong, t_box *box)
 	double	ratio;
 	double	cos_theta;
 
+	if (phong->cos_theta == 0)
+		return (new_vec(0, 0, 0));
 	cos_theta = dot_vecs(phong->cam_vec, phong->reflect_vec);
 	if (cos_theta < 0)
 		cos_theta = 0;
@@ -46,7 +48,7 @@ int	phong_lighting(t_poi *poi, t_box *box)
 			return (DARKNESS);
 	}
 	light = scale_vec(*box->amb_light, (double)1 / 255);
-	if (phong.cos_theta != 0 || !is_shadow(poi, box))
+	if (phong.cos_theta != 0 && !is_shadow(poi, box))
 	{
 		light = add_vecs(light, calc_diffuse(&phong, box));
 		light = add_vecs(light, calc_specular(&phong, box));
