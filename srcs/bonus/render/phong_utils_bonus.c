@@ -6,7 +6,7 @@
 /*   By: sehhong <sehhong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/06 21:58:43 by jiskim            #+#    #+#             */
-/*   Updated: 2022/06/08 19:00:24 by sehhong          ###   ########.fr       */
+/*   Updated: 2022/06/08 19:08:24 by sehhong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int	is_shadow(t_poi *poi, t_box *box, t_vec *light_vec)
 			else
 				t = shoot_ray_cn(light_vec, (t_cn *)cur->data, \
 					&poi->point, NULL);
-			if (t > 0.0002 && t < 0.9998)
+			if (t > 0.000002 && t < 0.999998)
 				return (1);
 		}
 		cur = cur->next;
