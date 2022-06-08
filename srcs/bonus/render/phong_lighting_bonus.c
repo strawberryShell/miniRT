@@ -6,7 +6,7 @@
 /*   By: sehhong <sehhong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/01 14:56:06 by jiskim            #+#    #+#             */
-/*   Updated: 2022/06/08 17:34:28 by sehhong          ###   ########.fr       */
+/*   Updated: 2022/06/08 18:36:43 by sehhong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,31 @@ t_vec	calc_diffuse(t_phong *phong, t_box *box)
 		(phong->cos_theta / 255) * box->lights->b_ratio));
 }
 
+t_color	calc_lights_albedo(t_phong *phong, t_poi *poi, t_box *box)
+{
+	t_color	light;
+	t_light	*cur;
+	t_vec	n_light_vec;
+
+	light = scale_vec(*box->amb_light, (double)1 / 255);
+	cur = box->lights;
+	while (cur)
+	{
+		phong->light_vec = subtract_vecs(cur->pos, poi->point);
+		n_light_vec = normalize_vec(phong->light_vec);
+		phong->cos_theta = dot_vecs(n_light_vec, phong->normal_vec);
+		phong->reflect_vec = add_vecs(scale_vec(n_light_vec, -1), \
+			scale_vec(phong->normal_vec, 2 * phong->cos_theta));
+		if (phong->cos_theta != 0 && !is_shadow(poi, box, &(phong->light_vec)))
+		{
+			light = add_vecs(light, calc_diffuse(phong, box));
+			light = add_vecs(light, calc_specular(phong, box));
+		}
+		cur = cur->next;
+	}
+	return (light);
+}
+
 int	phong_lighting(t_poi *poi, t_box *box)
 {
 	t_phong		phong;
@@ -45,12 +70,7 @@ int	phong_lighting(t_poi *poi, t_box *box)
 		if (dot_vecs(phong.cam_vec, phong.normal_vec) <= 0)
 			return (DARKNESS);
 	}
-	light = scale_vec(*box->amb_light, (double)1 / 255);
-	if (phong.cos_theta != 0 && !is_shadow(poi, box))
-	{
-		light = add_vecs(light, calc_diffuse(&phong, box));
-		light = add_vecs(light, calc_specular(&phong, box));
-	}
+	light = calc_lights_albedo(&phong, poi, box);
 	color = multiply_vecs(light, *get_obj_color(poi));
 	return (calc_color(color.x, color.y, color.z));
 }

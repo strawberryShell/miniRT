@@ -6,7 +6,7 @@
 /*   By: sehhong <sehhong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/06 21:58:43 by jiskim            #+#    #+#             */
-/*   Updated: 2022/06/08 17:35:06 by sehhong          ###   ########.fr       */
+/*   Updated: 2022/06/08 19:00:24 by sehhong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,27 +29,28 @@ int	calc_color(int r, int g, int b)
 	return ((r << 16) | (g << 8) | b);
 }
 
-int	is_shadow(t_poi *poi, t_box *box)
+int	is_shadow(t_poi *poi, t_box *box, t_vec *light_vec)
 {
 	t_obj	*cur;
-	t_vec	light;
 	double	t;
 
 	cur = box->objs;
-	light = subtract_vecs(box->lights->pos, poi->point);
 	while (cur)
 	{
 		if (poi->data != cur->data)
 		{
 			if (cur->type == SPHERE)
-				t = shoot_ray_sp(&light, (t_sp *)cur->data, &poi->point, NULL);
+				t = shoot_ray_sp(light_vec, (t_sp *)cur->data, \
+					&poi->point, NULL);
 			else if (cur->type == PLANE)
-				t = shoot_ray_pl(&light, (t_pl *)cur->data, NULL);
+				t = shoot_ray_pl(light_vec, (t_pl *)cur->data, NULL);
 			else if (cur->type == CYLINDER)
-				t = shoot_ray_cy(&light, (t_cy *)cur->data, &poi->point, NULL);
+				t = shoot_ray_cy(light_vec, (t_cy *)cur->data, \
+					&poi->point, NULL);
 			else
-				t = shoot_ray_cn(&light, (t_cn *)cur->data, &poi->point, NULL);
-			if (t > 0 && t < 1)
+				t = shoot_ray_cn(light_vec, (t_cn *)cur->data, \
+					&poi->point, NULL);
+			if (t > 0.0002 && t < 0.9998)
 				return (1);
 		}
 		cur = cur->next;

@@ -6,7 +6,7 @@
 /*   By: sehhong <sehhong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/06 21:50:22 by jiskim            #+#    #+#             */
-/*   Updated: 2022/06/08 17:32:16 by sehhong          ###   ########.fr       */
+/*   Updated: 2022/06/08 18:25:16 by sehhong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,12 +71,5 @@ t_phong	get_phong_vecs(t_poi *poi, t_box *box)
 		phong.normal_vec = get_cy_nvec(poi, poi->data);
 	else
 		phong.normal_vec = get_cn_nvec(poi, poi->data);
-	phong.light_vec = normalize_vec(\
-		subtract_vecs(box->lights->pos, poi->point));
-	phong.cos_theta = dot_vecs(phong.light_vec, phong.normal_vec);
-	if (phong.cos_theta < 0.0002)
-		phong.cos_theta = 0;
-	phong.reflect_vec = add_vecs(scale_vec(phong.light_vec, -1), \
-		scale_vec(phong.normal_vec, 2 * phong.cos_theta));
 	return (phong);
 }

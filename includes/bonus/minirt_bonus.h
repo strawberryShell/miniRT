@@ -6,7 +6,7 @@
 /*   By: sehhong <sehhong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 10:30:56 by sehhong           #+#    #+#             */
-/*   Updated: 2022/06/07 22:38:17 by sehhong          ###   ########.fr       */
+/*   Updated: 2022/06/08 18:35:46 by sehhong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ double	shoot_ray_cy(t_vec *ray, t_cy *cy, t_point *start, t_ptype *type);
 double	shoot_ray_cn(t_vec *ray, t_cn *cn, t_point *start, t_ptype *type);
 double	get_root(t_vec *coef);
 int		calc_color(int r, int g, int b);
-int		is_shadow(t_poi *poi, t_box *box);
+int	    is_shadow(t_poi *poi, t_box *box, t_vec *light_vec);
 t_color	*get_obj_color(t_poi *poi);
 double	shoot_ray_obj(t_obj *obj, t_vec *ray, t_vec *cam_pos, t_ptype *type);
 

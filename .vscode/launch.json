@@ -9,7 +9,7 @@
 			"request": "launch",
 			"name": "Debug",
 			"program": "${workspaceFolder}/minirt",
-			"args": ["./amazing_cone.rt"],
+			"args": ["./test.rt"],
 			"cwd": "${workspaceFolder}",
 			"preLaunchTask": "use makefile",
 		}
