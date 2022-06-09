@@ -6,7 +6,7 @@
 #    By: jiskim <jiskim@student.42seoul.kr>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/10 11:02:22 by sehhong           #+#    #+#              #
-#    Updated: 2022/06/09 11:57:13 by jiskim           ###   ########.fr        #
+#    Updated: 2022/06/09 12:17:29 by jiskim           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -143,14 +143,15 @@ all : $(NAME)
 
 %.o: %.c
 	@$(CC) $(CFLAGS) $(INCDIR) $(LIBMLXINC) $(LIBFTINC) -o $@ -c $<
-	@echo $(CUT)$(BOLD)$(L_GREEN) Compiling $(BONUS) with $(CFLAGS)...$(RESET)
+	@echo $(CUT)$(BOLD)$(L_GREEN) Compiling $(L_CYAN)$(BONUS)$(L_GREEN) with $(CFLAGS)...$(RESET)
 	@echo $(CUT)$(L_CYAN) [$(notdir $^)] to [$(notdir $@)] $(RESET)
 	@printf $(UP)$(UP)
 
 $(NAME) : $(OBJS) $(LIBFT) $(LIBMLX)
 	@$(CC) $(CFLAGS) $(LIBFT) $(LIBMLX) -framework OpenGL -framework Appkit -o $@ $^
 	@install_name_tool -change libmlx.dylib $(LIBMLX) $(NAME)
-	@printf $(BOLD)$(L_PURPLE) 🍉 Mini Ray Tracing program is $(L_WHITE)ready!!$(RESET)
+	@printf $(CUT)$(CUT)
+	@echo $(L_PURPLE) 🍉 Mini Ray Tracing program is $(L_GRAY)ready!!$(BOLD)$(L_PURPLE)$(RESET)
 
 $(LIBFT) :
 	@make -C $(LIBFTDIR) bonus
@@ -166,8 +167,7 @@ clean:
 
 fclean: clean
 	@$(RM) $(NAME)
-	@echo $(BOLD)$(YELLOW) 🍉 Mini Ray Tracing has been $(L_RED)cleaned....💫$(RESET)
-
+	@echo $(BOLD)$(YELLOW) 🍉 Mini Ray Tracing program has been $(L_RED)cleaned....💫$(RESET)
 
 bonus:
 	@make WITH_BONUS=1 all
