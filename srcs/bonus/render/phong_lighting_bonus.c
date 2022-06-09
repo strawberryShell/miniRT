@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   phong_lighting_bonus.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sehhong <sehhong@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jiskim <jiskim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/01 14:56:06 by jiskim            #+#    #+#             */
-/*   Updated: 2022/06/08 19:34:34 by sehhong          ###   ########.fr       */
+/*   Updated: 2022/06/09 11:47:48 by jiskim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,8 @@ t_color	calc_lights_albedo(t_phong *phong, t_poi *poi, t_box *box)
 		phong->light_vec = subtract_vecs(cur->pos, poi->point);
 		n_light_vec = normalize_vec(phong->light_vec);
 		phong->cos_theta = dot_vecs(n_light_vec, phong->normal_vec);
+		if (phong->cos_theta < 0.0002)
+			phong->cos_theta = 0;
 		phong->reflect_vec = add_vecs(scale_vec(n_light_vec, -1), \
 			scale_vec(phong->normal_vec, 2 * phong->cos_theta));
 		if (phong->cos_theta != 0 && !is_shadow(poi, box, &(phong->light_vec)))

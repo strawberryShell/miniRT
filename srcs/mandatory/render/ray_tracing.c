@@ -6,7 +6,7 @@
 /*   By: jiskim <jiskim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 20:20:41 by jiskim            #+#    #+#             */
-/*   Updated: 2022/06/07 18:56:44 by jiskim           ###   ########.fr       */
+/*   Updated: 2022/06/09 11:28:02 by jiskim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,8 +87,8 @@ void	ray_tracing(t_box *box)
 				ft_bzero(box->frame.addr, sizeof(box->frame.addr));
 				return ;
 			}
-			box->frame.addr[((int)(box->top_left.y - cur.y) *\
-				box->frame.line_len + (int)(cur.x - box->top_left.x) *\
+			box->frame.addr[((int)(box->top_left.y - cur.y) * \
+				box->frame.line_len + (int)(cur.x - box->top_left.x) * \
 				box->frame.bpp / 8) / 4] = color;
 			cur.x++;
 		}

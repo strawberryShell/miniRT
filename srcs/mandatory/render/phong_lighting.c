@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   phong_lighting.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sehhong <sehhong@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jiskim <jiskim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/01 14:56:06 by jiskim            #+#    #+#             */
-/*   Updated: 2022/06/08 17:34:05 by sehhong          ###   ########.fr       */
+/*   Updated: 2022/06/09 11:27:36 by jiskim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ t_vec	calc_specular(t_phong *phong, t_box *box)
 	if (cos_theta < 0)
 		cos_theta = 0;
 	ratio = pow(cos_theta, 16);
-	return (scale_vec(box->lights->color, (ratio / 255) \
-		 * box->lights->b_ratio * 0.6));
+	return (scale_vec(box->lights->color, (ratio / 255) * \
+		box->lights->b_ratio * 0.6));
 }
 
 t_vec	calc_diffuse(t_phong *phong, t_box *box)

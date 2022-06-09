@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ray_tracing_bonus.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sehhong <sehhong@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jiskim <jiskim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 20:20:41 by jiskim            #+#    #+#             */
-/*   Updated: 2022/06/07 22:36:40 by sehhong          ###   ########.fr       */
+/*   Updated: 2022/06/09 11:27:18 by jiskim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,8 +87,8 @@ void	ray_tracing(t_box *box)
 				ft_bzero(box->frame.addr, sizeof(box->frame.addr));
 				return ;
 			}
-			box->frame.addr[((int)(box->top_left.y - cur.y) *\
-				box->frame.line_len + (int)(cur.x - box->top_left.x) *\
+			box->frame.addr[((int)(box->top_left.y - cur.y) * \
+				box->frame.line_len + (int)(cur.x - box->top_left.x) * \
 				box->frame.bpp / 8) / 4] = color;
 			cur.x++;
 		}
